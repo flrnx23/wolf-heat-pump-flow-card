@@ -14,34 +14,29 @@ Die Karte kann unter anderem folgende Informationen visualisieren:
 
 Alle Rollen sind optional und werden im grafischen Karteneditor den vorhandenen Home-Assistant-Entitäten zugeordnet. Die Karte sendet keine Daten an externe Dienste und ruft keine Home-Assistant-Dienste zum Schalten auf.
 
-## Voraussetzungen
+## Kompatibilität
 
-- Home Assistant 2026.7.0 oder neuer
-- Home-Assistant-Entitäten mit passenden Mess- und Statuswerten
+Die Karte ist mit Home Assistant 2026.7 getestet, setzt diese Version aber nicht voraus. Sie verwendet die üblichen Schnittstellen für benutzerdefinierte Dashboard-Karten und sollte daher auch mit älteren Home-Assistant-Versionen funktionieren. Sollte es mit einer älteren Version Probleme geben, kann dies über die GitHub-Issues gemeldet werden.
 
-Die Karte ist für WOLF-Anlagen ausgelegt. Abweichende Entity-Namen sind unproblematisch, da keine installationsspezifischen IDs fest vorgegeben werden müssen.
+Die Karte ist für WOLF-Anlagen ausgelegt. Die Namen der Entitäten sind frei wählbar und werden bei der Konfiguration zugeordnet.
 
 ## Installation mit HACS
 
-Solange das Projekt nicht im HACS-Standardkatalog enthalten ist, kann es als benutzerdefiniertes Repository installiert werden:
+Die Installation über HACS wird empfohlen:
 
-1. HACS öffnen und den Bereich **Frontend** beziehungsweise **Dashboards** auswählen.
-2. Im Menü **Benutzerdefinierte Repositories** öffnen.
-3. Die **URL dieses Repositorys** eintragen und **Dashboard** als Kategorie auswählen.
-4. **WOLF Heat Pump Flow Card** installieren.
-5. Home Assistant beziehungsweise das Browser-Frontend neu laden.
+1. **HACS** in Home Assistant öffnen.
+2. Oben rechts das Drei-Punkte-Menü öffnen und **Benutzerdefinierte Repositories** auswählen.
+3. `https://github.com/flrnx23/wolf-heat-pump-flow-card` als Repository eintragen.
+4. Als Kategorie **Dashboard** auswählen und das Repository hinzufügen.
+5. In HACS nach **WOLF Heat Pump Flow Card** suchen und die Karte herunterladen.
+6. Home Assistant im Browser oder in der App vollständig neu laden.
+7. Das gewünschte Dashboard bearbeiten, **Karte hinzufügen** auswählen und nach **WOLF Heat Pump Flow Card** suchen.
 
-HACS registriert üblicherweise automatisch diese JavaScript-Modul-Ressource:
-
-```text
-/hacsfiles/wolf-heat-pump-flow-card/wolf-heat-pump-flow-card.js
-```
-
-Falls die Karte anschließend nicht im Kartenwähler erscheint, unter **Einstellungen → Dashboards → Ressourcen** prüfen, ob die Ressource als **JavaScript-Modul** eingetragen ist. Danach gegebenenfalls den Browser-Cache leeren oder die Home-Assistant-App vollständig neu laden.
+Falls die Karte nicht im Kartenwähler erscheint, zuerst den Browser-Cache leeren beziehungsweise die Home-Assistant-App neu starten.
 
 ## Manuelle Installation
 
-1. `dist/wolf-heat-pump-flow-card.js` aus dem Repository oder `wolf-heat-pump-flow-card.js` aus einer Release-Version herunterladen.
+1. `dist/wolf-heat-pump-flow-card.js` aus diesem Repository herunterladen.
 2. Die Datei nach `<config>/www/wolf-heat-pump-flow-card.js` kopieren.
 3. Unter **Einstellungen → Dashboards → Ressourcen** folgende Ressource vom Typ **JavaScript-Modul** hinzufügen:
 
@@ -250,26 +245,6 @@ Die Auswertung ist defensiv:
 - Fehlende optionale Statusentitäten erzeugen keine erfundenen Zustände.
 
 Ein Klick oder Tastendruck auf einen zugeordneten Sensor beziehungsweise eine Komponente öffnet den Home-Assistant-Dialog **Mehr Informationen**. Ist keine Entität zugeordnet, bleibt die Grafik rein informativ.
-
-## Datenschutz und Sicherheit
-
-Die WOLF Heat Pump Flow Card ist read-only:
-
-- Sie ruft keine Home-Assistant-Dienste zum Schalten oder Ändern von Sollwerten auf.
-- Sie sendet keine Daten an WOLF, Projektmitwirkende oder Drittanbieter.
-- Sie enthält kein Tracking und keine Telemetrie.
-- Sie liest ausschließlich die im Dashboard verfügbaren Zustände der konfigurierten Entitäten.
-- SVG-Grafik und Animationen laufen lokal im Browser.
-
-Die Darstellung ersetzt keine sicherheitsrelevante Anlagenüberwachung oder Fachdiagnose. Maßgeblich bleiben Home Assistant, die Anlagenregelung und die Dokumentation des Herstellers.
-
-## Eigenständigkeit und Inspiration
-
-Dieses Projekt ist eine eigenständige Implementierung mit eigener Zustands-, Hydraulik- und Flusslogik sowie neu erstellten SVG-Grafiken. Es ist kein Fork und übernimmt weder Grafik noch Quellcode der Referenzkarte.
-
-Die Darstellung wurde konzeptionell durch [jasipsw/heat-pump-flow-card](https://github.com/jasipsw/heat-pump-flow-card) inspiriert.
-
-WOLF ist eine Marke des jeweiligen Rechteinhabers. Dieses inoffizielle Community-Projekt steht in keiner Verbindung zu WOLF und wird nicht von WOLF unterstützt oder zertifiziert.
 
 ## Lizenz
 
