@@ -18,7 +18,6 @@ Alle Rollen sind optional und werden im grafischen Karteneditor den vorhandenen 
 
 - Home Assistant 2026.7.0 oder neuer
 - Home-Assistant-Entitäten mit passenden Mess- und Statuswerten
-- für die Entwicklung: Node.js 22.12.0 oder neuer und npm
 
 Die Karte ist für WOLF-Anlagen ausgelegt. Abweichende Entity-Namen sind unproblematisch, da keine installationsspezifischen IDs fest vorgegeben werden müssen.
 
@@ -263,30 +262,6 @@ Die WOLF Heat Pump Flow Card ist read-only:
 - SVG-Grafik und Animationen laufen lokal im Browser.
 
 Die Darstellung ersetzt keine sicherheitsrelevante Anlagenüberwachung oder Fachdiagnose. Maßgeblich bleiben Home Assistant, die Anlagenregelung und die Dokumentation des Herstellers.
-
-## Entwicklung
-
-Repository klonen und Abhängigkeiten installieren:
-
-```bash
-git clone <URL dieses Repositorys>
-cd wolf-heat-pump-flow-card
-npm ci
-```
-
-Wichtige Befehle:
-
-```bash
-npm run typecheck
-npm test
-npm run lint
-npm run format:check
-npm run check
-npm run build
-npm run build:release
-```
-
-Der Build erzeugt das ES2022-Single-Bundle `dist/wolf-heat-pump-flow-card.js` einschließlich Source Map.
 
 ## Eigenständigkeit und Inspiration
 
