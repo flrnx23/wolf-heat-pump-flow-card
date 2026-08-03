@@ -1,0 +1,51 @@
+{
+  "name": "wolf-heat-pump-flow-card",
+  "version": "0.1.0",
+  "description": "A modern, animated WOLF heat pump hydraulic flow card for Home Assistant.",
+  "type": "module",
+  "files": [
+    "dist/wolf-heat-pump-flow-card.js",
+    "hacs.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "npm run typecheck && vite build",
+    "build:release": "npm run build && node scripts/copy-release.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run test && npm run lint && npm run format:check"
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "heat-pump",
+    "wolf",
+    "hacs",
+    "svg"
+  ],
+  "author": "WOLF Heat Pump Flow Card contributors",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^24.13.3",
+    "eslint": "^9.39.2",
+    "happy-dom": "^20.11.1",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
+  }
+}

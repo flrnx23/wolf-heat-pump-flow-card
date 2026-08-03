@@ -6,6 +6,30 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# Local editors and operating-system metadata
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local Home Assistant data and private entity exports
+secrets.yaml
+secrets.yml
+*.env
+*entitaeten*
+*entity-export*
+*entities-export*
+*.local.*
+
+# Local demo and unreviewed captures
+/demo/
+/index.html
+/screenshots/
+/captures/
+/artifacts/
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -40,6 +64,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+.tools/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -80,8 +105,17 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+/dist/
 .output
+
+# HACS installs the production bundle from dist; keep that artifact versioned.
+!dist/
+dist/*
+!dist/wolf-heat-pump-flow-card.js
+
+# Generated Home Assistant release bundle
+/wolf-heat-pump-flow-card.js
+/wolf-heat-pump-flow-card.js.map
 
 # Gatsby files
 .cache/
