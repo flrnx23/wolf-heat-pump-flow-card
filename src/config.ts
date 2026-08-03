@@ -14,6 +14,7 @@ import {
   type WolfHeatPumpEntities,
   type WolfHeatPumpFlowCardConfig,
 } from "./types";
+import { currentLanguage, localize } from "./localize";
 
 export const DEFAULT_STATE_MAPPING: BinaryStateMapping = {
   active: ["on", "running", "active", "ein", "1", "true", "betrieb", "läuft"],
@@ -157,6 +158,7 @@ export function normalizeConfig(
   return {
     type: WOLF_CARD_TYPE,
     ...(typeof config.title === "string" ? { title: config.title } : {}),
+    ...(config.language === "de" || config.language === "en" ? { language: config.language } : {}),
     entities: sanitizeEntities(config.entities),
     mappings: resolveMappings(config),
     label_mode: config.label_mode ?? "friendly",
@@ -177,9 +179,10 @@ export function normalizeConfig(
   };
 }
 
-export function createWolfDefaultConfig(): WolfHeatPumpFlowCardConfig {
+export function createWolfDefaultConfig(language = currentLanguage()): WolfHeatPumpFlowCardConfig {
   return {
     ...DEFAULT_CONFIG,
+    title: localize("card.title", language),
     entities: {},
   };
 }

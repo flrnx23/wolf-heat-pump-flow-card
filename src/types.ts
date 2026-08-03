@@ -75,6 +75,7 @@ export type SystemPressureStatus = "normal" | "warning" | "critical";
 export interface WolfHeatPumpFlowCardConfig {
   type: typeof WOLF_CARD_TYPE;
   title?: string;
+  language?: SupportedLanguage;
   entities?: WolfHeatPumpEntities;
   state_mapping?: PartialMapping<BinaryStateMapping>;
   operation_mode_mapping?: PartialMapping<OperationModeMapping>;
@@ -96,6 +97,7 @@ export interface WolfHeatPumpFlowCardConfig {
 
 export type LabelMode = "technical" | "friendly" | "both" | "hidden";
 export type CardLayout = "auto" | "compact" | "wide";
+export type SupportedLanguage = "de" | "en";
 
 export interface ResolvedStateMappings {
   binary: BinaryStateMapping;

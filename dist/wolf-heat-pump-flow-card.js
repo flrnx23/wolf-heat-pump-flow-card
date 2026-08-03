@@ -290,7 +290,7 @@ var be = (e, t) => {
 						index: a,
 						name: r[2],
 						strings: n,
-						ctor: r[1] === "." ? Te : r[1] === "?" ? Ee : r[1] === "@" ? De : we
+						ctor: r[1] === "." ? we : r[1] === "?" ? Te : r[1] === "@" ? Ee : P
 					}), i.removeAttribute(e);
 				} else e.startsWith(S) && (c.push({
 					type: 6,
@@ -348,7 +348,7 @@ var Se = class {
 		for (; s !== void 0;) {
 			if (a === s.index) {
 				let t;
-				s.type === 2 ? t = new Ce(i, i.nextSibling, this, e) : s.type === 1 ? t = new s.ctor(i, s.name, s.strings, this, e) : s.type === 6 && (t = new Oe(i, this, e)), this._$AV.push(t), s = n[++o];
+				s.type === 2 ? t = new Ce(i, i.nextSibling, this, e) : s.type === 1 ? t = new s.ctor(i, s.name, s.strings, this, e) : s.type === 6 && (t = new De(i, this, e)), this._$AV.push(t), s = n[++o];
 			}
 			a !== s?.index && (i = M.nextNode(), a++);
 		}
@@ -414,7 +414,7 @@ var Se = class {
 	setConnected(e) {
 		this._$AM === void 0 && (this._$Cv = e, this._$AP?.(e));
 	}
-}, we = class {
+}, P = class {
 	get tagName() {
 		return this.element.tagName;
 	}
@@ -436,21 +436,21 @@ var Se = class {
 	j(e) {
 		e === j ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
 	}
-}, Te = class extends we {
+}, we = class extends P {
 	constructor() {
 		super(...arguments), this.type = 3;
 	}
 	j(e) {
 		this.element[this.name] = e === j ? void 0 : e;
 	}
-}, Ee = class extends we {
+}, Te = class extends P {
 	constructor() {
 		super(...arguments), this.type = 4;
 	}
 	j(e) {
 		this.element.toggleAttribute(this.name, !!e && e !== j);
 	}
-}, De = class extends we {
+}, Ee = class extends P {
 	constructor(e, t, n, r, i) {
 		super(e, t, n, r, i), this.type = 5;
 	}
@@ -462,7 +462,7 @@ var Se = class {
 	handleEvent(e) {
 		typeof this._$AH == "function" ? this._$AH.call(this.options?.host ?? this.element, e) : this._$AH.handleEvent(e);
 	}
-}, Oe = class {
+}, De = class {
 	constructor(e, t, n) {
 		this.element = e, this.type = 6, this._$AN = void 0, this._$AM = t, this.options = n;
 	}
@@ -472,16 +472,16 @@ var Se = class {
 	_$AI(e) {
 		N(this, e);
 	}
-}, ke = ne.litHtmlPolyfillSupport;
-ke?.(xe, Ce), (ne.litHtmlVersions ??= []).push("3.3.3");
-var Ae = (e, t, n) => {
+}, Oe = ne.litHtmlPolyfillSupport;
+Oe?.(xe, Ce), (ne.litHtmlVersions ??= []).push("3.3.3");
+var ke = (e, t, n) => {
 	let r = n?.renderBefore ?? t, i = r._$litPart$;
 	if (i === void 0) {
 		let e = n?.renderBefore ?? null;
 		r._$litPart$ = i = new Ce(t.insertBefore(w(), e), e, void 0, n ?? {});
 	}
 	return i._$AI(e), i;
-}, je = globalThis, P = class extends x {
+}, Ae = globalThis, F = class extends x {
 	constructor() {
 		super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
 	}
@@ -491,7 +491,7 @@ var Ae = (e, t, n) => {
 	}
 	update(e) {
 		let t = this.render();
-		this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(e), this._$Do = Ae(t, this.renderRoot, this.renderOptions);
+		this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(e), this._$Do = ke(t, this.renderRoot, this.renderOptions);
 	}
 	connectedCallback() {
 		super.connectedCallback(), this._$Do?.setConnected(!0);
@@ -503,18 +503,18 @@ var Ae = (e, t, n) => {
 		return A;
 	}
 };
-P._$litElement$ = !0, P.finalized = !0, je.litElementHydrateSupport?.({ LitElement: P });
-var Me = je.litElementPolyfillSupport;
-Me?.({ LitElement: P }), (je.litElementVersions ??= []).push("4.2.2");
+F._$litElement$ = !0, F.finalized = !0, Ae.litElementHydrateSupport?.({ LitElement: F });
+var je = Ae.litElementPolyfillSupport;
+je?.({ LitElement: F }), (Ae.litElementVersions ??= []).push("4.2.2");
 //#endregion
 //#region node_modules/@lit/reactive-element/decorators/property.js
-var Ne = {
+var Me = {
 	attribute: !0,
 	type: String,
 	converter: y,
 	reflect: !1,
 	hasChanged: b
-}, Pe = (e = Ne, t, n) => {
+}, Ne = (e = Me, t, n) => {
 	let { kind: r, metadata: i } = n, a = globalThis.litPropertyMetadata.get(i);
 	if (a === void 0 && globalThis.litPropertyMetadata.set(i, a = /* @__PURE__ */ new Map()), r === "setter" && ((e = Object.create(e)).wrapped = !0), a.set(n.name, e), r === "accessor") {
 		let { name: r } = n;
@@ -537,16 +537,16 @@ var Ne = {
 	}
 	throw Error("Unsupported decorator location: " + r);
 };
-function Fe(e) {
-	return (t, n) => typeof n == "object" ? Pe(e, t, n) : ((e, t, n) => {
+function Pe(e) {
+	return (t, n) => typeof n == "object" ? Ne(e, t, n) : ((e, t, n) => {
 		let r = t.hasOwnProperty(n);
 		return t.constructor.createProperty(n, e), r ? Object.getOwnPropertyDescriptor(t, n) : void 0;
 	})(e, t, n);
 }
 //#endregion
 //#region node_modules/@lit/reactive-element/decorators/state.js
-function F(e) {
-	return Fe({
+function I(e) {
+	return Pe({
 		...e,
 		state: !0,
 		attribute: !1
@@ -554,177 +554,7 @@ function F(e) {
 }
 //#endregion
 //#region src/types.ts
-var Ie = "custom:wolf-heat-pump-flow-card", Le = "wolf-heat-pump-flow-card", Re = /* @__PURE__ */ "outdoor_temperature.heat_pump_supply_temperature.heat_pump_return_temperature.system_temperature.flow_rate.system_pressure.dhw_temperature.dhw_target_temperature.heating_supply_temperature.heating_return_temperature.heating_target_temperature.heating_circuit_pump.primary_pump.compressor.fan.fan_speed.auxiliary_heater.defrost_active.fault.heating_active.dhw_active.operation_mode.three_way_valve.electrical_power.thermal_power.cop.cooling_active.heating_cooling_valve.compressor_modulation.compressor_frequency".split("."), ze = {
-	active: [
-		"on",
-		"running",
-		"active",
-		"ein",
-		"1",
-		"true",
-		"betrieb",
-		"läuft"
-	],
-	inactive: [
-		"off",
-		"idle",
-		"inactive",
-		"aus",
-		"0",
-		"false",
-		"standby",
-		"sperrzeit",
-		"vorspülen",
-		"bereit_keine_ladung",
-		"deaktiviert"
-	]
-}, Be = {
-	heating: [
-		"heating",
-		"heat",
-		"heizen",
-		"heizbetrieb"
-	],
-	dhw: [
-		"dhw",
-		"hot_water",
-		"hot water",
-		"warmwasser",
-		"ww",
-		"ww-nachlauf",
-		"warmwasserpriorität"
-	],
-	cooling: [
-		"cooling",
-		"cool",
-		"kühlen",
-		"kuehlen",
-		"kühlbetrieb"
-	],
-	defrost: [
-		"defrost",
-		"defrosting",
-		"abtauen",
-		"abtauung"
-	],
-	fault: [
-		"fault",
-		"error",
-		"alarm",
-		"störung",
-		"stoerung",
-		"fehler"
-	],
-	idle: [
-		"idle",
-		"off",
-		"standby",
-		"aus",
-		"sperrzeit",
-		"bereit_keine_ladung"
-	]
-}, Ve = {
-	heating: [
-		"heating",
-		"heat",
-		"heizen",
-		"heizung",
-		"hz"
-	],
-	dhw: [
-		"dhw",
-		"hot_water",
-		"hot water",
-		"warmwasser",
-		"ww"
-	]
-}, He = {
-	heating: [
-		"heating",
-		"heat",
-		"heizen",
-		"heizung"
-	],
-	cooling: [
-		"cooling",
-		"cool",
-		"kühlen",
-		"kuehlen",
-		"kühlung"
-	]
-}, Ue = {
-	type: Ie,
-	title: "WOLF Wärmepumpe",
-	entities: {},
-	animations: !0,
-	temperature_coloring: !1,
-	show_legend: !0,
-	label_mode: "friendly",
-	layout: "auto",
-	flow_rate_threshold: .1
-};
-function We(e) {
-	return typeof e == "number" && Number.isFinite(e) && e >= 0 ? e : void 0;
-}
-function Ge(e, t) {
-	return t.criticalLow !== void 0 && e <= t.criticalLow || t.criticalHigh !== void 0 && e >= t.criticalHigh ? "critical" : t.warningLow !== void 0 && e <= t.warningLow || t.warningHigh !== void 0 && e >= t.warningHigh ? "warning" : "normal";
-}
-function Ke(e, t) {
-	let n = { ...e };
-	for (let r of Object.keys(e)) {
-		let e = t?.[r];
-		Array.isArray(e) && (n[r] = [...e]);
-	}
-	return n;
-}
-function qe(e) {
-	let t = {};
-	for (let n of Re) {
-		let r = e?.[n];
-		typeof r == "string" && r.trim().length > 0 && (t[n] = r.trim());
-	}
-	return t;
-}
-function Je(e) {
-	let t = {
-		...e.valve_mapping,
-		...e.three_way_valve_mapping
-	};
-	return {
-		binary: Ke(ze, e.state_mapping),
-		operationMode: Ke(Be, e.operation_mode_mapping),
-		threeWayValve: Ke(Ve, t),
-		heatingCoolingValve: Ke(He, e.heating_cooling_valve_mapping)
-	};
-}
-function I(e) {
-	let t = e.flow_rate_threshold;
-	return {
-		type: Ie,
-		...typeof e.title == "string" ? { title: e.title } : {},
-		entities: qe(e.entities),
-		mappings: Je(e),
-		label_mode: e.label_mode ?? "friendly",
-		layout: e.layout ?? "auto",
-		animations: e.animations ?? !0,
-		temperature_coloring: e.temperature_coloring ?? !1,
-		show_legend: e.show_legend ?? !0,
-		flow_rate_threshold: typeof t == "number" && Number.isFinite(t) && t >= 0 ? t : .1,
-		system_pressure_limits: {
-			criticalLow: We(e.system_pressure_critical_low),
-			warningLow: We(e.system_pressure_warning_low),
-			warningHigh: We(e.system_pressure_warning_high),
-			criticalHigh: We(e.system_pressure_critical_high)
-		}
-	};
-}
-function Ye() {
-	return {
-		...Ue,
-		entities: {}
-	};
-}
-var Xe = {
+var Fe = "custom:wolf-heat-pump-flow-card", Ie = "wolf-heat-pump-flow-card", Le = /* @__PURE__ */ "outdoor_temperature.heat_pump_supply_temperature.heat_pump_return_temperature.system_temperature.flow_rate.system_pressure.dhw_temperature.dhw_target_temperature.heating_supply_temperature.heating_return_temperature.heating_target_temperature.heating_circuit_pump.primary_pump.compressor.fan.fan_speed.auxiliary_heater.defrost_active.fault.heating_active.dhw_active.operation_mode.three_way_valve.electrical_power.thermal_power.cop.cooling_active.heating_cooling_valve.compressor_modulation.compressor_frequency".split("."), Re = {
 	de: {
 		"card.title": "WOLF-Wärmepumpe",
 		"component.heat_pump": "Wärmepumpe",
@@ -760,6 +590,7 @@ var Xe = {
 		"metric.electrical_power": "Elektrische Leistung",
 		"metric.thermal_power": "Thermische Leistung",
 		"metric.cop": "COP",
+		"metric.cop_calculated_hint": "Aus thermischer und elektrischer Leistung berechnet",
 		"metric.operation_mode": "Betriebsart",
 		"mode.heating": "Heizen",
 		"mode.dhw": "Warmwasser",
@@ -775,6 +606,9 @@ var Xe = {
 		"valve.dhw": "Warmwasser",
 		"valve.cooling": "Kühlung",
 		"editor.title": "Titel",
+		"editor.language": "Sprache",
+		"editor.language.de": "Deutsch",
+		"editor.language.en": "Englisch",
 		"editor.entities": "Entitäten",
 		"editor.group.temperatures": "Temperaturen",
 		"editor.group.hydraulics": "Hydraulik und Pumpen",
@@ -851,6 +685,7 @@ var Xe = {
 		"metric.electrical_power": "Electrical power",
 		"metric.thermal_power": "Thermal power",
 		"metric.cop": "COP",
+		"metric.cop_calculated_hint": "Calculated from thermal and electrical power",
 		"metric.operation_mode": "Operating mode",
 		"mode.heating": "Heating",
 		"mode.dhw": "Hot water",
@@ -866,6 +701,9 @@ var Xe = {
 		"valve.dhw": "Hot water",
 		"valve.cooling": "Cooling",
 		"editor.title": "Title",
+		"editor.language": "Language",
+		"editor.language.de": "German",
+		"editor.language.en": "English",
 		"editor.entities": "Entities",
 		"editor.group.temperatures": "Temperatures",
 		"editor.group.hydraulics": "Hydraulics and pumps",
@@ -908,18 +746,192 @@ var Xe = {
 		"editor.helper.pressure_limits": "Optional. Keep empty to disable this threshold; use critical low ≤ warning low ≤ warning high ≤ critical high."
 	}
 };
-function Ze(e) {
+function ze(e) {
 	return e?.toLowerCase().startsWith("de") ? "de" : "en";
 }
 function L(e, t) {
-	return Xe[Ze(t)][e];
+	return Re[ze(t)][e];
 }
-function Qe() {
+function Be() {
 	return typeof document < "u" && document.documentElement.lang ? document.documentElement.lang : typeof navigator > "u" ? "en" : navigator.language;
 }
 //#endregion
+//#region src/config.ts
+var Ve = {
+	active: [
+		"on",
+		"running",
+		"active",
+		"ein",
+		"1",
+		"true",
+		"betrieb",
+		"läuft"
+	],
+	inactive: [
+		"off",
+		"idle",
+		"inactive",
+		"aus",
+		"0",
+		"false",
+		"standby",
+		"sperrzeit",
+		"vorspülen",
+		"bereit_keine_ladung",
+		"deaktiviert"
+	]
+}, He = {
+	heating: [
+		"heating",
+		"heat",
+		"heizen",
+		"heizbetrieb"
+	],
+	dhw: [
+		"dhw",
+		"hot_water",
+		"hot water",
+		"warmwasser",
+		"ww",
+		"ww-nachlauf",
+		"warmwasserpriorität"
+	],
+	cooling: [
+		"cooling",
+		"cool",
+		"kühlen",
+		"kuehlen",
+		"kühlbetrieb"
+	],
+	defrost: [
+		"defrost",
+		"defrosting",
+		"abtauen",
+		"abtauung"
+	],
+	fault: [
+		"fault",
+		"error",
+		"alarm",
+		"störung",
+		"stoerung",
+		"fehler"
+	],
+	idle: [
+		"idle",
+		"off",
+		"standby",
+		"aus",
+		"sperrzeit",
+		"bereit_keine_ladung"
+	]
+}, Ue = {
+	heating: [
+		"heating",
+		"heat",
+		"heizen",
+		"heizung",
+		"hz"
+	],
+	dhw: [
+		"dhw",
+		"hot_water",
+		"hot water",
+		"warmwasser",
+		"ww"
+	]
+}, We = {
+	heating: [
+		"heating",
+		"heat",
+		"heizen",
+		"heizung"
+	],
+	cooling: [
+		"cooling",
+		"cool",
+		"kühlen",
+		"kuehlen",
+		"kühlung"
+	]
+}, Ge = {
+	type: Fe,
+	title: "WOLF Wärmepumpe",
+	entities: {},
+	animations: !0,
+	temperature_coloring: !1,
+	show_legend: !0,
+	label_mode: "friendly",
+	layout: "auto",
+	flow_rate_threshold: .1
+};
+function Ke(e) {
+	return typeof e == "number" && Number.isFinite(e) && e >= 0 ? e : void 0;
+}
+function qe(e, t) {
+	return t.criticalLow !== void 0 && e <= t.criticalLow || t.criticalHigh !== void 0 && e >= t.criticalHigh ? "critical" : t.warningLow !== void 0 && e <= t.warningLow || t.warningHigh !== void 0 && e >= t.warningHigh ? "warning" : "normal";
+}
+function R(e, t) {
+	let n = { ...e };
+	for (let r of Object.keys(e)) {
+		let e = t?.[r];
+		Array.isArray(e) && (n[r] = [...e]);
+	}
+	return n;
+}
+function Je(e) {
+	let t = {};
+	for (let n of Le) {
+		let r = e?.[n];
+		typeof r == "string" && r.trim().length > 0 && (t[n] = r.trim());
+	}
+	return t;
+}
+function Ye(e) {
+	let t = {
+		...e.valve_mapping,
+		...e.three_way_valve_mapping
+	};
+	return {
+		binary: R(Ve, e.state_mapping),
+		operationMode: R(He, e.operation_mode_mapping),
+		threeWayValve: R(Ue, t),
+		heatingCoolingValve: R(We, e.heating_cooling_valve_mapping)
+	};
+}
+function z(e) {
+	let t = e.flow_rate_threshold;
+	return {
+		type: Fe,
+		...typeof e.title == "string" ? { title: e.title } : {},
+		...e.language === "de" || e.language === "en" ? { language: e.language } : {},
+		entities: Je(e.entities),
+		mappings: Ye(e),
+		label_mode: e.label_mode ?? "friendly",
+		layout: e.layout ?? "auto",
+		animations: e.animations ?? !0,
+		temperature_coloring: e.temperature_coloring ?? !1,
+		show_legend: e.show_legend ?? !0,
+		flow_rate_threshold: typeof t == "number" && Number.isFinite(t) && t >= 0 ? t : .1,
+		system_pressure_limits: {
+			criticalLow: Ke(e.system_pressure_critical_low),
+			warningLow: Ke(e.system_pressure_warning_low),
+			warningHigh: Ke(e.system_pressure_warning_high),
+			criticalHigh: Ke(e.system_pressure_critical_high)
+		}
+	};
+}
+function Xe(e = Be()) {
+	return {
+		...Ge,
+		title: L("card.title", e),
+		entities: {}
+	};
+}
+//#endregion
 //#region src/config-form.ts
-var $e = {
+var Ze = {
 	outdoor_temperature: "temperatures",
 	heat_pump_supply_temperature: "temperatures",
 	heat_pump_return_temperature: "temperatures",
@@ -950,7 +962,7 @@ var $e = {
 	heating_cooling_valve: "hydraulics",
 	compressor_modulation: "components",
 	compressor_frequency: "components"
-}, et = /* @__PURE__ */ new Set([
+}, Qe = /* @__PURE__ */ new Set([
 	"heating_circuit_pump",
 	"primary_pump",
 	"compressor",
@@ -964,7 +976,7 @@ var $e = {
 	"operation_mode",
 	"three_way_valve",
 	"heating_cooling_valve"
-]), tt = {
+]), $e = {
 	outdoor_temperature: "metric.outdoor_temperature",
 	heat_pump_supply_temperature: "metric.heat_pump_supply_temperature",
 	heat_pump_return_temperature: "metric.heat_pump_return_temperature",
@@ -995,16 +1007,16 @@ var $e = {
 	heating_cooling_valve: "component.heating_cooling_valve",
 	compressor_modulation: "metric.compressor_modulation",
 	compressor_frequency: "metric.compressor_frequency"
-}, nt = [
+}, et = [
 	"sensor",
 	"number",
 	"input_number"
-], rt = [
+], B = [
 	"system_pressure_critical_low",
 	"system_pressure_warning_low",
 	"system_pressure_warning_high",
 	"system_pressure_critical_high"
-], it = (e) => rt.includes(e), at = (e) => ({
+], tt = (e) => B.includes(e), nt = (e) => ({
 	name: e,
 	selector: { number: {
 		min: 0,
@@ -1013,25 +1025,25 @@ var $e = {
 		mode: "box",
 		unit_of_measurement: "bar"
 	} }
-}), ot = [
+}), rt = [
 	"sensor",
 	"binary_sensor",
 	"input_boolean"
-], st = (e) => Re.includes(e), ct = (e) => ({
+], it = (e) => Le.includes(e), at = (e) => ({
 	name: e,
 	selector: { entity: {
 		multiple: !1,
-		filter: { domain: et.has(e) ? ot : nt }
+		filter: { domain: Qe.has(e) ? rt : et }
 	} }
-}), R = (e, t, n) => ({
+}), V = (e, t, n) => ({
 	type: "expandable",
 	name: e,
 	title: t,
 	icon: n,
 	flatten: !0,
-	schema: Re.filter((t) => $e[t] === e).map(ct)
+	schema: Le.filter((t) => Ze[t] === e).map(at)
 });
-function lt(e) {
+function ot(e) {
 	if (typeof e != "object" || !e || Array.isArray(e)) throw Error("The card configuration must be an object.");
 	let t = e, n = t.entities;
 	if (n !== void 0 && (typeof n != "object" || !n || Array.isArray(n))) throw Error("'entities' must be an object.");
@@ -1048,21 +1060,37 @@ function lt(e) {
 	}
 	let r = t.flow_rate_threshold;
 	if (r !== void 0 && typeof r != "number") throw Error("'flow_rate_threshold' must be a number.");
-	for (let e of rt) {
+	let i = t.language;
+	if (i !== void 0 && i !== "de" && i !== "en") throw Error("'language' must be either 'de' or 'en'.");
+	for (let e of B) {
 		let n = t[e];
 		if (n !== void 0 && (typeof n != "number" || !Number.isFinite(n) || n < 0)) throw Error(`'${e}' must be a non-negative number.`);
 	}
-	let i = rt.map((e) => t[e]), a;
-	for (let e of i) if (e !== void 0) {
-		if (a !== void 0 && a > e) throw Error("System-pressure limits must be ordered from critical low to critical high.");
-		a = e;
+	let a = B.map((e) => t[e]), o;
+	for (let e of a) if (e !== void 0) {
+		if (o !== void 0 && o > e) throw Error("System-pressure limits must be ordered from critical low to critical high.");
+		o = e;
 	}
 }
-function ut(e = Qe()) {
+function st(e = Be()) {
 	let t = (t) => L(t, e), n = [
 		{
 			name: "title",
 			selector: { text: {} }
+		},
+		{
+			name: "language",
+			default: ze(e),
+			selector: { select: {
+				mode: "dropdown",
+				options: [{
+					value: "de",
+					label: t("editor.language.de")
+				}, {
+					value: "en",
+					label: t("editor.language.en")
+				}]
+			} }
 		},
 		{
 			type: "expandable",
@@ -1071,11 +1099,11 @@ function ut(e = Qe()) {
 			icon: "mdi:home-thermometer-outline",
 			expanded: !0,
 			schema: [
-				R("temperatures", t("editor.group.temperatures"), "mdi:thermometer-lines"),
-				R("hydraulics", t("editor.group.hydraulics"), "mdi:pipe-valve"),
-				R("components", t("editor.group.components"), "mdi:heat-pump-outline"),
-				R("status", t("editor.group.status"), "mdi:list-status"),
-				R("performance", t("editor.group.performance"), "mdi:chart-box-outline")
+				V("temperatures", t("editor.group.temperatures"), "mdi:thermometer-lines"),
+				V("hydraulics", t("editor.group.hydraulics"), "mdi:pipe-valve"),
+				V("components", t("editor.group.components"), "mdi:heat-pump-outline"),
+				V("status", t("editor.group.status"), "mdi:list-status"),
+				V("performance", t("editor.group.performance"), "mdi:chart-box-outline")
 			]
 		},
 		{
@@ -1084,7 +1112,7 @@ function ut(e = Qe()) {
 			title: t("editor.pressure_limits"),
 			icon: "mdi:gauge",
 			flatten: !0,
-			schema: rt.map(at)
+			schema: B.map(nt)
 		},
 		{
 			type: "expandable",
@@ -1169,6 +1197,7 @@ function ut(e = Qe()) {
 		}
 	], r = {
 		title: "editor.title",
+		language: "editor.language",
 		animations: "editor.animations",
 		temperature_coloring: "editor.temperature_coloring",
 		show_legend: "editor.show_legend",
@@ -1183,20 +1212,20 @@ function ut(e = Qe()) {
 	return {
 		schema: n,
 		computeLabel: (e) => {
-			if (st(e.name)) return t(tt[e.name]);
+			if (it(e.name)) return t($e[e.name]);
 			let n = r[e.name];
 			return n === void 0 ? void 0 : t(n);
 		},
 		computeHelper: (e) => {
-			if (it(e.name)) return t("editor.helper.pressure_limits");
-			if (st(e.name)) return t(et.has(e.name) ? "editor.helper.status" : "editor.helper.optional");
+			if (tt(e.name)) return t("editor.helper.pressure_limits");
+			if (it(e.name)) return t(Qe.has(e.name) ? "editor.helper.status" : "editor.helper.optional");
 		},
-		assertConfig: lt
+		assertConfig: ot
 	};
 }
 //#endregion
 //#region src/flow-diagram.ts
-var dt = {
+var ct = {
 	title: "Hydraulikschema der WOLF Wärmepumpe",
 	description: "Animiertes Flussschema mit Außeneinheit, Hydraulikmodul, Warmwasserspeicher, Heizkreis und Sammler.",
 	outdoorUnit: "Außeneinheit",
@@ -1238,7 +1267,7 @@ var dt = {
 		cooling: "Kühlen aktiv",
 		idle: "Standby"
 	}
-}, ft = {
+}, lt = {
 	title: "WOLF heat pump hydraulic diagram",
 	description: "Animated flow diagram with outdoor unit, hydraulic module, hot-water tank, heating circuit and collector.",
 	outdoorUnit: "Outdoor unit",
@@ -1280,7 +1309,7 @@ var dt = {
 		cooling: "Cooling active",
 		idle: "Standby"
 	}
-}, pt = {
+}, ut = {
 	"hp-supply": "M 430 205 V 410",
 	"hp-return": "M 570 475 V 205",
 	"dhw-supply": "M 430 410 H 240",
@@ -1289,7 +1318,7 @@ var dt = {
 	"system-return": "M 720 620 H 570 V 475",
 	"heating-supply": "M 720 574 V 325",
 	"heating-return": "M 830 325 V 620 H 720"
-}, z = "M 430 165 V 205", B = "M 570 205 V 165", mt = "M 240 410 H 116 C 92 410 92 431 116 431 H 196 C 220 431 220 452 196 452 H 116 C 92 452 92 473 116 473 H 196 C 220 473 220 494 196 494 H 116 C 92 494 92 515 116 515 H 240", ht = {
+}, dt = "M 430 165 V 205", ft = "M 570 205 V 165", pt = "M 240 410 H 116 C 92 410 92 431 116 431 H 196 C 220 431 220 452 196 452 H 116 C 92 452 92 473 116 473 H 196 C 220 473 220 494 196 494 H 116 C 92 494 92 515 116 515 H 240", mt = {
 	"hp-supply": {
 		x: 430,
 		y: 228,
@@ -1330,7 +1359,7 @@ var dt = {
 		y: 438,
 		angle: 90
 	}
-}, gt = {
+}, ht = {
 	"hp-supply": {
 		path: "M 190 245 V 449",
 		arrow: {
@@ -1395,7 +1424,7 @@ var dt = {
 			angle: -90
 		}
 	}
-}, _t = {
+}, gt = {
 	"hp-supply": "heatPumpSupplyTemperature",
 	"hp-return": "heatPumpReturnTemperature",
 	"dhw-supply": "heatPumpSupplyTemperature",
@@ -1404,7 +1433,7 @@ var dt = {
 	"system-return": "heatingReturnTemperature",
 	"heating-supply": "heatingSupplyTemperature",
 	"heating-return": "heatingReturnTemperature"
-}, vt = {
+}, _t = {
 	"hp-supply": "Wärmepumpen-Vorlauf",
 	"hp-return": "Wärmepumpen-Rücklauf",
 	"dhw-supply": "Warmwasser-Vorlauf",
@@ -1413,7 +1442,7 @@ var dt = {
 	"system-return": "System-Rücklauf",
 	"heating-supply": "Heizkreis-Vorlauf",
 	"heating-return": "Heizkreis-Rücklauf"
-}, yt = {
+}, vt = {
 	"hp-supply": "Heat pump supply",
 	"hp-return": "Heat pump return",
 	"dhw-supply": "Hot-water supply",
@@ -1423,13 +1452,13 @@ var dt = {
 	"heating-supply": "Heating supply",
 	"heating-return": "Heating return"
 };
-function V(...e) {
+function H(...e) {
 	return e.filter(Boolean).join(" ");
 }
-function bt(e, t, n) {
+function yt(e, t, n) {
 	return Math.min(n, Math.max(t, e));
 }
-function xt(e, t, n) {
+function bt(e, t, n) {
 	switch (n.labelMode ?? "friendly") {
 		case "technical": return e;
 		case "friendly": return t;
@@ -1437,7 +1466,7 @@ function xt(e, t, n) {
 		case "hidden": return "";
 	}
 }
-function H(e, t, n, r, i) {
+function U(e, t, n, r, i) {
 	let a = i.labelMode ?? "friendly";
 	return a === "hidden" ? j : a === "both" ? k`
       <text class="component-title" x=${e} y=${t}>
@@ -1452,7 +1481,7 @@ function H(e, t, n, r, i) {
     </text>
   `;
 }
-function U(e, t, n, r, i, a = "micro-label", o = "start") {
+function W(e, t, n, r, i, a = "micro-label", o = "start") {
 	let s = i.labelMode ?? "friendly";
 	return s === "hidden" ? j : s === "both" ? k`
       <text class=${a} x=${e} y=${t - 6} text-anchor=${o}>
@@ -1467,8 +1496,8 @@ function U(e, t, n, r, i, a = "micro-label", o = "start") {
     </text>
   `;
 }
-function St(e) {
-	let t = bt((e + 10) / 75, 0, 1), n = [
+function xt(e) {
+	let t = yt((e + 10) / 75, 0, 1), n = [
 		55,
 		139,
 		230
@@ -1486,16 +1515,16 @@ function St(e) {
 		highlight: `rgb(${o[0]} ${o[1]} ${o[2]})`
 	};
 }
-function Ct(e) {
-	return e?.toLowerCase().startsWith("de") === !1 ? ft : dt;
+function St(e) {
+	return e?.toLowerCase().startsWith("de") === !1 ? lt : ct;
 }
-function wt(e, t) {
+function Ct(e, t) {
 	return e.values[t]?.display?.trim() || "—";
 }
-function Tt(e, t, n, r) {
+function wt(e, t, n, r) {
 	return `${n}: ${e.values[t]?.display?.trim() || r.unavailable}`;
 }
-function W(e, t) {
+function G(e, t) {
 	return (n) => {
 		if (n instanceof KeyboardEvent) {
 			if (n.key !== "Enter" && n.key !== " ") return;
@@ -1504,10 +1533,10 @@ function W(e, t) {
 		e.onEntityClick?.(t);
 	};
 }
-function G(e, t) {
+function K(e, t) {
 	return !!(e.onEntityClick && e.isEntityClickable?.(t));
 }
-function K(e, t) {
+function Tt(e, t) {
 	return e === void 0 ? t.unavailable : e ? t.active : t.inactive;
 }
 function Et(e, t) {
@@ -1515,17 +1544,17 @@ function Et(e, t) {
 }
 function Dt(e) {
 	let t = e.values.flowRate?.value;
-	return typeof t != "number" || !Number.isFinite(t) ? 2.2 : bt(2.9 - Math.abs(t) * .045, .8, 2.8);
+	return typeof t != "number" || !Number.isFinite(t) ? 2.2 : yt(2.9 - Math.abs(t) * .045, .8, 2.8);
 }
 function Ot(e) {
 	let t = e.fanSpeed ?? e.values.fanSpeed?.value;
-	return typeof t != "number" || !Number.isFinite(t) ? 1.5 : bt(2.2 - t / 75, .45, 2.1);
+	return typeof t != "number" || !Number.isFinite(t) ? 1.5 : yt(2.2 - t / 75, .45, 2.1);
 }
 function kt(e, t, n, r, i) {
-	let { state: a } = t, o = a.flow.segments[e], s = a.flow.visible && o.active, c = (n === dt ? vt : yt)[e], l = _t[e], u = s ? n.active : n.inactive, d = W(t, l), f = G(t, l), p = s && t.temperatureColoring && o.temperature !== void 0 && Number.isFinite(o.temperature) ? St(o.temperature) : void 0, m = p ? `;--pipe-color:${p.color};--pipe-highlight:${p.highlight}` : "", h = i?.path ?? pt[e], g = i?.arrow ?? ht[e], ee = g.angle + (o.direction === "reverse" ? 180 : 0);
+	let { state: a } = t, o = a.flow.segments[e], s = a.flow.visible && o.active, c = (n === ct ? _t : vt)[e], l = gt[e], u = s ? n.active : n.inactive, d = G(t, l), f = K(t, l), p = s && t.temperatureColoring && o.temperature !== void 0 && Number.isFinite(o.temperature) ? xt(o.temperature) : void 0, m = p ? `;--pipe-color:${p.color};--pipe-highlight:${p.highlight}` : "", h = i?.path ?? ut[e], g = i?.arrow ?? mt[e], ee = g.angle + (o.direction === "reverse" ? 180 : 0);
 	return k`
     <g
-      class=${V("pipe-segment", `pipe--${o.kind}`, `direction--${o.direction}`, s ? "is-active" : "is-muted", f && "is-clickable")}
+      class=${H("pipe-segment", `pipe--${o.kind}`, `direction--${o.direction}`, s ? "is-active" : "is-muted", f && "is-clickable")}
       data-segment=${e}
       style=${`--flow-duration:${r.toFixed(2)}s${m}`}
       role=${f ? "button" : j}
@@ -1551,14 +1580,14 @@ function kt(e, t, n, r, i) {
 function q(e, t, n) {
 	let { x: r, y: i, code: a, label: o, key: s, compact: c = !1 } = e, l = e.align ?? "start";
 	if (!t.state.values[s]) return j;
-	let u = W(t, s), d = wt(t.state, s), f = G(t, s), p = r + (l === "end" ? -15 : 15);
+	let u = G(t, s), d = Ct(t.state, s), f = K(t, s), p = r + (l === "end" ? -15 : 15);
 	return k`
     <g
-      class=${V("diagram-component", f && "is-clickable")}
+      class=${H("diagram-component", f && "is-clickable")}
       data-value-key=${s}
       role=${f ? "button" : j}
       tabindex=${f ? "0" : j}
-      aria-label=${Tt(t.state, s, o, n)}
+      aria-label=${wt(t.state, s, o, n)}
       @click=${f ? u : j}
       @keydown=${f ? u : j}
     >
@@ -1573,9 +1602,9 @@ function q(e, t, n) {
       <circle class="sensor-dot" cx=${r} cy=${i - 10} r="10"></circle>
       <rect class="sensor-mercury" x=${r - 1.5} y=${i - 16} width="3" height="11" rx="1.5"></rect>
       <circle class="sensor-mercury" cx=${r} cy=${i - 7} r="3.3"></circle>
-      ${U(p, i - 14, a, o, t, "sensor-code", l)}
+      ${W(p, i - 14, a, o, t, "sensor-code", l)}
       <text
-        class=${V("sensor-value", c ? "sensor-value--small" : void 0)}
+        class=${H("sensor-value", c ? "sensor-value--small" : void 0)}
         x=${p}
         y=${i + 9}
         text-anchor=${l}
@@ -1586,10 +1615,10 @@ function q(e, t, n) {
 function At(e, t) {
 	let n = e.state.values.dhwTargetTemperature;
 	if (!n) return j;
-	let r = W(e, "dhwTargetTemperature"), i = G(e, "dhwTargetTemperature");
+	let r = G(e, "dhwTargetTemperature"), i = K(e, "dhwTargetTemperature");
 	return k`
     <g
-      class=${V("diagram-component", "dhw-target", i && "is-clickable")}
+      class=${H("diagram-component", "dhw-target", i && "is-clickable")}
       data-value-key="dhwTargetTemperature"
       role=${i ? "button" : j}
       tabindex=${i ? "0" : j}
@@ -1606,14 +1635,14 @@ function At(e, t) {
   `;
 }
 function jt(e, t, n) {
-	let r = e.state.fanActive ?? (n ? !0 : void 0), i = r === !0, a = W(e, "fan"), o = G(e, "fan");
+	let r = e.state.fanActive ?? (n ? !0 : void 0), i = r === !0, a = G(e, "fan"), o = K(e, "fan");
 	return k`
     <g
-      class=${V("diagram-component", "fan", i && "is-on", r === void 0 && "is-unknown", o && "is-clickable")}
+      class=${H("diagram-component", "fan", i && "is-on", r === void 0 && "is-unknown", o && "is-clickable")}
       style=${`--fan-duration:${Ot(e.state).toFixed(2)}s`}
       role=${o ? "button" : j}
       tabindex=${o ? "0" : j}
-      aria-label=${`${t.fan}: ${K(r, t)}`}
+      aria-label=${`${t.fan}: ${Tt(r, t)}`}
       @click=${o ? a : j}
       @keydown=${o ? a : j}
     >
@@ -1626,18 +1655,18 @@ function jt(e, t, n) {
         <path class="fan-blade" d="M 416 114 C 409 99 412 84 423 82 C 435 80 439 93 432 106 L 425 116 Z" transform="rotate(270 420 122)"></path>
       </g>
       <circle class="fan-hub" cx="420" cy="122" r="9"></circle>
-      ${U(420, 181, "FAN", t.fan, e, "micro-label", "middle")}
+      ${W(420, 181, "FAN", t.fan, e, "micro-label", "middle")}
     </g>
   `;
 }
 function Mt(e, t) {
-	let n = e.state.compressorActive, r = n === !0, i = W(e, "compressor"), a = G(e, "compressor");
+	let n = e.state.compressorActive, r = n === !0, i = G(e, "compressor"), a = K(e, "compressor");
 	return k`
     <g
-      class=${V("diagram-component", "compressor", r && "is-on", n === void 0 && "is-unknown", a && "is-clickable")}
+      class=${H("diagram-component", "compressor", r && "is-on", n === void 0 && "is-unknown", a && "is-clickable")}
       role=${a ? "button" : j}
       tabindex=${a ? "0" : j}
-      aria-label=${`${t.compressor}: ${K(n, t)}`}
+      aria-label=${`${t.compressor}: ${Tt(n, t)}`}
       @click=${a ? i : j}
       @keydown=${a ? i : j}
     >
@@ -1645,18 +1674,18 @@ function Mt(e, t) {
       <rect class="compressor-body" x="574" y="91" width="42" height="68" rx="14"></rect>
       <path class="compressor-wave" d="M 584 132 C 590 112, 600 150, 607 117"></path>
       <path class="compressor-wave" d="M 583 104 H 607"></path>
-      ${U(595, 181, "COMP", t.compressor, e, "micro-label", "middle")}
+      ${W(595, 181, "COMP", t.compressor, e, "micro-label", "middle")}
     </g>
   `;
 }
 function Nt(e, t, n, r, i, a, o, s) {
-	let c = W(o, i), l = a === !0, u = G(o, i);
+	let c = G(o, i), l = a === !0, u = K(o, i);
 	return k`
     <g
-      class=${V("diagram-component", "pump", l && "is-on", a === void 0 && "is-unknown", u && "is-clickable")}
+      class=${H("diagram-component", "pump", l && "is-on", a === void 0 && "is-unknown", u && "is-clickable")}
       role=${u ? "button" : j}
       tabindex=${u ? "0" : j}
-      aria-label=${`${r}: ${K(a, s)}`}
+      aria-label=${`${r}: ${Tt(a, s)}`}
       @click=${u ? c : j}
       @keydown=${u ? c : j}
     >
@@ -1670,33 +1699,33 @@ function Nt(e, t, n, r, i, a, o, s) {
         </g>
       </g>
       <circle class="pump-hub" cx=${e} cy=${t} r="4"></circle>
-      ${U(e + 27, t + 4, n, r, o)}
+      ${W(e + 27, t + 4, n, r, o)}
     </g>
   `;
 }
 function Pt(e, t) {
-	let n = e.state.auxiliaryHeaterActive, r = n === !0, i = W(e, "auxiliaryHeater"), a = G(e, "auxiliaryHeater");
+	let n = e.state.auxiliaryHeaterActive, r = n === !0, i = G(e, "auxiliaryHeater"), a = K(e, "auxiliaryHeater");
 	return k`
     <g
-      class=${V("diagram-component", "heater", r && "is-on", n === void 0 && "is-unknown", a && "is-clickable")}
+      class=${H("diagram-component", "heater", r && "is-on", n === void 0 && "is-unknown", a && "is-clickable")}
       role=${a ? "button" : j}
       tabindex=${a ? "0" : j}
-      aria-label=${`${t.heater}: ${K(n, t)}`}
+      aria-label=${`${t.heater}: ${Tt(n, t)}`}
       @click=${a ? i : j}
       @keydown=${a ? i : j}
     >
       <rect class="focus-ring" x="405" y="268" width="50" height="52" rx="9"></rect>
       <rect class="heater-body" x="414" y="274" width="32" height="40" rx="7"></rect>
       <path class="heater-bolt" d="M 432 280 L 422 297 H 430 L 425 308 L 440 290 H 432 Z"></path>
-      ${U(454, 295, "DHK", t.heater, e)}
+      ${W(454, 295, "DHK", t.heater, e)}
     </g>
   `;
 }
 function Ft(e, t) {
-	let n = e.state.valvePosition, r = W(e, "diverterValve"), i = G(e, "diverterValve"), a = n === "dhw" ? "M 430 389 V 410 H 408" : n === "heating" ? "M 430 389 V 432" : void 0, o = n === "dhw" ? "translate(407 410) rotate(180)" : "translate(430 433) rotate(90)", s = e.state.flow.visible && (n === "dhw" ? e.state.flow.segments["dhw-supply"].active : n === "heating" && e.state.flow.segments["system-supply"].active);
+	let n = e.state.valvePosition, r = G(e, "diverterValve"), i = K(e, "diverterValve"), a = n === "dhw" ? "M 430 389 V 410 H 408" : n === "heating" ? "M 430 389 V 432" : void 0, o = n === "dhw" ? "translate(407 410) rotate(180)" : "translate(430 433) rotate(90)", s = e.state.flow.visible && (n === "dhw" ? e.state.flow.segments["dhw-supply"].active : n === "heating" && e.state.flow.segments["system-supply"].active);
 	return k`
     <g
-      class=${V("diagram-component", "valve", `valve--${n}`, n === "unknown" && "is-unknown", i && "is-clickable")}
+      class=${H("diagram-component", "valve", `valve--${n}`, n === "unknown" && "is-unknown", i && "is-clickable")}
       role=${i ? "button" : j}
       tabindex=${i ? "0" : j}
       aria-label=${`${t.diverterValve}: ${Et(e.state, t)}`}
@@ -1708,16 +1737,16 @@ function Ft(e, t) {
       <path class="valve-route-base" d="M 430 388 V 410 H 408 M 430 410 V 432"></path>
       ${a ? k`
             <path
-              class=${V("valve-route-selected", s && "is-flowing")}
+              class=${H("valve-route-selected", s && "is-flowing")}
               d=${a}
             ></path>
             <path
-              class=${V("valve-route-arrow", s && "is-flowing")}
+              class=${H("valve-route-arrow", s && "is-flowing")}
               d="M -5 -4 L 6 0 L -5 4 Z"
               transform=${o}
             ></path>
           ` : j}
-      ${U(456, 396, "3WUV", t.diverterValve, e)}
+      ${W(456, 396, "3WUV", t.diverterValve, e)}
       ${e.labelMode === "hidden" ? j : k`
             <text class="valve-port-label" x="395" y="400" text-anchor="end">WW</text>
             <text class="valve-port-label" x="442" y="443">HK</text>
@@ -1728,10 +1757,10 @@ function Ft(e, t) {
 function It(e, t) {
 	let n = e.state.values.systemPressure;
 	if (!n) return j;
-	let r = Ge(n.value, e.systemPressureLimits), i = W(e, "systemPressure"), a = G(e, "systemPressure"), o = t.pressureStatus[r];
+	let r = qe(n.value, e.systemPressureLimits), i = G(e, "systemPressure"), a = K(e, "systemPressure"), o = t.pressureStatus[r];
 	return k`
     <g
-      class=${V("diagram-component", "pressure-reading", `pressure-reading--${r}`, a && "is-clickable")}
+      class=${H("diagram-component", "pressure-reading", `pressure-reading--${r}`, a && "is-clickable")}
       data-value-key="systemPressure"
       data-pressure-status=${r}
       role=${a ? "button" : j}
@@ -1745,7 +1774,7 @@ function It(e, t) {
       <path class="pressure-gauge-arc" d="M 447 487 A 11 11 0 0 1 469 487"></path>
       <path class="pressure-gauge-needle" d="M 458 486 L 465 476"></path>
       <circle class="pressure-gauge-hub" cx="458" cy="486" r="2.7"></circle>
-      ${U(478, 480, "DHK", t.systemPressureShort, e)}
+      ${W(478, 480, "DHK", t.systemPressureShort, e)}
       <text class="sensor-value sensor-value--small" x="478" y="503">${n.display}</text>
       ${r === "normal" ? j : k`
               <circle class="pressure-alert-badge" cx="547" cy="469" r="8"></circle>
@@ -1755,61 +1784,61 @@ function It(e, t) {
   `;
 }
 function Lt(e, t) {
-	let n = !!e.state.values.flowRate, r = n && G(e, "flowRate"), i = W(e, "flowRate");
+	let n = !!e.state.values.flowRate, r = n && K(e, "flowRate"), i = G(e, "flowRate");
 	return k`
     <g
-      class=${V("diagram-component", "flow-meter", r && "is-clickable")}
+      class=${H("diagram-component", "flow-meter", r && "is-clickable")}
       role=${r ? "button" : j}
       tabindex=${r ? "0" : j}
-      aria-label=${n ? Tt(e.state, "flowRate", t.flowRate, t) : t.flowRate}
+      aria-label=${n ? wt(e.state, "flowRate", t.flowRate, t) : t.flowRate}
       @click=${r ? i : j}
       @keydown=${r ? i : j}
     >
       <circle class="focus-ring" cx="430" cy="338" r="24"></circle>
       <circle class="junction" cx="430" cy="338" r="13"></circle>
       <path class="flow-meter__bars" d="M 430 327 V 349 M 424 330 V 346 M 436 330 V 346"></path>
-      ${U(450, 332, "DFL", t.flowRate, e)}
-      ${n ? k`<text class="sensor-value sensor-value--small" x="450" y="352">${wt(e.state, "flowRate")}</text>` : j}
+      ${W(450, 332, "DFL", t.flowRate, e)}
+      ${n ? k`<text class="sensor-value sensor-value--small" x="450" y="352">${Ct(e.state, "flowRate")}</text>` : j}
     </g>
   `;
 }
 function Rt(e, t, n) {
-	let r = e.state.flow.segments["dhw-supply"], i = e.state.flow.visible && r.active, a = W(e, "dhwTemperature"), o = G(e, "dhwTemperature");
+	let r = e.state.flow.segments["dhw-supply"], i = e.state.flow.visible && r.active, a = G(e, "dhwTemperature"), o = K(e, "dhwTemperature");
 	return k`
     <g
-      class=${V("diagram-component", o && "is-clickable")}
+      class=${H("diagram-component", o && "is-clickable")}
       role=${o ? "button" : j}
       tabindex=${o ? "0" : j}
-      aria-label=${Tt(e.state, "dhwTemperature", t.hotWater, t)}
+      aria-label=${wt(e.state, "dhwTemperature", t.hotWater, t)}
       @click=${o ? a : j}
       @keydown=${o ? a : j}
     >
       <rect class="focus-ring" x="43" y="307" width="205" height="251" rx="38"></rect>
       <rect class="tank-shell" x="51" y="315" width="189" height="235" rx="32"></rect>
       <path class="tank-water-line" d="M 70 376 Q 98 368 126 376 T 183 376 T 222 376"></path>
-      ${H(73, 348, "WW", t.hotWater, e)}
+      ${U(73, 348, "WW", t.hotWater, e)}
     </g>
     <g
-      class=${V("tank-coil", i && "is-active", r.direction === "reverse" && "direction--reverse")}
+      class=${H("tank-coil", i && "is-active", r.direction === "reverse" && "direction--reverse")}
       style=${`--flow-duration:${n.toFixed(2)}s`}
       aria-hidden="true"
     >
       <path
         class="tank-coil-base"
-        d=${mt}
+        d=${pt}
       ></path>
       <path
         class="tank-coil-flow"
-        d=${mt}
+        d=${pt}
       ></path>
     </g>
   `;
 }
 function zt(e, t, n) {
-	let r = e.state.flow.segments["heating-supply"].active, i = e.state.flow.segments["heating-return"].active, a = e.state.flow.visible && r && i, o = e.state.flow.segments["heating-supply"].direction, s = W(e, "heatingSupplyTemperature"), c = G(e, "heatingSupplyTemperature"), l = "M 720 325 V 222 H 742 V 292 H 764 V 222 H 786 V 292 H 808 V 222 H 830 V 325";
+	let r = e.state.flow.segments["heating-supply"].active, i = e.state.flow.segments["heating-return"].active, a = e.state.flow.visible && r && i, o = e.state.flow.segments["heating-supply"].direction, s = G(e, "heatingSupplyTemperature"), c = K(e, "heatingSupplyTemperature"), l = "M 720 325 V 222 H 742 V 292 H 764 V 222 H 786 V 292 H 808 V 222 H 830 V 325";
 	return k`
     <g
-      class=${V("diagram-component", "emitter", a && "is-active", c && "is-clickable")}
+      class=${H("diagram-component", "emitter", a && "is-active", c && "is-clickable")}
       role=${c ? "button" : j}
       tabindex=${c ? "0" : j}
       aria-label=${`${t.heatingCircuit}: ${a ? t.active : t.inactive}`}
@@ -1818,7 +1847,7 @@ function zt(e, t, n) {
     >
       <rect class="focus-ring" x="682" y="157" width="186" height="176" rx="22"></rect>
       <rect class="component-panel" x="690" y="165" width="170" height="160" rx="18"></rect>
-      ${H(710, 194, "HK", t.heatingCircuit, e)}
+      ${U(710, 194, "HK", t.heatingCircuit, e)}
       ${[
 		0,
 		1,
@@ -1837,7 +1866,7 @@ function zt(e, t, n) {
           ></rect>`)}
     </g>
     <g
-      class=${V("internal-flow", "pipe--supply", a && "is-active", o === "reverse" && "direction--reverse")}
+      class=${H("internal-flow", "pipe--supply", a && "is-active", o === "reverse" && "direction--reverse")}
       style=${`--flow-duration:${n.toFixed(2)}s`}
       aria-hidden="true"
     >
@@ -1890,10 +1919,10 @@ function Vt(e, t) {
   `;
 }
 function Ht(e) {
-	let { state: t } = e, n = Ct(e.locale), r = Dt(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
+	let { state: t } = e, n = St(e.locale), r = Dt(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
 	return k`
     <svg
-      class=${V("flow-diagram", `mode--${t.mode}`, e.animationsPaused && "animations-paused")}
+      class=${H("flow-diagram", `mode--${t.mode}`, e.animationsPaused && "animations-paused")}
       data-layout="wide"
       viewBox="0 0 930 720"
       preserveAspectRatio="xMidYMid meet"
@@ -1934,7 +1963,7 @@ function Ht(e) {
       ${zt(e, n, r)}
 
       <!-- The collector sits behind both horizontal pipes so flow remains visible through it. -->
-      <g class=${V("collector", c && "is-active")} aria-label=${n.collector}>
+      <g class=${H("collector", c && "is-active")} aria-label=${n.collector}>
         <rect class="collector-body" x="616" y="546" width="48" height="102" rx="8"></rect>
         <path class="tank-water-line" d="M 622 596 H 658"></path>
       </g>
@@ -1954,7 +1983,7 @@ function Ht(e) {
 
       <!-- Outdoor unit -->
       <g class="outdoor-unit" aria-label=${n.outdoorUnit}>
-        ${H(372, 65, "WP", n.outdoorUnit, e)}
+        ${U(372, 65, "WP", n.outdoorUnit, e)}
         ${jt(e, n, s)}
         <g class="heat-exchanger" aria-hidden="true">
           <rect
@@ -1971,27 +2000,27 @@ function Ht(e) {
           <path class="heat-exchanger-fin heat-exchanger-fin--cold" d="M 481 145 H 552"></path>
         </g>
         <g
-          class=${V("outdoor-water", "pipe--supply", o && "is-active", i.direction === "reverse" && "direction--reverse")}
+          class=${H("outdoor-water", "pipe--supply", o && "is-active", i.direction === "reverse" && "direction--reverse")}
           style=${`--flow-duration:${r.toFixed(2)}s`}
           aria-hidden="true"
         >
-          <path class="outdoor-water__base" d=${z}></path>
-          <path class="outdoor-water__flow" d=${z}></path>
+          <path class="outdoor-water__base" d=${dt}></path>
+          <path class="outdoor-water__flow" d=${dt}></path>
         </g>
         <g
-          class=${V("outdoor-water", "pipe--return", o && "is-active", a.direction === "reverse" && "direction--reverse")}
+          class=${H("outdoor-water", "pipe--return", o && "is-active", a.direction === "reverse" && "direction--reverse")}
           style=${`--flow-duration:${r.toFixed(2)}s`}
           aria-hidden="true"
         >
-          <path class="outdoor-water__base" d=${B}></path>
-          <path class="outdoor-water__flow" d=${B}></path>
+          <path class="outdoor-water__base" d=${ft}></path>
+          <path class="outdoor-water__flow" d=${ft}></path>
         </g>
         ${Mt(e, n)}
       </g>
 
       <!-- Hydraulic module -->
       <g aria-label=${n.hydraulicModule}>
-        ${H(390, 263, "HM", n.hydraulicModule, e)}
+        ${U(390, 263, "HM", n.hydraulicModule, e)}
         ${Pt(e, n)}
         ${Lt(e, n)}
         ${Ft(e, n)}
@@ -2069,19 +2098,19 @@ function Ht(e) {
       ${!e.showLegend || e.labelMode === "hidden" ? j : k`
               <g class="flow-legend" aria-hidden="true">
                 <line class="pipe-base" x1="620" y1="690" x2="642" y2="690" style="--pipe-color:var(--wolf-supply-color);opacity:.75"></line>
-                <text class="micro-label" x="658" y="694">${xt("VL", n.supply, e)}</text>
+                <text class="micro-label" x="658" y="694">${bt("VL", n.supply, e)}</text>
                 <line class="pipe-base" x1="792" y1="690" x2="814" y2="690" style="--pipe-color:var(--wolf-return-color);opacity:.75"></line>
-                <text class="micro-label" x="830" y="694">${xt("RL", n.return, e)}</text>
+                <text class="micro-label" x="830" y="694">${bt("RL", n.return, e)}</text>
               </g>
             `}
     </svg>
   `;
 }
 function Ut(e) {
-	let { state: t } = e, n = Ct(e.locale), r = Dt(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
+	let { state: t } = e, n = St(e.locale), r = Dt(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
 	return k`
     <svg
-      class=${V("flow-diagram", "flow-diagram--compact", `mode--${t.mode}`, e.animationsPaused && "animations-paused")}
+      class=${H("flow-diagram", "flow-diagram--compact", `mode--${t.mode}`, e.animationsPaused && "animations-paused")}
       data-layout="compact"
       viewBox="0 0 520 940"
       preserveAspectRatio="xMidYMid meet"
@@ -2128,7 +2157,7 @@ function Ut(e) {
       </g>
 
       <g
-        class=${V("collector", c && "is-active")}
+        class=${H("collector", c && "is-active")}
         transform="translate(-290 0)"
         aria-label=${n.collector}
       >
@@ -2146,11 +2175,11 @@ function Ut(e) {
 		"system-return",
 		"heating-supply",
 		"heating-return"
-	].map((t) => kt(t, e, n, r, gt[t]))}
+	].map((t) => kt(t, e, n, r, ht[t]))}
       </g>
 
       <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)">
-        ${H(372, 65, "WP", n.outdoorUnit, e)}
+        ${U(372, 65, "WP", n.outdoorUnit, e)}
         ${jt(e, n, s)}
         <g class="heat-exchanger" aria-hidden="true">
           <rect
@@ -2167,26 +2196,26 @@ function Ut(e) {
           <path class="heat-exchanger-fin heat-exchanger-fin--cold" d="M 481 145 H 552"></path>
         </g>
         <g
-          class=${V("outdoor-water", "pipe--supply", o && "is-active", i.direction === "reverse" && "direction--reverse")}
+          class=${H("outdoor-water", "pipe--supply", o && "is-active", i.direction === "reverse" && "direction--reverse")}
           style=${`--flow-duration:${r.toFixed(2)}s`}
           aria-hidden="true"
         >
-          <path class="outdoor-water__base" d=${z}></path>
-          <path class="outdoor-water__flow" d=${z}></path>
+          <path class="outdoor-water__base" d=${dt}></path>
+          <path class="outdoor-water__flow" d=${dt}></path>
         </g>
         <g
-          class=${V("outdoor-water", "pipe--return", o && "is-active", a.direction === "reverse" && "direction--reverse")}
+          class=${H("outdoor-water", "pipe--return", o && "is-active", a.direction === "reverse" && "direction--reverse")}
           style=${`--flow-duration:${r.toFixed(2)}s`}
           aria-hidden="true"
         >
-          <path class="outdoor-water__base" d=${B}></path>
-          <path class="outdoor-water__flow" d=${B}></path>
+          <path class="outdoor-water__base" d=${ft}></path>
+          <path class="outdoor-water__flow" d=${ft}></path>
         </g>
         ${Mt(e, n)}
       </g>
 
       <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)">
-        ${H(390, 263, "HM", n.hydraulicModule, e)}
+        ${U(390, 263, "HM", n.hydraulicModule, e)}
         ${Pt(e, n)}
         ${Lt(e, n)}
         ${Ft(e, n)}
@@ -2276,9 +2305,9 @@ function Ut(e) {
       ${!e.showLegend || e.labelMode === "hidden" ? j : k`
               <g class="flow-legend" aria-hidden="true">
                 <line class="pipe-base" x1="174" y1="914" x2="200" y2="914" style="--pipe-color:var(--wolf-supply-color);opacity:.75"></line>
-                <text class="micro-label" x="216" y="919">${xt("VL", n.supply, e)}</text>
+                <text class="micro-label" x="216" y="919">${bt("VL", n.supply, e)}</text>
                 <line class="pipe-base" x1="344" y1="914" x2="370" y2="914" style="--pipe-color:var(--wolf-return-color);opacity:.75"></line>
-                <text class="micro-label" x="386" y="919">${xt("RL", n.return, e)}</text>
+                <text class="micro-label" x="386" y="919">${bt("RL", n.return, e)}</text>
               </g>
             `}
     </svg>
@@ -2353,17 +2382,17 @@ function J(e, t) {
 	let n = qt(e);
 	return n !== void 0 && t.some((e) => qt(e) === n);
 }
-function Y(e, t = ze) {
+function Y(e, t = Ve) {
 	if (!Jt(e)) {
 		if (J(e, t.active)) return !0;
 		if (J(e, t.inactive)) return !1;
 	}
 }
-function $t(e, t = ze) {
+function $t(e, t = Ve) {
 	let n = Zt(e);
 	return n === void 0 ? Y(e, t) : n !== 0;
 }
-function en(e, t = ze) {
+function en(e, t = Ve) {
 	return !J(e, [
 		"vorspülen",
 		"vorspuelen",
@@ -2435,7 +2464,7 @@ function Z(e, t, n) {
 	return Xt(e, t[n]);
 }
 function sn(e, t) {
-	let n = I(t), { entities: r, mappings: i } = n, a = Z(e, r, "operation_mode"), o = Z(e, r, "fault"), s = Z(e, r, "defrost_active"), c = Z(e, r, "three_way_valve"), l = Z(e, r, "heating_cooling_valve"), u = nn(c, i.threeWayValve), d = rn(l, i.heatingCoolingValve), f = tn(a, i.operationMode), p = $t(o, i.binary), m = Y(s, i.binary), h = an({
+	let n = z(t), { entities: r, mappings: i } = n, a = Z(e, r, "operation_mode"), o = Z(e, r, "fault"), s = Z(e, r, "defrost_active"), c = Z(e, r, "three_way_valve"), l = Z(e, r, "heating_cooling_valve"), u = nn(c, i.threeWayValve), d = rn(l, i.heatingCoolingValve), f = tn(a, i.operationMode), p = $t(o, i.binary), m = Y(s, i.binary), h = an({
 		operationMode: a,
 		fault: o,
 		defrostActive: s,
@@ -3636,11 +3665,15 @@ function Q(e, t, n, r) {
 }
 //#endregion
 //#region src/wolf-heat-pump-flow-card.ts
-var ln = 520;
-function un(e, t) {
+var ln = 520, un = /* @__PURE__ */ new Set([
+	"WOLF Wärmepumpe",
+	L("card.title", "de"),
+	L("card.title", "en")
+]);
+function dn(e, t) {
 	return e === "compact" || e === "wide" ? e : t !== void 0 && t <= ln ? "compact" : "wide";
 }
-var dn = {
+var fn = {
 	outdoorTemperature: "outdoor_temperature",
 	heatPumpSupplyTemperature: "heat_pump_supply_temperature",
 	heatPumpReturnTemperature: "heat_pump_return_temperature",
@@ -3665,7 +3698,7 @@ var dn = {
 	primaryPump: "primary_pump",
 	heatingCircuitPump: "heating_circuit_pump",
 	diverterValve: "three_way_valve"
-}, fn = [
+}, pn = [
 	{
 		valueKey: "electricalPower",
 		entityKey: "electrical_power",
@@ -3716,7 +3749,7 @@ var dn = {
 		entityKey: "outdoor_temperature",
 		label: "metric.outdoor_temperature"
 	}
-], $ = class extends P {
+], $ = class extends F {
 	constructor(...e) {
 		super(...e), this.outsideViewport = !1, this.documentHidden = typeof document > "u" ? !1 : document.hidden, this.handleVisibilityChange = () => {
 			this.documentHidden = document.hidden;
@@ -3724,9 +3757,9 @@ var dn = {
 			t && t !== this.contextUnsubscribe && (this.contextUnsubscribe?.(), this.contextUnsubscribe = t), this.contextStates = e;
 		}, this.moreInfoForKey = (e) => {
 			if (!this.config) return;
-			let t = dn[e];
+			let t = fn[e];
 			if (!t) return;
-			let n = I(this.config).entities[t];
+			let n = z(this.config).entities[t];
 			n && this.dispatchEvent(new CustomEvent("hass-more-info", {
 				bubbles: !0,
 				composed: !0,
@@ -3734,27 +3767,27 @@ var dn = {
 			}));
 		}, this.isEntityClickable = (e) => {
 			if (!this.config) return !1;
-			let t = dn[e];
-			return t !== void 0 && !!I(this.config).entities[t];
+			let t = fn[e];
+			return t !== void 0 && !!z(this.config).entities[t];
 		};
 	}
 	static {
 		this.styles = cn;
 	}
 	static getConfigForm() {
-		return ut();
+		return st();
 	}
 	static getStubConfig() {
-		let { type: e, ...t } = Ye();
+		let { type: e, ...t } = Xe();
 		if (e !== "custom:wolf-heat-pump-flow-card") throw Error("Invalid built-in card preset.");
 		return t;
 	}
 	setConfig(e) {
 		if (!e || typeof e != "object") throw Error("Invalid WOLF Heat Pump Flow Card configuration.");
-		if (e.type !== void 0 && e.type !== "custom:wolf-heat-pump-flow-card") throw Error(`Card type must be ${Ie}.`);
+		if (e.type !== void 0 && e.type !== "custom:wolf-heat-pump-flow-card") throw Error(`Card type must be ${Fe}.`);
 		this.config = {
 			...e,
-			type: Ie,
+			type: Fe,
 			entities: { ...e.entities },
 			state_mapping: e.state_mapping ? {
 				active: e.state_mapping.active ? [...e.state_mapping.active] : void 0,
@@ -3799,7 +3832,11 @@ var dn = {
 		return !(e.has("hass") && !this.config);
 	}
 	get language() {
-		return this.hass?.locale?.language ?? this.hass?.language ?? (typeof navigator > "u" ? "de" : navigator.language);
+		let e = this.config?.language;
+		return e === "de" || e === "en" ? e : ze(this.hass?.locale?.language ?? this.hass?.language ?? (typeof navigator > "u" ? "de" : navigator.language));
+	}
+	localizedTitle(e) {
+		return e && un.has(e) ? L("card.title", this.language) : e;
 	}
 	modeLabel(e) {
 		return L(`mode.${e.mode}`, this.language);
@@ -3820,7 +3857,7 @@ var dn = {
 		return Number.isFinite(r) && r >= 0 && r <= 20 ? r.toFixed(2) : void 0;
 	}
 	renderMetric(e, t, n, r, i) {
-		let a = this.config ? I(this.config).entities[n] : void 0, o = O`
+		let a = this.config ? z(this.config).entities[n] : void 0, o = O`
       <div class="metric-label">${e}</div>
       <div class="metric-value">${t}</div>
     `;
@@ -3829,7 +3866,7 @@ var dn = {
             class=${`metric${i ? ` metric--${i}` : ""}`}
             type="button"
             title=${r ?? `${e}: ${t}`}
-            @click=${() => this.moreInfoForKey(Object.entries(dn).find(([, e]) => e === n)?.[0] ?? "")}
+            @click=${() => this.moreInfoForKey(Object.entries(fn).find(([, e]) => e === n)?.[0] ?? "")}
           >
             ${o}
           </button>
@@ -3842,62 +3879,62 @@ var dn = {
 	}
 	renderMetrics(e) {
 		if (!this.config) return j;
-		let t = I(this.config), n = [];
+		let t = z(this.config), n = [];
 		t.entities.operation_mode && e.rawMode && n.push(this.renderMetric(L("metric.operation_mode", this.language), this.modeLabel(e), "operation_mode", e.rawMode));
-		for (let r of fn) {
+		for (let r of pn) {
 			if (!t.entities[r.entityKey]) continue;
 			let i = e.values[r.valueKey];
 			if (!i) continue;
-			let a = r.entityKey === "system_pressure" ? Ge(i.value, t.system_pressure_limits) : void 0;
+			let a = r.entityKey === "system_pressure" ? qe(i.value, t.system_pressure_limits) : void 0;
 			n.push(this.renderMetric(L(r.label, this.language), i.display, r.entityKey, void 0, a));
 		}
 		let r = this.derivedCop(e);
-		return !t.entities.cop && r && n.splice(Math.min(3, n.length), 0, this.renderMetric(`${L("metric.cop", this.language)}*`, r, "thermal_power", this.language.toLowerCase().startsWith("de") ? "Aus thermischer und elektrischer Leistung berechnet" : "Calculated from thermal and electrical power")), n.length ? O`<div class="metrics-grid">${n}</div>` : j;
+		return !t.entities.cop && r && n.splice(Math.min(3, n.length), 0, this.renderMetric(`${L("metric.cop", this.language)}*`, r, "thermal_power", L("metric.cop_calculated_hint", this.language))), n.length ? O`<div class="metrics-grid">${n}</div>` : j;
 	}
 	render() {
 		let e = this.hass ?? (this.contextStates ? { states: this.contextStates } : void 0);
 		if (!this.config || !e) return O`<ha-card
         ><div class="configuration-hint">WOLF Heat Pump Flow Card</div></ha-card
       >`;
-		let t = I(this.config), n = sn(e, this.config), r = !t.animations || this.outsideViewport || this.documentHidden, i = un(t.layout, this.measuredWidth);
+		let t = z(this.config), n = this.localizedTitle(t.title), r = sn(e, this.config), i = !t.animations || this.outsideViewport || this.documentHidden, a = dn(t.layout, this.measuredWidth);
 		return O`
       <ha-card>
         <article
           class=${`card-shell layout--${t.layout}`}
-          aria-label=${t.title ?? L("card.title", this.language)}
+          aria-label=${n ?? L("card.title", this.language)}
         >
-          ${t.title ? O`
+          ${n ? O`
                   <header class="card-header-row">
-                    <div class="card-title">${t.title}</div>
+                    <div class="card-title">${n}</div>
                   </header>
                 ` : j}
           <div class="flow-card-content">
             <div class="flow-diagram-frame">
               ${Wt({
-			state: n,
-			compact: i === "compact",
+			state: r,
+			compact: a === "compact",
 			locale: this.language,
 			onEntityClick: this.moreInfoForKey,
 			isEntityClickable: this.isEntityClickable,
-			animationsPaused: r,
+			animationsPaused: i,
 			labelMode: t.label_mode,
 			temperatureColoring: t.temperature_coloring,
 			systemPressureLimits: t.system_pressure_limits,
 			showLegend: t.show_legend
 		})}
             </div>
-            ${this.renderMetrics(n)}
+            ${this.renderMetrics(r)}
           </div>
         </article>
       </ha-card>
     `;
 	}
 };
-Q([Fe({ attribute: !1 })], $.prototype, "hass", void 0), Q([F()], $.prototype, "config", void 0), Q([F()], $.prototype, "outsideViewport", void 0), Q([F()], $.prototype, "documentHidden", void 0), Q([F()], $.prototype, "contextStates", void 0), Q([F()], $.prototype, "measuredWidth", void 0), customElements.get("wolf-heat-pump-flow-card") || customElements.define(Le, $), window.customCards = window.customCards ?? [], window.customCards.some(({ type: e }) => e === "wolf-heat-pump-flow-card") || window.customCards.push({
-	type: Le,
+Q([Pe({ attribute: !1 })], $.prototype, "hass", void 0), Q([I()], $.prototype, "config", void 0), Q([I()], $.prototype, "outsideViewport", void 0), Q([I()], $.prototype, "documentHidden", void 0), Q([I()], $.prototype, "contextStates", void 0), Q([I()], $.prototype, "measuredWidth", void 0), customElements.get("wolf-heat-pump-flow-card") || customElements.define(Ie, $), window.customCards = window.customCards ?? [], window.customCards.some(({ type: e }) => e === "wolf-heat-pump-flow-card") || window.customCards.push({
+	type: Ie,
 	name: "WOLF Heat Pump Flow Card",
 	description: "Animated WOLF heat-pump hydraulic flow visualization.",
 	preview: !0
 }), console.info("%c WOLF-HEAT-PUMP-FLOW-CARD %c v0.1.0", "color:#fff;background:#d51f2b;font-weight:700;padding:2px 6px;border-radius:3px 0 0 3px", "color:#fff;background:#30343b;font-weight:700;padding:2px 6px;border-radius:0 3px 3px 0");
 //#endregion
-export { $ as WolfHeatPumpFlowCard, un as resolveDiagramLayout };
+export { $ as WolfHeatPumpFlowCard, dn as resolveDiagramLayout };

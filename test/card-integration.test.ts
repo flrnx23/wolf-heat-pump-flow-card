@@ -5,6 +5,7 @@ import type {
   ConfigFormExpandableSchema,
   ConfigFormSchema,
 } from "../src/config-form";
+import { currentLanguage, localize, normalizeLanguage } from "../src/localize";
 import {
   ENTITY_KEYS,
   WOLF_CARD_TAG,
@@ -27,8 +28,11 @@ const isExpandable = (field: ConfigFormSchema): field is ConfigFormExpandableSch
 const isControl = (field: ConfigFormSchema): field is ConfigFormControlSchema =>
   !isExpandable(field);
 
-function hass(states: Record<string, HassEntity> = {}): HomeAssistantLike {
-  return { states };
+function hass(
+  states: Record<string, HassEntity> = {},
+  language?: string,
+): HomeAssistantLike & { language?: string; locale?: { language?: string } } {
+  return language ? { states, language, locale: { language } } : { states };
 }
 
 async function mountCard(
@@ -79,7 +83,7 @@ describe("native Home Assistant config form", () => {
 
     expect(first).not.toHaveProperty("type");
     expect(first).toMatchObject({
-      title: "WOLF Wärmepumpe",
+      title: localize("card.title", currentLanguage()),
       animations: true,
       temperature_coloring: false,
       show_legend: true,
@@ -96,6 +100,7 @@ describe("native Home Assistant config form", () => {
     const form = CardClass.getConfigForm();
     expect(form.schema.map(({ name }) => name)).toEqual([
       "title",
+      "language",
       "entities",
       "pressure_limits",
       "display",
@@ -142,6 +147,29 @@ describe("native Home Assistant config form", () => {
     });
     expect(form.computeLabel(compressor as ConfigFormControlSchema)).toBeTruthy();
     expect(form.computeHelper(compressor as ConfigFormControlSchema)).toBeTruthy();
+  });
+
+  it("offers an exact German and English language dropdown", () => {
+    const formLanguage = currentLanguage();
+    const form = CardClass.getConfigForm();
+    const language = form.schema.find(({ name }) => name === "language");
+    expect(language && isControl(language)).toBe(true);
+    if (!language || !isControl(language)) throw new Error("Missing language selector");
+
+    expect(language).toEqual({
+      name: "language",
+      default: normalizeLanguage(formLanguage),
+      selector: {
+        select: {
+          mode: "dropdown",
+          options: [
+            { value: "de", label: localize("editor.language.de", formLanguage) },
+            { value: "en", label: localize("editor.language.en", formLanguage) },
+          ],
+        },
+      },
+    });
+    expect(form.computeLabel(language)).toBe(localize("editor.language", formLanguage));
   });
 
   it("contains native controls for all requested display settings", () => {
@@ -199,12 +227,15 @@ describe("native Home Assistant config form", () => {
     expect(() =>
       assertConfig({ entities: { compressor: "sensor.demo_compressor" } }),
     ).not.toThrow();
+    expect(() => assertConfig({ language: "de" })).not.toThrow();
+    expect(() => assertConfig({ language: "en" })).not.toThrow();
     expect(() => assertConfig(null)).toThrow(/object/i);
     expect(() => assertConfig({ entities: [] })).toThrow(/entities/i);
     expect(() => assertConfig({ entities: { compressor: 42 } })).toThrow(/strings/i);
     expect(() => assertConfig({ animations: "yes" })).toThrow(/boolean/i);
     expect(() => assertConfig({ show_legend: "yes" })).toThrow(/boolean/i);
     expect(() => assertConfig({ flow_rate_threshold: "0.1" })).toThrow(/number/i);
+    expect(() => assertConfig({ language: "fr" })).toThrow(/language/i);
     expect(() => assertConfig({ system_pressure_warning_low: -1 })).toThrow(/non-negative/i);
     expect(() =>
       assertConfig({ system_pressure_warning_low: 2, system_pressure_warning_high: 1.5 }),
@@ -244,6 +275,78 @@ describe("custom card rendering and interaction", () => {
     expect(root?.querySelectorAll(".diagram-component.is-unknown").length).toBeGreaterThan(0);
     expect(root?.querySelectorAll("[role='button']")).toHaveLength(0);
     expect(root?.querySelector(".metrics-grid")).toBeNull();
+  });
+
+  it("lets an explicit card language override a conflicting Home Assistant locale", async () => {
+    const cases = [
+      {
+        language: "en" as const,
+        homeAssistantLanguage: "de-DE",
+        legacyTitle: "WOLF Wärmepumpe",
+        expectedTitle: localize("card.title", "en"),
+        expectedComponent: "Outdoor unit",
+      },
+      {
+        language: "de" as const,
+        homeAssistantLanguage: "en-US",
+        legacyTitle: "WOLF heat pump",
+        expectedTitle: localize("card.title", "de"),
+        expectedComponent: "Außeneinheit",
+      },
+    ];
+
+    for (const testCase of cases) {
+      const card = await mountCard(
+        {
+          type: WOLF_CARD_TYPE,
+          title: testCase.legacyTitle,
+          language: testCase.language,
+          entities: {},
+        },
+        hass({}, testCase.homeAssistantLanguage),
+      );
+
+      expect(card.shadowRoot?.querySelector("article")?.getAttribute("aria-label")).toBe(
+        testCase.expectedTitle,
+      );
+      expect(card.shadowRoot?.querySelector(".card-title")?.textContent?.trim()).toBe(
+        testCase.expectedTitle,
+      );
+      expect(
+        card.shadowRoot?.querySelector(".outdoor-unit .label-friendly")?.textContent?.trim(),
+      ).toBe(testCase.expectedComponent);
+      card.remove();
+    }
+  });
+
+  it("follows the Home Assistant locale when no card language is configured", async () => {
+    const cases = [
+      {
+        homeAssistantLanguage: "de-DE",
+        expectedTitle: localize("card.title", "de"),
+        expectedComponent: "Außeneinheit",
+      },
+      {
+        homeAssistantLanguage: "en-US",
+        expectedTitle: localize("card.title", "en"),
+        expectedComponent: "Outdoor unit",
+      },
+    ];
+
+    for (const testCase of cases) {
+      const card = await mountCard(
+        { type: WOLF_CARD_TYPE, entities: {} },
+        hass({}, testCase.homeAssistantLanguage),
+      );
+
+      expect(card.shadowRoot?.querySelector("article")?.getAttribute("aria-label")).toBe(
+        testCase.expectedTitle,
+      );
+      expect(
+        card.shadowRoot?.querySelector(".outdoor-unit .label-friendly")?.textContent?.trim(),
+      ).toBe(testCase.expectedComponent);
+      card.remove();
+    }
   });
 
   it("renders a distinct portrait geometry when compact layout is selected", async () => {

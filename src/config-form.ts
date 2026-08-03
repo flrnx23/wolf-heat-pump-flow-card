@@ -1,5 +1,5 @@
 import { ENTITY_KEYS, type EntityKey, type WolfHeatPumpFlowCardConfig } from "./types";
-import { currentLanguage, localize, type TranslationKey } from "./localize";
+import { currentLanguage, localize, normalizeLanguage, type TranslationKey } from "./localize";
 
 type EntityDomain = "binary_sensor" | "input_boolean" | "input_number" | "number" | "sensor";
 
@@ -261,6 +261,11 @@ function assertConfig(config: unknown): asserts config is WolfHeatPumpFlowCardCo
     throw new Error("'flow_rate_threshold' must be a number.");
   }
 
+  const language = candidate.language;
+  if (language !== undefined && language !== "de" && language !== "en") {
+    throw new Error("'language' must be either 'de' or 'en'.");
+  }
+
   for (const key of PRESSURE_LIMIT_KEYS) {
     const value = candidate[key];
     if (
@@ -293,6 +298,19 @@ export function createConfigForm(language = currentLanguage()): ConfigFormDescri
     {
       name: "title",
       selector: { text: {} },
+    },
+    {
+      name: "language",
+      default: normalizeLanguage(language),
+      selector: {
+        select: {
+          mode: "dropdown",
+          options: [
+            { value: "de", label: t("editor.language.de") },
+            { value: "en", label: t("editor.language.en") },
+          ],
+        },
+      },
     },
     {
       type: "expandable",
@@ -392,6 +410,7 @@ export function createConfigForm(language = currentLanguage()): ConfigFormDescri
 
   const labels: Readonly<Record<string, TranslationKey>> = {
     title: "editor.title",
+    language: "editor.language",
     animations: "editor.animations",
     temperature_coloring: "editor.temperature_coloring",
     show_legend: "editor.show_legend",

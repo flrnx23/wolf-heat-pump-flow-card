@@ -4,7 +4,12 @@ import { property, state } from "lit/decorators.js";
 import { createWolfDefaultConfig, normalizeConfig, resolveSystemPressureStatus } from "./config";
 import { createConfigForm } from "./config-form";
 import { renderFlowDiagram } from "./flow-diagram";
-import { localize, type TranslationKey } from "./localize";
+import {
+  localize,
+  normalizeLanguage,
+  type SupportedLanguage,
+  type TranslationKey,
+} from "./localize";
 import { resolveCardState } from "./state-resolver";
 import { cardStyles } from "./styles";
 import {
@@ -20,6 +25,11 @@ import {
 } from "./types";
 
 const COMPACT_LAYOUT_MAX_WIDTH = 520;
+const DEFAULT_CARD_TITLES = new Set([
+  "WOLF Wärmepumpe",
+  localize("card.title", "de"),
+  localize("card.title", "en"),
+]);
 
 export function resolveDiagramLayout(
   layout: CardLayout,
@@ -258,12 +268,21 @@ export class WolfHeatPumpFlowCard extends LitElement {
     return true;
   }
 
-  private get language(): string {
-    return (
+  private get language(): SupportedLanguage {
+    const configuredLanguage = this.config?.language;
+    if (configuredLanguage === "de" || configuredLanguage === "en") {
+      return configuredLanguage;
+    }
+
+    const automaticLanguage =
       this.hass?.locale?.language ??
       this.hass?.language ??
-      (typeof navigator === "undefined" ? "de" : navigator.language)
-    );
+      (typeof navigator === "undefined" ? "de" : navigator.language);
+    return normalizeLanguage(automaticLanguage);
+  }
+
+  private localizedTitle(title: string | undefined): string | undefined {
+    return title && DEFAULT_CARD_TITLES.has(title) ? localize("card.title", this.language) : title;
   }
 
   private moreInfoForKey = (clickKey: string): void => {
@@ -391,9 +410,7 @@ export class WolfHeatPumpFlowCard extends LitElement {
           `${localize("metric.cop", this.language)}*`,
           calculatedCop,
           "thermal_power",
-          this.language.toLowerCase().startsWith("de")
-            ? "Aus thermischer und elektrischer Leistung berechnet"
-            : "Calculated from thermal and electrical power",
+          localize("metric.cop_calculated_hint", this.language),
         ),
       );
     }
@@ -411,6 +428,7 @@ export class WolfHeatPumpFlowCard extends LitElement {
     }
 
     const normalized = normalizeConfig(this.config);
+    const title = this.localizedTitle(normalized.title);
     const resolvedState = resolveCardState(stateSource, this.config);
     const animationsPaused = !normalized.animations || this.outsideViewport || this.documentHidden;
     const diagramLayout = resolveDiagramLayout(normalized.layout, this.measuredWidth);
@@ -419,13 +437,13 @@ export class WolfHeatPumpFlowCard extends LitElement {
       <ha-card>
         <article
           class=${`card-shell layout--${normalized.layout}`}
-          aria-label=${normalized.title ?? localize("card.title", this.language)}
+          aria-label=${title ?? localize("card.title", this.language)}
         >
           ${
-            normalized.title
+            title
               ? html`
                   <header class="card-header-row">
-                    <div class="card-title">${normalized.title}</div>
+                    <div class="card-title">${title}</div>
                   </header>
                 `
               : nothing

@@ -372,4 +372,10 @@ describe("full resolver", () => {
   it("keeps all entity IDs optional during normalization", () => {
     expect(normalizeConfig(minimalConfig).entities).toEqual({});
   });
+
+  it("preserves a supported card language during normalization", () => {
+    expect(normalizeConfig({ ...minimalConfig, language: "de" }).language).toBe("de");
+    expect(normalizeConfig({ ...minimalConfig, language: "en" }).language).toBe("en");
+    expect(normalizeConfig(minimalConfig).language).toBeUndefined();
+  });
 });

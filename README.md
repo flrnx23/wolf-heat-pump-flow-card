@@ -1,110 +1,113 @@
 # WOLF Heat Pump Flow Card
 
-Eine moderne, responsive und ausschließlich lesende Custom Card für Home Assistant. Sie stellt den hydraulischen Aufbau einer WOLF-Wärmepumpenanlage als eigenständige SVG-Grafik dar.
+English | [Deutsch](README.de.md)
 
-Die Karte kann unter anderem folgende Informationen visualisieren:
+A modern, responsive, read-only custom card for Home Assistant. It presents the hydraulic layout of a WOLF heat pump system as a self-contained SVG diagram.
 
-- Heizen, Warmwasserbereitung, Kühlen, Abtauen, Störung und Stillstand
-- aktive Vorlauf- und Rücklaufwege einschließlich Fließrichtung
-- Wärmepumpe, Hydraulikmodul, Warmwasserspeicher, Sammler und Heizkreis
-- Pumpen, Verdichter, Ventilator, Zusatzheizer und Umschaltventile
-- Temperaturen, Volumenstrom, Anlagendruck, Leistung, COP, Modulation und Frequenz
-- technische, verständliche oder kombinierte Beschriftungen
-- Light- und Dark-Themes von Home Assistant
+The card can visualize, among other things:
 
-Alle Rollen sind optional und werden im grafischen Karteneditor den vorhandenen Home-Assistant-Entitäten zugeordnet. Die Karte sendet keine Daten an externe Dienste und ruft keine Home-Assistant-Dienste zum Schalten auf.
+- heating, domestic hot water, cooling, defrost, fault, and idle modes
+- active supply and return paths, including flow direction
+- the heat pump, hydraulic module, domestic hot-water tank, system collector, and heating circuit
+- pumps, compressor, fan, auxiliary heater, and diverter valves
+- temperatures, flow rate, system pressure, power, COP, modulation, and frequency
+- technical, friendly, or combined labels
+- Home Assistant light and dark themes
 
-## Vorschau
+All entity roles are optional and can be assigned to existing Home Assistant entities in the visual card editor. The card does not send data to external services and does not call Home Assistant services to control devices.
 
-### Heizbetrieb
+## Preview
 
-![WOLF Heat Pump Flow Card im Heizbetrieb](docs/images/heating-mode.png)
+### Heating mode
 
-### Warmwasserbereitung
+![WOLF Heat Pump Flow Card in heating mode](docs/images/heating-mode.png)
 
-![WOLF Heat Pump Flow Card während der Warmwasserbereitung](docs/images/hot-water-mode.png)
+### Domestic hot-water mode
 
-## Kompatibilität
+![WOLF Heat Pump Flow Card during domestic hot-water preparation](docs/images/hot-water-mode.png)
 
-Die Karte ist mit Home Assistant 2026.7 getestet, setzt diese Version aber nicht voraus. Sie verwendet die üblichen Schnittstellen für benutzerdefinierte Dashboard-Karten und sollte daher auch mit älteren Home-Assistant-Versionen funktionieren. Sollte es mit einer älteren Version Probleme geben, kann dies über die GitHub-Issues gemeldet werden.
+## Compatibility
 
-Die Karte ist für WOLF-Anlagen ausgelegt. Die Namen der Entitäten sind frei wählbar und werden bei der Konfiguration zugeordnet.
+The card has been tested with Home Assistant 2026.7, but does not require that version. It uses the standard interfaces for custom dashboard cards and should therefore also work with older Home Assistant versions. If you encounter a problem with an older version, please report it through GitHub Issues.
 
-## Installation mit HACS
+The card is designed for WOLF systems. Entity names are not fixed; you assign the entities available in your installation during configuration.
 
-Die Installation über HACS wird empfohlen:
+## Installation with HACS
 
-1. **HACS** in Home Assistant öffnen.
-2. Oben rechts das Drei-Punkte-Menü öffnen und **Benutzerdefinierte Repositories** auswählen.
-3. `https://github.com/flrnx23/wolf-heat-pump-flow-card` als Repository eintragen.
-4. Als Kategorie **Dashboard** auswählen und das Repository hinzufügen.
-5. In HACS nach **WOLF Heat Pump Flow Card** suchen und die Karte herunterladen.
-6. Home Assistant im Browser oder in der App vollständig neu laden.
-7. Das gewünschte Dashboard bearbeiten, **Karte hinzufügen** auswählen und nach **WOLF Heat Pump Flow Card** suchen.
+Installation through HACS is recommended:
 
-Falls die Karte nicht im Kartenwähler erscheint, zuerst den Browser-Cache leeren beziehungsweise die Home-Assistant-App neu starten.
+1. Open **HACS** in Home Assistant.
+2. Open the three-dot menu in the top-right corner and select **Custom repositories**.
+3. Enter `https://github.com/flrnx23/wolf-heat-pump-flow-card` as the repository.
+4. Select **Dashboard** as the category and add the repository.
+5. Search HACS for **WOLF Heat Pump Flow Card** and download the card.
+6. Fully reload Home Assistant in your browser or app.
+7. Edit the desired dashboard, select **Add card**, and search for **WOLF Heat Pump Flow Card**.
 
-## Manuelle Installation
+If the card does not appear in the card picker, clear the browser cache or restart the Home Assistant app first.
 
-1. `dist/wolf-heat-pump-flow-card.js` aus diesem Repository herunterladen.
-2. Die Datei nach `<config>/www/wolf-heat-pump-flow-card.js` kopieren.
-3. Unter **Einstellungen → Dashboards → Ressourcen** folgende Ressource vom Typ **JavaScript-Modul** hinzufügen:
+## Manual installation
+
+1. Download `dist/wolf-heat-pump-flow-card.js` from this repository.
+2. Copy the file to `<config>/www/wolf-heat-pump-flow-card.js`.
+3. Under **Settings → Dashboards → Resources**, add the following resource with the type **JavaScript Module**:
 
    ```text
    /local/wolf-heat-pump-flow-card.js
    ```
 
-4. Das Frontend neu laden.
+4. Reload the frontend.
 
-## Konfiguration
+## Configuration
 
-Am einfachsten wird die Karte über den grafischen Kartenwähler hinzugefügt und anschließend im Editor konfiguriert. Dort kann jede Rolle direkt aus den vorhandenen Entitäten ausgewählt werden. Nicht vorhandene oder nicht benötigte Rollen bleiben leer.
+The easiest way to add the card is through the visual card picker and then configure it in the editor. Each role can be selected directly from the entities available in Home Assistant. Leave unavailable or unnecessary roles empty.
 
-Der minimale Kartentyp lautet:
+The minimal card configuration is:
 
 ```yaml
 type: custom:wolf-heat-pump-flow-card
 ```
 
-Ohne zugeordnete Entitäten zeigt die Karte nur ihre Grundgrafik. Ein allgemeines YAML-Beispiel mit bewusst generischen Platzhalter-IDs:
+Without assigned entities, the card displays only its base diagram. The following general YAML example uses deliberately generic placeholder entity IDs:
 
 ```yaml
 type: custom:wolf-heat-pump-flow-card
-title: Wärmepumpe
+title: Heat pump
+language: en
 
 entities:
-  outdoor_temperature: sensor.waermepumpe_aussentemperatur
-  heat_pump_supply_temperature: sensor.waermepumpe_vorlauftemperatur
-  heat_pump_return_temperature: sensor.waermepumpe_ruecklauftemperatur
-  system_temperature: sensor.waermepumpe_systemtemperatur
-  flow_rate: sensor.waermepumpe_volumenstrom
-  system_pressure: sensor.waermepumpe_anlagendruck
+  outdoor_temperature: sensor.heat_pump_outdoor_temperature
+  heat_pump_supply_temperature: sensor.heat_pump_supply_temperature
+  heat_pump_return_temperature: sensor.heat_pump_return_temperature
+  system_temperature: sensor.heat_pump_system_temperature
+  flow_rate: sensor.heat_pump_flow_rate
+  system_pressure: sensor.heat_pump_system_pressure
 
-  dhw_temperature: sensor.waermepumpe_warmwassertemperatur
-  dhw_target_temperature: sensor.waermepumpe_warmwasser_solltemperatur
+  dhw_temperature: sensor.heat_pump_dhw_temperature
+  dhw_target_temperature: sensor.heat_pump_dhw_target_temperature
 
-  heating_supply_temperature: sensor.heizkreis_vorlauftemperatur
-  heating_return_temperature: sensor.heizkreis_ruecklauftemperatur
-  heating_target_temperature: sensor.heizkreis_solltemperatur
+  heating_supply_temperature: sensor.heating_circuit_supply_temperature
+  heating_return_temperature: sensor.heating_circuit_return_temperature
+  heating_target_temperature: sensor.heating_circuit_target_temperature
 
-  heating_circuit_pump: binary_sensor.heizkreispumpe
-  primary_pump: binary_sensor.primaerpumpe
-  compressor: binary_sensor.verdichter
-  auxiliary_heater: binary_sensor.zusatzheizer
+  heating_circuit_pump: binary_sensor.heating_circuit_pump
+  primary_pump: binary_sensor.primary_pump
+  compressor: binary_sensor.heat_pump_compressor
+  auxiliary_heater: binary_sensor.heat_pump_auxiliary_heater
 
-  fault: binary_sensor.waermepumpe_stoerung
-  heating_active: binary_sensor.waermepumpe_heizbetrieb
-  dhw_active: binary_sensor.waermepumpe_warmwasserbetrieb
-  cooling_active: binary_sensor.waermepumpe_kuehlbetrieb
-  operation_mode: sensor.waermepumpe_betriebsart
-  three_way_valve: sensor.waermepumpe_umschaltventil
-  heating_cooling_valve: sensor.waermepumpe_heizen_kuehlen_ventil
+  fault: binary_sensor.heat_pump_fault
+  heating_active: binary_sensor.heat_pump_heating
+  dhw_active: binary_sensor.heat_pump_dhw
+  cooling_active: binary_sensor.heat_pump_cooling
+  operation_mode: sensor.heat_pump_operating_mode
+  three_way_valve: sensor.heat_pump_three_way_valve
+  heating_cooling_valve: sensor.heat_pump_heating_cooling_valve
 
-  electrical_power: sensor.waermepumpe_elektrische_leistung
-  thermal_power: sensor.waermepumpe_thermische_leistung
-  cop: sensor.waermepumpe_cop
-  compressor_modulation: sensor.waermepumpe_verdichter_modulation
-  compressor_frequency: sensor.waermepumpe_verdichter_frequenz
+  electrical_power: sensor.heat_pump_electrical_power
+  thermal_power: sensor.heat_pump_thermal_power
+  cop: sensor.heat_pump_cop
+  compressor_modulation: sensor.heat_pump_compressor_modulation
+  compressor_frequency: sensor.heat_pump_compressor_frequency
 
 animations: true
 temperature_coloring: false
@@ -113,104 +116,109 @@ label_mode: friendly
 layout: auto
 flow_rate_threshold: 0.1
 
-# Optionale, installationsabhängige Druckgrenzen in bar
+# Optional, installation-specific pressure limits in bar
 system_pressure_critical_low: 1.0
 system_pressure_warning_low: 1.5
 system_pressure_warning_high: 2.2
 system_pressure_critical_high: 2.5
 ```
 
-Die gezeigten Entity-IDs sind Beispiele und müssen durch die IDs der eigenen Installation ersetzt werden. Es ist nicht nötig, alle Rollen zu konfigurieren.
+The entity IDs shown above are examples and must be replaced with IDs from your own installation. You do not need to configure every role.
 
-Ist keine eigene `cop`-Entität vorhanden, kann die Karte einen mit `*` markierten momentanen COP aus thermischer und elektrischer Leistung ableiten, sofern beide Werte verfügbar und einheitenkompatibel sind.
+If no dedicated `cop` entity is available, the card can derive an instantaneous COP marked with `*` from thermal and electrical power, provided both values are available and use compatible units.
 
-## Grafischer Editor
+## Visual editor
 
-Der Editor bietet Gruppen für:
+The editor provides groups for:
 
-- Temperaturen
-- Hydraulik, Pumpen und Ventile
-- Verdichter, Ventilator und Zusatzheizer
-- Betriebszustände
-- Leistungswerte
-- Darstellung und Layout
+- temperatures
+- hydraulics, pumps, and valves
+- compressor, fan, and auxiliary heater
+- operating states
+- performance values
+- display and layout
 
-Statusrollen können aus `sensor`, `binary_sensor` oder `input_boolean` gewählt werden. Messwerte können unter anderem aus `sensor`, `number` oder `input_number` stammen. Erweiterte Zustandsmappings werden bei Bedarf in YAML konfiguriert.
+The visual editor also provides a language dropdown for **German** and **English** (`de` and `en`). If `language` is omitted, the card follows the Home Assistant language, with the browser locale as a fallback, to preserve backward compatibility.
 
-## Konfigurationsoptionen
+Status roles can be selected from `sensor`, `binary_sensor`, or `input_boolean` entities. Measurements can come from domains including `sensor`, `number`, and `input_number`. Advanced state mappings can be configured in YAML when needed.
 
-| Option                          | Typ     | Standard            | Bedeutung                                                     |
-| ------------------------------- | ------- | ------------------- | ------------------------------------------------------------- |
-| `type`                          | String  | erforderlich        | Muss `custom:wolf-heat-pump-flow-card` sein.                  |
-| `title`                         | String  | nicht gesetzt       | Optionale Überschrift.                                        |
-| `entities`                      | Objekt  | leer                | Zuordnung der optionalen Entity-Rollen.                       |
-| `animations`                    | Boolean | `true`              | Animiert aktive Leitungen und Komponenten.                    |
-| `temperature_coloring`          | Boolean | `false`             | Aktiviert eine optionale temperaturabhängige Leitungsfärbung. |
-| `show_legend`                   | Boolean | `true`              | Zeigt die Legende für Vorlauf und Rücklauf.                   |
-| `label_mode`                    | String  | `friendly`          | `technical`, `friendly`, `both` oder `hidden`.                |
-| `layout`                        | String  | `auto`              | `auto`, `compact` oder `wide`.                                |
-| `flow_rate_threshold`           | Zahl    | `0.1`               | Mindestbetrag des Volumenstroms für eine gemessene Strömung.  |
-| `system_pressure_critical_low`  | Zahl    | nicht gesetzt       | Kritische Untergrenze des Anlagendrucks in bar.               |
-| `system_pressure_warning_low`   | Zahl    | nicht gesetzt       | Untere Warnschwelle des Anlagendrucks in bar.                 |
-| `system_pressure_warning_high`  | Zahl    | nicht gesetzt       | Obere Warnschwelle des Anlagendrucks in bar.                  |
-| `system_pressure_critical_high` | Zahl    | nicht gesetzt       | Kritische Obergrenze des Anlagendrucks in bar.                |
-| `state_mapping`                 | Objekt  | eingebautes Mapping | Rohwerte für aktive und inaktive Binärzustände.               |
-| `operation_mode_mapping`        | Objekt  | eingebautes Mapping | Rohwerte für Betriebsarten.                                   |
-| `three_way_valve_mapping`       | Objekt  | eingebautes Mapping | Rohwerte des Ventils Heizung/Warmwasser.                      |
-| `heating_cooling_valve_mapping` | Objekt  | eingebautes Mapping | Rohwerte des Ventils Heizung/Kühlung.                         |
+## Configuration options
 
-`valve_mapping` bleibt als Kompatibilitätsalias für `three_way_valve_mapping` erhalten. Für neue Konfigurationen sollte `three_way_valve_mapping` verwendet werden.
+| Option                          | Type    | Default                       | Description                                                         |
+| ------------------------------- | ------- | ----------------------------- | ------------------------------------------------------------------- |
+| `type`                          | String  | required                      | Must be `custom:wolf-heat-pump-flow-card`.                          |
+| `title`                         | String  | not set                       | Optional card title.                                                |
+| `language`                      | String  | Home Assistant/browser locale | `de` or `en`; overrides the language used for built-in card labels. |
+| `entities`                      | Object  | empty                         | Assigns entities to the optional entity roles.                      |
+| `animations`                    | Boolean | `true`                        | Animates active pipes and components.                               |
+| `temperature_coloring`          | Boolean | `false`                       | Enables optional temperature-based pipe coloring.                   |
+| `show_legend`                   | Boolean | `true`                        | Shows the supply and return legend.                                 |
+| `label_mode`                    | String  | `friendly`                    | `technical`, `friendly`, `both`, or `hidden`.                       |
+| `layout`                        | String  | `auto`                        | `auto`, `compact`, or `wide`.                                       |
+| `flow_rate_threshold`           | Number  | `0.1`                         | Minimum absolute flow rate considered measured flow.                |
+| `system_pressure_critical_low`  | Number  | not set                       | Critical lower system-pressure limit in bar.                        |
+| `system_pressure_warning_low`   | Number  | not set                       | Lower warning limit for system pressure in bar.                     |
+| `system_pressure_warning_high`  | Number  | not set                       | Upper warning limit for system pressure in bar.                     |
+| `system_pressure_critical_high` | Number  | not set                       | Critical upper system-pressure limit in bar.                        |
+| `state_mapping`                 | Object  | built-in mapping              | Raw values for active and inactive binary states.                   |
+| `operation_mode_mapping`        | Object  | built-in mapping              | Raw values for operating modes.                                     |
+| `three_way_valve_mapping`       | Object  | built-in mapping              | Raw values for the heating/domestic-hot-water diverter valve.       |
+| `heating_cooling_valve_mapping` | Object  | built-in mapping              | Raw values for the heating/cooling diverter valve.                  |
 
-Mit `layout: auto` richtet sich die Darstellung nach der tatsächlich verfügbaren Kartenbreite: Bis 520 Pixel wird die eigenständige Hochkant-Geometrie verwendet, darüber das breite Hydraulikschema. `compact` beziehungsweise `wide` erzwingen die jeweilige Variante unabhängig von der Dashboard-Spalte.
+The `language` option affects only the displayed labels. Entity IDs and raw values supplied by integrations remain unchanged.
 
-Die Druckgrenzen sind vollständig optional. Sobald `system_pressure` und passende Grenzen konfiguriert sind, kennzeichnet die Karte Warnbereiche gelb und kritische Bereiche rot – sowohl im Hydraulikschema als auch im Messwertfeld. Die Reihenfolge muss `kritisch unten ≤ Warnung unten ≤ Warnung oben ≤ kritisch oben` einhalten. Geeignete Werte hängen von der konkreten Hydraulik und den Vorgaben des Fachbetriebs ab; die Werte im Beispiel sind keine allgemeine Empfehlung.
+`valve_mapping` remains available as a compatibility alias for `three_way_valve_mapping`. Use `three_way_valve_mapping` for new configurations.
 
-## Unterstützte Entity-Rollen
+With `layout: auto`, the diagram follows the card width that is actually available: up to 520 pixels it uses the dedicated portrait geometry, and above that it uses the wide hydraulic diagram. `compact` and `wide` force the corresponding variant regardless of the dashboard column width.
 
-Alle Rollen sind optional.
+The pressure limits are entirely optional. Once `system_pressure` and suitable limits are configured, the card marks warning ranges in yellow and critical ranges in red, both in the hydraulic diagram and in the measurement panel. The limits must follow the order `critical low ≤ warning low ≤ warning high ≤ critical high`. Suitable values depend on the specific hydraulic system and the installer's requirements; the example values are not a general recommendation.
 
-| Rolle                          | Zweck                                   |
-| ------------------------------ | --------------------------------------- |
-| `outdoor_temperature`          | Außentemperatur                         |
-| `heat_pump_supply_temperature` | Kessel-/Vorlauftemperatur im Innenmodul |
-| `heat_pump_return_temperature` | Rücklauftemperatur der Wärmepumpe       |
-| `system_temperature`           | System- oder Sammlertemperatur          |
-| `flow_rate`                    | aktueller Volumenstrom                  |
-| `system_pressure`              | aktueller Anlagendruck                  |
-| `dhw_temperature`              | Warmwasserspeichertemperatur            |
-| `dhw_target_temperature`       | Warmwasser-Solltemperatur               |
-| `heating_supply_temperature`   | Heizkreis-Vorlauftemperatur             |
-| `heating_return_temperature`   | Heizkreis-Rücklauftemperatur            |
-| `heating_target_temperature`   | Heizkreis-Solltemperatur                |
-| `heating_circuit_pump`         | Heizkreispumpe                          |
-| `primary_pump`                 | Primär- oder Zubringerpumpe             |
-| `compressor`                   | Verdichterstatus                        |
-| `fan`                          | Ventilatorstatus                        |
-| `fan_speed`                    | Ventilatordrehzahl                      |
-| `auxiliary_heater`             | elektrischer Zusatzheizer               |
-| `defrost_active`               | expliziter Abtaustatus                  |
-| `fault`                        | Störstatus oder numerischer Fehlercode  |
-| `heating_active`               | Heizanforderung                         |
-| `dhw_active`                   | Warmwasserstatus                        |
-| `cooling_active`               | expliziter Kühlstatus                   |
-| `operation_mode`               | übergeordnete Betriebsart               |
-| `three_way_valve`              | Umschaltventil Heizung/Warmwasser       |
-| `heating_cooling_valve`        | Umschaltventil Heizung/Kühlung          |
-| `electrical_power`             | aktuelle elektrische Leistung           |
-| `thermal_power`                | aktuelle thermische Leistung            |
-| `cop`                          | aktueller COP                           |
-| `compressor_modulation`        | aktuelle Verdichtermodulation           |
-| `compressor_frequency`         | aktuelle Verdichterfrequenz             |
+## Supported entity roles
 
-## Zustandsmappings
+All roles are optional.
 
-Integrationen liefern Statuswerte in unterschiedlichen Sprachen und Schreibweisen. Die Karte normalisiert Groß- und Kleinschreibung, Leerzeichen, Satzzeichen, Trennzeichen und deutsche Umlaute. Eigene Listen können in YAML hinterlegt werden, wenn eine Integration andere Rohwerte verwendet:
+| Role                           | Purpose                                        |
+| ------------------------------ | ---------------------------------------------- |
+| `outdoor_temperature`          | Outdoor temperature                            |
+| `heat_pump_supply_temperature` | Boiler/supply temperature in the indoor module |
+| `heat_pump_return_temperature` | Heat-pump return temperature                   |
+| `system_temperature`           | System or collector temperature                |
+| `flow_rate`                    | Current flow rate                              |
+| `system_pressure`              | Current system pressure                        |
+| `dhw_temperature`              | Domestic hot-water tank temperature            |
+| `dhw_target_temperature`       | Domestic hot-water target temperature          |
+| `heating_supply_temperature`   | Heating-circuit supply temperature             |
+| `heating_return_temperature`   | Heating-circuit return temperature             |
+| `heating_target_temperature`   | Heating-circuit target temperature             |
+| `heating_circuit_pump`         | Heating-circuit pump                           |
+| `primary_pump`                 | Primary or feeder pump                         |
+| `compressor`                   | Compressor status                              |
+| `fan`                          | Fan status                                     |
+| `fan_speed`                    | Fan speed                                      |
+| `auxiliary_heater`             | Electric auxiliary heater                      |
+| `defrost_active`               | Explicit defrost status                        |
+| `fault`                        | Fault status or numeric error code             |
+| `heating_active`               | Heating demand                                 |
+| `dhw_active`                   | Domestic hot-water status                      |
+| `cooling_active`               | Explicit cooling status                        |
+| `operation_mode`               | Overall operating mode                         |
+| `three_way_valve`              | Heating/domestic-hot-water diverter valve      |
+| `heating_cooling_valve`        | Heating/cooling diverter valve                 |
+| `electrical_power`             | Current electrical power                       |
+| `thermal_power`                | Current thermal power                          |
+| `cop`                          | Current COP                                    |
+| `compressor_modulation`        | Current compressor modulation                  |
+| `compressor_frequency`         | Current compressor frequency                   |
+
+## State mappings
+
+Integrations provide status values in different languages and spellings. The card normalizes capitalization, whitespace, punctuation, separators, and German umlauts. You can define custom lists in YAML when an integration uses different raw values:
 
 ```yaml
 type: custom:wolf-heat-pump-flow-card
 entities:
-  operation_mode: sensor.waermepumpe_betriebsart
-  compressor: binary_sensor.waermepumpe_verdichter
+  operation_mode: sensor.heat_pump_operating_mode
+  compressor: binary_sensor.heat_pump_compressor
 
 state_mapping:
   active: ["on", "running"]
@@ -225,39 +233,39 @@ operation_mode_mapping:
   idle: ["idle"]
 ```
 
-Eigene Listen ersetzen die jeweilige Standardliste. In einer überschriebenen Liste müssen daher alle weiterhin gewünschten Rohwerte enthalten sein.
+A custom list replaces the corresponding default list. Each overridden list must therefore include every raw value you still want the card to recognize.
 
-## Modus-, Fluss- und Richtungslogik
+## Mode, flow, and direction logic
 
-Die Karte ermittelt den Modus aus den konfigurierten Stör-, Abtau-, Betriebsart-, Anforderungs- und Ventilentitäten. Störung und Abtauung besitzen dabei Vorrang vor normalen Betriebsarten.
+The card determines the operating mode from the configured fault, defrost, operating-mode, demand, and valve entities. Fault and defrost take precedence over normal operating modes.
 
-Bei aktiver Hydraulik werden Wasserfluss und Richtung dargestellt. Jeder relevante Vorlauf- und Rücklaufabschnitt besitzt einen Richtungspfeil und eine CSS-basierte Partikelanimation.
+When the hydraulic system is active, the card displays water flow and direction. Every relevant supply and return segment has a direction arrow and a CSS-based particle animation.
 
-- Ein Volumenstrom oberhalb von `flow_rate_threshold` oder eine aktive Primärpumpe aktiviert den Primärfluss.
-- Sind weder Volumenstrom noch Pumpenzustände verfügbar, kann eine aktive Betriebsart als Rückfall dienen.
-- Ein vorhandener Volumenstrom von `0` oder eine explizit ausgeschaltete Pumpe verhindert eine Animation allein aufgrund einer Betriebsart.
-- Ein negativer, vorzeichenbehafteter Volumenstrom kehrt Pfeile und Partikelrichtung der aktiven Segmente um.
-- Die Heizkreispumpe steuert den äußeren Heizkreis separat.
-- `animations: false` stoppt die Bewegung, lässt Zustand, Richtungspfeile und Farben sichtbar.
-- Die Systemeinstellung **Bewegung reduzieren** wird berücksichtigt.
+- A flow rate above `flow_rate_threshold`, or an active primary pump, activates primary flow.
+- If neither a flow-rate value nor pump states are available, an active operating mode can be used as a fallback.
+- An available flow-rate value of `0`, or an explicitly inactive pump, prevents animation based only on an operating mode.
+- A negative signed flow rate reverses the arrows and particle direction on active segments.
+- The heating-circuit pump controls the outer heating circuit separately.
+- `animations: false` stops movement while keeping state, direction arrows, and colors visible.
+- The system **Reduce motion** preference is respected.
 
-Standardmäßig verwendet die Karte eindeutige semantische Farben: Vorlauf rot und Rücklauf blau. Damit bleibt die Flussrichtung auch auf kleinen Bildschirmen gut erkennbar. Mit `temperature_coloring: true` kann stattdessen eine temperaturabhängige Färbung der aktiven Leitungen eingeschaltet werden. Die Spirale im Warmwasserspeicher bleibt als Wärmetauscher bewusst ein Verlauf vom Vorlauf zum Rücklauf.
+By default, the card uses unambiguous semantic colors: red for supply and blue for return. This keeps flow direction easy to identify even on small screens. Set `temperature_coloring: true` to use temperature-dependent colors for active pipes instead. The coil in the domestic hot-water tank deliberately retains a supply-to-return gradient because it represents a heat exchanger.
 
-Mit `show_legend: false` lässt sich die Vorlauf-/Rücklauflegende unabhängig von den übrigen Beschriftungen vollständig ausblenden.
+Set `show_legend: false` to hide the supply/return legend independently of all other labels.
 
-## Fehlende und ungültige Werte
+## Missing and invalid values
 
-Die Auswertung ist defensiv:
+The card handles incomplete data defensively:
 
-- Fehlende Entitäten beschädigen weder Karte noch Layout.
-- `unknown`, `unavailable`, leere Zustände und ungültige Zahlen werden nicht als `0` interpretiert.
-- Nicht zugeordnete oder aktuell nicht verfügbare Messwerte werden nicht eingeblendet.
-- Einheiten werden aus `unit_of_measurement` übernommen.
-- Zahlen mit deutschem Dezimalkomma werden akzeptiert.
-- Fehlende optionale Statusentitäten erzeugen keine erfundenen Zustände.
+- Missing entities do not break the card or its layout.
+- `unknown`, `unavailable`, empty states, and invalid numbers are not interpreted as `0`.
+- Unassigned or currently unavailable measurements are not displayed.
+- Units are taken from `unit_of_measurement`.
+- Numbers using a German decimal comma are accepted.
+- Missing optional status entities do not create invented states.
 
-Ein Klick oder Tastendruck auf einen zugeordneten Sensor beziehungsweise eine Komponente öffnet den Home-Assistant-Dialog **Mehr Informationen**. Ist keine Entität zugeordnet, bleibt die Grafik rein informativ.
+Clicking or pressing a key on an assigned sensor or component opens Home Assistant's **More info** dialog. If no entity is assigned, the diagram remains purely informational.
 
-## Lizenz
+## License
 
 [MIT](LICENSE)

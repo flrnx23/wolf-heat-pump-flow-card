@@ -1,3 +1,7 @@
+import type { SupportedLanguage } from "./types";
+
+export type { SupportedLanguage } from "./types";
+
 const EN = {
   "card.title": "WOLF heat pump",
   "component.heat_pump": "Heat pump",
@@ -33,6 +37,7 @@ const EN = {
   "metric.electrical_power": "Electrical power",
   "metric.thermal_power": "Thermal power",
   "metric.cop": "COP",
+  "metric.cop_calculated_hint": "Calculated from thermal and electrical power",
   "metric.operation_mode": "Operating mode",
   "mode.heating": "Heating",
   "mode.dhw": "Hot water",
@@ -48,6 +53,9 @@ const EN = {
   "valve.dhw": "Hot water",
   "valve.cooling": "Cooling",
   "editor.title": "Title",
+  "editor.language": "Language",
+  "editor.language.de": "German",
+  "editor.language.en": "English",
   "editor.entities": "Entities",
   "editor.group.temperatures": "Temperatures",
   "editor.group.hydraulics": "Hydraulics and pumps",
@@ -92,7 +100,6 @@ const EN = {
 } as const;
 
 export type TranslationKey = keyof typeof EN;
-export type SupportedLanguage = "de" | "en";
 
 const DE: Record<TranslationKey, string> = {
   "card.title": "WOLF-Wärmepumpe",
@@ -129,6 +136,7 @@ const DE: Record<TranslationKey, string> = {
   "metric.electrical_power": "Elektrische Leistung",
   "metric.thermal_power": "Thermische Leistung",
   "metric.cop": "COP",
+  "metric.cop_calculated_hint": "Aus thermischer und elektrischer Leistung berechnet",
   "metric.operation_mode": "Betriebsart",
   "mode.heating": "Heizen",
   "mode.dhw": "Warmwasser",
@@ -144,6 +152,9 @@ const DE: Record<TranslationKey, string> = {
   "valve.dhw": "Warmwasser",
   "valve.cooling": "Kühlung",
   "editor.title": "Titel",
+  "editor.language": "Sprache",
+  "editor.language.de": "Deutsch",
+  "editor.language.en": "Englisch",
   "editor.entities": "Entitäten",
   "editor.group.temperatures": "Temperaturen",
   "editor.group.hydraulics": "Hydraulik und Pumpen",
