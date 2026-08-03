@@ -162,7 +162,9 @@ export function normalizeConfig(
     entities: sanitizeEntities(config.entities),
     mappings: resolveMappings(config),
     label_mode: config.label_mode ?? "friendly",
-    layout: config.layout ?? "auto",
+    // Older releases exposed `compact`; keep those dashboards working by
+    // treating every non-wide value as the responsive wide diagram.
+    layout: config.layout === "wide" ? "wide" : "auto",
     animations: config.animations ?? true,
     temperature_coloring: config.temperature_coloring ?? false,
     show_legend: config.show_legend ?? true,

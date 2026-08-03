@@ -254,84 +254,84 @@ var x = class extends HTMLElement {
 x.elementStyles = [], x.shadowRootOptions = { mode: "open" }, x[v("elementProperties")] = /* @__PURE__ */ new Map(), x[v("finalized")] = /* @__PURE__ */ new Map(), _?.({ ReactiveElement: x }), (h.reactiveElementVersions ??= []).push("2.1.2");
 //#endregion
 //#region node_modules/lit-html/lit-html.js
-var ne = globalThis, re = (e) => e, ie = ne.trustedTypes, ae = ie ? ie.createPolicy("lit-html", { createHTML: (e) => e }) : void 0, oe = "$lit$", S = `lit$${Math.random().toFixed(9).slice(2)}$`, se = "?" + S, ce = `<${se}>`, C = document, w = () => C.createComment(""), T = (e) => e === null || typeof e != "object" && typeof e != "function", le = Array.isArray, ue = (e) => le(e) || typeof e?.[Symbol.iterator] == "function", de = "[ 	\n\f\r]", E = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, fe = /-->/g, pe = />/g, D = RegExp(`>|${de}(?:([^\\s"'>=/]+)(${de}*=${de}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`, "g"), me = /'/g, he = /"/g, ge = /^(?:script|style|textarea|title)$/i, _e = (e) => (t, ...n) => ({
+var ne = globalThis, re = (e) => e, S = ne.trustedTypes, ie = S ? S.createPolicy("lit-html", { createHTML: (e) => e }) : void 0, ae = "$lit$", C = `lit$${Math.random().toFixed(9).slice(2)}$`, oe = "?" + C, se = `<${oe}>`, w = document, T = () => w.createComment(""), E = (e) => e === null || typeof e != "object" && typeof e != "function", ce = Array.isArray, le = (e) => ce(e) || typeof e?.[Symbol.iterator] == "function", ue = "[ 	\n\f\r]", D = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, de = /-->/g, fe = />/g, O = RegExp(`>|${ue}(?:([^\\s"'>=/]+)(${ue}*=${ue}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`, "g"), pe = /'/g, me = /"/g, he = /^(?:script|style|textarea|title)$/i, ge = (e) => (t, ...n) => ({
 	_$litType$: e,
 	strings: t,
 	values: n
-}), O = _e(1), k = _e(2), A = Symbol.for("lit-noChange"), j = Symbol.for("lit-nothing"), ve = /* @__PURE__ */ new WeakMap(), M = C.createTreeWalker(C, 129);
-function ye(e, t) {
-	if (!le(e) || !e.hasOwnProperty("raw")) throw Error("invalid template strings array");
-	return ae === void 0 ? t : ae.createHTML(t);
+}), k = ge(1), A = ge(2), j = Symbol.for("lit-noChange"), M = Symbol.for("lit-nothing"), _e = /* @__PURE__ */ new WeakMap(), N = w.createTreeWalker(w, 129);
+function ve(e, t) {
+	if (!ce(e) || !e.hasOwnProperty("raw")) throw Error("invalid template strings array");
+	return ie === void 0 ? t : ie.createHTML(t);
 }
-var be = (e, t) => {
-	let n = e.length - 1, r = [], i, a = t === 2 ? "<svg>" : t === 3 ? "<math>" : "", o = E;
+var ye = (e, t) => {
+	let n = e.length - 1, r = [], i, a = t === 2 ? "<svg>" : t === 3 ? "<math>" : "", o = D;
 	for (let t = 0; t < n; t++) {
 		let n = e[t], s, c, l = -1, u = 0;
-		for (; u < n.length && (o.lastIndex = u, c = o.exec(n), c !== null);) u = o.lastIndex, o === E ? c[1] === "!--" ? o = fe : c[1] === void 0 ? c[2] === void 0 ? c[3] !== void 0 && (o = D) : (ge.test(c[2]) && (i = RegExp("</" + c[2], "g")), o = D) : o = pe : o === D ? c[0] === ">" ? (o = i ?? E, l = -1) : c[1] === void 0 ? l = -2 : (l = o.lastIndex - c[2].length, s = c[1], o = c[3] === void 0 ? D : c[3] === "\"" ? he : me) : o === he || o === me ? o = D : o === fe || o === pe ? o = E : (o = D, i = void 0);
-		let d = o === D && e[t + 1].startsWith("/>") ? " " : "";
-		a += o === E ? n + ce : l >= 0 ? (r.push(s), n.slice(0, l) + oe + n.slice(l) + S + d) : n + S + (l === -2 ? t : d);
+		for (; u < n.length && (o.lastIndex = u, c = o.exec(n), c !== null);) u = o.lastIndex, o === D ? c[1] === "!--" ? o = de : c[1] === void 0 ? c[2] === void 0 ? c[3] !== void 0 && (o = O) : (he.test(c[2]) && (i = RegExp("</" + c[2], "g")), o = O) : o = fe : o === O ? c[0] === ">" ? (o = i ?? D, l = -1) : c[1] === void 0 ? l = -2 : (l = o.lastIndex - c[2].length, s = c[1], o = c[3] === void 0 ? O : c[3] === "\"" ? me : pe) : o === me || o === pe ? o = O : o === de || o === fe ? o = D : (o = O, i = void 0);
+		let d = o === O && e[t + 1].startsWith("/>") ? " " : "";
+		a += o === D ? n + se : l >= 0 ? (r.push(s), n.slice(0, l) + ae + n.slice(l) + C + d) : n + C + (l === -2 ? t : d);
 	}
-	return [ye(e, a + (e[n] || "<?>") + (t === 2 ? "</svg>" : t === 3 ? "</math>" : "")), r];
-}, xe = class e {
+	return [ve(e, a + (e[n] || "<?>") + (t === 2 ? "</svg>" : t === 3 ? "</math>" : "")), r];
+}, be = class e {
 	constructor({ strings: t, _$litType$: n }, r) {
 		let i;
 		this.parts = [];
-		let a = 0, o = 0, s = t.length - 1, c = this.parts, [l, u] = be(t, n);
-		if (this.el = e.createElement(l, r), M.currentNode = this.el.content, n === 2 || n === 3) {
+		let a = 0, o = 0, s = t.length - 1, c = this.parts, [l, u] = ye(t, n);
+		if (this.el = e.createElement(l, r), N.currentNode = this.el.content, n === 2 || n === 3) {
 			let e = this.el.content.firstChild;
 			e.replaceWith(...e.childNodes);
 		}
-		for (; (i = M.nextNode()) !== null && c.length < s;) {
+		for (; (i = N.nextNode()) !== null && c.length < s;) {
 			if (i.nodeType === 1) {
-				if (i.hasAttributes()) for (let e of i.getAttributeNames()) if (e.endsWith(oe)) {
-					let t = u[o++], n = i.getAttribute(e).split(S), r = /([.?@])?(.*)/.exec(t);
+				if (i.hasAttributes()) for (let e of i.getAttributeNames()) if (e.endsWith(ae)) {
+					let t = u[o++], n = i.getAttribute(e).split(C), r = /([.?@])?(.*)/.exec(t);
 					c.push({
 						type: 1,
 						index: a,
 						name: r[2],
 						strings: n,
-						ctor: r[1] === "." ? we : r[1] === "?" ? Te : r[1] === "@" ? Ee : P
+						ctor: r[1] === "." ? we : r[1] === "?" ? Te : r[1] === "@" ? Ee : Ce
 					}), i.removeAttribute(e);
-				} else e.startsWith(S) && (c.push({
+				} else e.startsWith(C) && (c.push({
 					type: 6,
 					index: a
 				}), i.removeAttribute(e));
-				if (ge.test(i.tagName)) {
-					let e = i.textContent.split(S), t = e.length - 1;
+				if (he.test(i.tagName)) {
+					let e = i.textContent.split(C), t = e.length - 1;
 					if (t > 0) {
-						i.textContent = ie ? ie.emptyScript : "";
-						for (let n = 0; n < t; n++) i.append(e[n], w()), M.nextNode(), c.push({
+						i.textContent = S ? S.emptyScript : "";
+						for (let n = 0; n < t; n++) i.append(e[n], T()), N.nextNode(), c.push({
 							type: 2,
 							index: ++a
 						});
-						i.append(e[t], w());
+						i.append(e[t], T());
 					}
 				}
-			} else if (i.nodeType === 8) if (i.data === se) c.push({
+			} else if (i.nodeType === 8) if (i.data === oe) c.push({
 				type: 2,
 				index: a
 			});
 			else {
 				let e = -1;
-				for (; (e = i.data.indexOf(S, e + 1)) !== -1;) c.push({
+				for (; (e = i.data.indexOf(C, e + 1)) !== -1;) c.push({
 					type: 7,
 					index: a
-				}), e += S.length - 1;
+				}), e += C.length - 1;
 			}
 			a++;
 		}
 	}
 	static createElement(e, t) {
-		let n = C.createElement("template");
+		let n = w.createElement("template");
 		return n.innerHTML = e, n;
 	}
 };
-function N(e, t, n = e, r) {
-	if (t === A) return t;
-	let i = r === void 0 ? n._$Cl : n._$Co?.[r], a = T(t) ? void 0 : t._$litDirective$;
-	return i?.constructor !== a && (i?._$AO?.(!1), a === void 0 ? i = void 0 : (i = new a(e), i._$AT(e, n, r)), r === void 0 ? n._$Cl = i : (n._$Co ??= [])[r] = i), i !== void 0 && (t = N(e, i._$AS(e, t.values), i, r)), t;
+function P(e, t, n = e, r) {
+	if (t === j) return t;
+	let i = r === void 0 ? n._$Cl : n._$Co?.[r], a = E(t) ? void 0 : t._$litDirective$;
+	return i?.constructor !== a && (i?._$AO?.(!1), a === void 0 ? i = void 0 : (i = new a(e), i._$AT(e, n, r)), r === void 0 ? n._$Cl = i : (n._$Co ??= [])[r] = i), i !== void 0 && (t = P(e, i._$AS(e, t.values), i, r)), t;
 }
-var Se = class {
+var xe = class {
 	constructor(e, t) {
 		this._$AV = [], this._$AN = void 0, this._$AD = e, this._$AM = t;
 	}
@@ -342,28 +342,28 @@ var Se = class {
 		return this._$AM._$AU;
 	}
 	u(e) {
-		let { el: { content: t }, parts: n } = this._$AD, r = (e?.creationScope ?? C).importNode(t, !0);
-		M.currentNode = r;
-		let i = M.nextNode(), a = 0, o = 0, s = n[0];
+		let { el: { content: t }, parts: n } = this._$AD, r = (e?.creationScope ?? w).importNode(t, !0);
+		N.currentNode = r;
+		let i = N.nextNode(), a = 0, o = 0, s = n[0];
 		for (; s !== void 0;) {
 			if (a === s.index) {
 				let t;
-				s.type === 2 ? t = new Ce(i, i.nextSibling, this, e) : s.type === 1 ? t = new s.ctor(i, s.name, s.strings, this, e) : s.type === 6 && (t = new De(i, this, e)), this._$AV.push(t), s = n[++o];
+				s.type === 2 ? t = new Se(i, i.nextSibling, this, e) : s.type === 1 ? t = new s.ctor(i, s.name, s.strings, this, e) : s.type === 6 && (t = new De(i, this, e)), this._$AV.push(t), s = n[++o];
 			}
-			a !== s?.index && (i = M.nextNode(), a++);
+			a !== s?.index && (i = N.nextNode(), a++);
 		}
-		return M.currentNode = C, r;
+		return N.currentNode = w, r;
 	}
 	p(e) {
 		let t = 0;
 		for (let n of this._$AV) n !== void 0 && (n.strings === void 0 ? n._$AI(e[t]) : (n._$AI(e, n, t), t += n.strings.length - 2)), t++;
 	}
-}, Ce = class e {
+}, Se = class e {
 	get _$AU() {
 		return this._$AM?._$AU ?? this._$Cv;
 	}
 	constructor(e, t, n, r) {
-		this.type = 2, this._$AH = j, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = n, this.options = r, this._$Cv = r?.isConnected ?? !0;
+		this.type = 2, this._$AH = M, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = n, this.options = r, this._$Cv = r?.isConnected ?? !0;
 	}
 	get parentNode() {
 		let e = this._$AA.parentNode, t = this._$AM;
@@ -376,7 +376,7 @@ var Se = class {
 		return this._$AB;
 	}
 	_$AI(e, t = this) {
-		e = N(this, e, t), T(e) ? e === j || e == null || e === "" ? (this._$AH !== j && this._$AR(), this._$AH = j) : e !== this._$AH && e !== A && this._(e) : e._$litType$ === void 0 ? e.nodeType === void 0 ? ue(e) ? this.k(e) : this._(e) : this.T(e) : this.$(e);
+		e = P(this, e, t), E(e) ? e === M || e == null || e === "" ? (this._$AH !== M && this._$AR(), this._$AH = M) : e !== this._$AH && e !== j && this._(e) : e._$litType$ === void 0 ? e.nodeType === void 0 ? le(e) ? this.k(e) : this._(e) : this.T(e) : this.$(e);
 	}
 	O(e) {
 		return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -385,24 +385,24 @@ var Se = class {
 		this._$AH !== e && (this._$AR(), this._$AH = this.O(e));
 	}
 	_(e) {
-		this._$AH !== j && T(this._$AH) ? this._$AA.nextSibling.data = e : this.T(C.createTextNode(e)), this._$AH = e;
+		this._$AH !== M && E(this._$AH) ? this._$AA.nextSibling.data = e : this.T(w.createTextNode(e)), this._$AH = e;
 	}
 	$(e) {
-		let { values: t, _$litType$: n } = e, r = typeof n == "number" ? this._$AC(e) : (n.el === void 0 && (n.el = xe.createElement(ye(n.h, n.h[0]), this.options)), n);
+		let { values: t, _$litType$: n } = e, r = typeof n == "number" ? this._$AC(e) : (n.el === void 0 && (n.el = be.createElement(ve(n.h, n.h[0]), this.options)), n);
 		if (this._$AH?._$AD === r) this._$AH.p(t);
 		else {
-			let e = new Se(r, this), n = e.u(this.options);
+			let e = new xe(r, this), n = e.u(this.options);
 			e.p(t), this.T(n), this._$AH = e;
 		}
 	}
 	_$AC(e) {
-		let t = ve.get(e.strings);
-		return t === void 0 && ve.set(e.strings, t = new xe(e)), t;
+		let t = _e.get(e.strings);
+		return t === void 0 && _e.set(e.strings, t = new be(e)), t;
 	}
 	k(t) {
-		le(this._$AH) || (this._$AH = [], this._$AR());
+		ce(this._$AH) || (this._$AH = [], this._$AR());
 		let n = this._$AH, r, i = 0;
-		for (let a of t) i === n.length ? n.push(r = new e(this.O(w()), this.O(w()), this, this.options)) : r = n[i], r._$AI(a), i++;
+		for (let a of t) i === n.length ? n.push(r = new e(this.O(T()), this.O(T()), this, this.options)) : r = n[i], r._$AI(a), i++;
 		i < n.length && (this._$AR(r && r._$AB.nextSibling, i), n.length = i);
 	}
 	_$AR(e = this._$AA.nextSibling, t) {
@@ -414,7 +414,7 @@ var Se = class {
 	setConnected(e) {
 		this._$AM === void 0 && (this._$Cv = e, this._$AP?.(e));
 	}
-}, P = class {
+}, Ce = class {
 	get tagName() {
 		return this.element.tagName;
 	}
@@ -422,41 +422,41 @@ var Se = class {
 		return this._$AM._$AU;
 	}
 	constructor(e, t, n, r, i) {
-		this.type = 1, this._$AH = j, this._$AN = void 0, this.element = e, this.name = t, this._$AM = r, this.options = i, n.length > 2 || n[0] !== "" || n[1] !== "" ? (this._$AH = Array(n.length - 1).fill(/* @__PURE__ */ new String()), this.strings = n) : this._$AH = j;
+		this.type = 1, this._$AH = M, this._$AN = void 0, this.element = e, this.name = t, this._$AM = r, this.options = i, n.length > 2 || n[0] !== "" || n[1] !== "" ? (this._$AH = Array(n.length - 1).fill(/* @__PURE__ */ new String()), this.strings = n) : this._$AH = M;
 	}
 	_$AI(e, t = this, n, r) {
 		let i = this.strings, a = !1;
-		if (i === void 0) e = N(this, e, t, 0), a = !T(e) || e !== this._$AH && e !== A, a && (this._$AH = e);
+		if (i === void 0) e = P(this, e, t, 0), a = !E(e) || e !== this._$AH && e !== j, a && (this._$AH = e);
 		else {
 			let r = e, o, s;
-			for (e = i[0], o = 0; o < i.length - 1; o++) s = N(this, r[n + o], t, o), s === A && (s = this._$AH[o]), a ||= !T(s) || s !== this._$AH[o], s === j ? e = j : e !== j && (e += (s ?? "") + i[o + 1]), this._$AH[o] = s;
+			for (e = i[0], o = 0; o < i.length - 1; o++) s = P(this, r[n + o], t, o), s === j && (s = this._$AH[o]), a ||= !E(s) || s !== this._$AH[o], s === M ? e = M : e !== M && (e += (s ?? "") + i[o + 1]), this._$AH[o] = s;
 		}
 		a && !r && this.j(e);
 	}
 	j(e) {
-		e === j ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
+		e === M ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
 	}
-}, we = class extends P {
+}, we = class extends Ce {
 	constructor() {
 		super(...arguments), this.type = 3;
 	}
 	j(e) {
-		this.element[this.name] = e === j ? void 0 : e;
+		this.element[this.name] = e === M ? void 0 : e;
 	}
-}, Te = class extends P {
+}, Te = class extends Ce {
 	constructor() {
 		super(...arguments), this.type = 4;
 	}
 	j(e) {
-		this.element.toggleAttribute(this.name, !!e && e !== j);
+		this.element.toggleAttribute(this.name, !!e && e !== M);
 	}
-}, Ee = class extends P {
+}, Ee = class extends Ce {
 	constructor(e, t, n, r, i) {
 		super(e, t, n, r, i), this.type = 5;
 	}
 	_$AI(e, t = this) {
-		if ((e = N(this, e, t, 0) ?? j) === A) return;
-		let n = this._$AH, r = e === j && n !== j || e.capture !== n.capture || e.once !== n.once || e.passive !== n.passive, i = e !== j && (n === j || r);
+		if ((e = P(this, e, t, 0) ?? M) === j) return;
+		let n = this._$AH, r = e === M && n !== M || e.capture !== n.capture || e.once !== n.once || e.passive !== n.passive, i = e !== M && (n === M || r);
 		r && this.element.removeEventListener(this.name, this, n), i && this.element.addEventListener(this.name, this, e), this._$AH = e;
 	}
 	handleEvent(e) {
@@ -470,15 +470,15 @@ var Se = class {
 		return this._$AM._$AU;
 	}
 	_$AI(e) {
-		N(this, e);
+		P(this, e);
 	}
 }, Oe = ne.litHtmlPolyfillSupport;
-Oe?.(xe, Ce), (ne.litHtmlVersions ??= []).push("3.3.3");
+Oe?.(be, Se), (ne.litHtmlVersions ??= []).push("3.3.3");
 var ke = (e, t, n) => {
 	let r = n?.renderBefore ?? t, i = r._$litPart$;
 	if (i === void 0) {
 		let e = n?.renderBefore ?? null;
-		r._$litPart$ = i = new Ce(t.insertBefore(w(), e), e, void 0, n ?? {});
+		r._$litPart$ = i = new Se(t.insertBefore(T(), e), e, void 0, n ?? {});
 	}
 	return i._$AI(e), i;
 }, Ae = globalThis, F = class extends x {
@@ -500,7 +500,7 @@ var ke = (e, t, n) => {
 		super.disconnectedCallback(), this._$Do?.setConnected(!1);
 	}
 	render() {
-		return A;
+		return j;
 	}
 };
 F._$litElement$ = !0, F.finalized = !0, Ae.litElementHydrateSupport?.({ LitElement: F });
@@ -545,7 +545,7 @@ function Pe(e) {
 }
 //#endregion
 //#region node_modules/@lit/reactive-element/decorators/state.js
-function I(e) {
+function Fe(e) {
 	return Pe({
 		...e,
 		state: !0,
@@ -554,7 +554,7 @@ function I(e) {
 }
 //#endregion
 //#region src/types.ts
-var Fe = "custom:wolf-heat-pump-flow-card", Ie = "wolf-heat-pump-flow-card", Le = /* @__PURE__ */ "outdoor_temperature.heat_pump_supply_temperature.heat_pump_return_temperature.system_temperature.flow_rate.system_pressure.dhw_temperature.dhw_target_temperature.heating_supply_temperature.heating_return_temperature.heating_target_temperature.heating_circuit_pump.primary_pump.compressor.fan.fan_speed.auxiliary_heater.defrost_active.fault.heating_active.dhw_active.operation_mode.three_way_valve.electrical_power.thermal_power.cop.cooling_active.heating_cooling_valve.compressor_modulation.compressor_frequency".split("."), Re = {
+var Ie = "custom:wolf-heat-pump-flow-card", Le = "wolf-heat-pump-flow-card", Re = /* @__PURE__ */ "outdoor_temperature.heat_pump_supply_temperature.heat_pump_return_temperature.system_temperature.flow_rate.system_pressure.dhw_temperature.dhw_target_temperature.heating_supply_temperature.heating_return_temperature.heating_target_temperature.heating_circuit_pump.primary_pump.compressor.fan.fan_speed.auxiliary_heater.defrost_active.fault.heating_active.dhw_active.operation_mode.three_way_valve.electrical_power.thermal_power.cop.cooling_active.heating_cooling_valve.compressor_modulation.compressor_frequency".split("."), ze = {
 	de: {
 		"card.title": "WOLF-Wärmepumpe",
 		"component.heat_pump": "Wärmepumpe",
@@ -644,7 +644,6 @@ var Fe = "custom:wolf-heat-pump-flow-card", Ie = "wolf-heat-pump-flow-card", Le 
 		"editor.label_mode.hidden": "Ausgeblendet",
 		"editor.layout": "Layout",
 		"editor.layout.auto": "Automatisch",
-		"editor.layout.compact": "Kompakt",
 		"editor.layout.wide": "Breit",
 		"editor.helper.status": "Unterstützt Sensoren, Binärsensoren und Eingabe-Schalter.",
 		"editor.helper.optional": "Optionale Entität; bei Nichtverfügbarkeit leer lassen.",
@@ -739,25 +738,24 @@ var Fe = "custom:wolf-heat-pump-flow-card", Ie = "wolf-heat-pump-flow-card", Le 
 		"editor.label_mode.hidden": "Hidden",
 		"editor.layout": "Layout",
 		"editor.layout.auto": "Automatic",
-		"editor.layout.compact": "Compact",
 		"editor.layout.wide": "Wide",
 		"editor.helper.status": "Accepts sensor, binary sensor, and input boolean entities.",
 		"editor.helper.optional": "Optional entity; leave empty if unavailable.",
 		"editor.helper.pressure_limits": "Optional. Keep empty to disable this threshold; use critical low ≤ warning low ≤ warning high ≤ critical high."
 	}
 };
-function ze(e) {
+function Be(e) {
 	return e?.toLowerCase().startsWith("de") ? "de" : "en";
 }
-function L(e, t) {
-	return Re[ze(t)][e];
+function I(e, t) {
+	return ze[Be(t)][e];
 }
-function Be() {
+function Ve() {
 	return typeof document < "u" && document.documentElement.lang ? document.documentElement.lang : typeof navigator > "u" ? "en" : navigator.language;
 }
 //#endregion
 //#region src/config.ts
-var Ve = {
+var L = {
 	active: [
 		"on",
 		"running",
@@ -856,7 +854,7 @@ var Ve = {
 		"kühlung"
 	]
 }, Ge = {
-	type: Fe,
+	type: Ie,
 	title: "WOLF Wärmepumpe",
 	entities: {},
 	animations: !0,
@@ -866,13 +864,13 @@ var Ve = {
 	layout: "auto",
 	flow_rate_threshold: .1
 };
-function Ke(e) {
+function R(e) {
 	return typeof e == "number" && Number.isFinite(e) && e >= 0 ? e : void 0;
 }
-function qe(e, t) {
+function Ke(e, t) {
 	return t.criticalLow !== void 0 && e <= t.criticalLow || t.criticalHigh !== void 0 && e >= t.criticalHigh ? "critical" : t.warningLow !== void 0 && e <= t.warningLow || t.warningHigh !== void 0 && e >= t.warningHigh ? "warning" : "normal";
 }
-function R(e, t) {
+function z(e, t) {
 	let n = { ...e };
 	for (let r of Object.keys(e)) {
 		let e = t?.[r];
@@ -880,58 +878,58 @@ function R(e, t) {
 	}
 	return n;
 }
-function Je(e) {
+function qe(e) {
 	let t = {};
-	for (let n of Le) {
+	for (let n of Re) {
 		let r = e?.[n];
 		typeof r == "string" && r.trim().length > 0 && (t[n] = r.trim());
 	}
 	return t;
 }
-function Ye(e) {
+function Je(e) {
 	let t = {
 		...e.valve_mapping,
 		...e.three_way_valve_mapping
 	};
 	return {
-		binary: R(Ve, e.state_mapping),
-		operationMode: R(He, e.operation_mode_mapping),
-		threeWayValve: R(Ue, t),
-		heatingCoolingValve: R(We, e.heating_cooling_valve_mapping)
+		binary: z(L, e.state_mapping),
+		operationMode: z(He, e.operation_mode_mapping),
+		threeWayValve: z(Ue, t),
+		heatingCoolingValve: z(We, e.heating_cooling_valve_mapping)
 	};
 }
-function z(e) {
+function B(e) {
 	let t = e.flow_rate_threshold;
 	return {
-		type: Fe,
+		type: Ie,
 		...typeof e.title == "string" ? { title: e.title } : {},
 		...e.language === "de" || e.language === "en" ? { language: e.language } : {},
-		entities: Je(e.entities),
-		mappings: Ye(e),
+		entities: qe(e.entities),
+		mappings: Je(e),
 		label_mode: e.label_mode ?? "friendly",
-		layout: e.layout ?? "auto",
+		layout: e.layout === "wide" ? "wide" : "auto",
 		animations: e.animations ?? !0,
 		temperature_coloring: e.temperature_coloring ?? !1,
 		show_legend: e.show_legend ?? !0,
 		flow_rate_threshold: typeof t == "number" && Number.isFinite(t) && t >= 0 ? t : .1,
 		system_pressure_limits: {
-			criticalLow: Ke(e.system_pressure_critical_low),
-			warningLow: Ke(e.system_pressure_warning_low),
-			warningHigh: Ke(e.system_pressure_warning_high),
-			criticalHigh: Ke(e.system_pressure_critical_high)
+			criticalLow: R(e.system_pressure_critical_low),
+			warningLow: R(e.system_pressure_warning_low),
+			warningHigh: R(e.system_pressure_warning_high),
+			criticalHigh: R(e.system_pressure_critical_high)
 		}
 	};
 }
-function Xe(e = Be()) {
+function Ye(e = Ve()) {
 	return {
 		...Ge,
-		title: L("card.title", e),
+		title: I("card.title", e),
 		entities: {}
 	};
 }
 //#endregion
 //#region src/config-form.ts
-var Ze = {
+var Xe = {
 	outdoor_temperature: "temperatures",
 	heat_pump_supply_temperature: "temperatures",
 	heat_pump_return_temperature: "temperatures",
@@ -962,7 +960,7 @@ var Ze = {
 	heating_cooling_valve: "hydraulics",
 	compressor_modulation: "components",
 	compressor_frequency: "components"
-}, Qe = /* @__PURE__ */ new Set([
+}, Ze = /* @__PURE__ */ new Set([
 	"heating_circuit_pump",
 	"primary_pump",
 	"compressor",
@@ -976,7 +974,7 @@ var Ze = {
 	"operation_mode",
 	"three_way_valve",
 	"heating_cooling_valve"
-]), $e = {
+]), Qe = {
 	outdoor_temperature: "metric.outdoor_temperature",
 	heat_pump_supply_temperature: "metric.heat_pump_supply_temperature",
 	heat_pump_return_temperature: "metric.heat_pump_return_temperature",
@@ -1007,16 +1005,16 @@ var Ze = {
 	heating_cooling_valve: "component.heating_cooling_valve",
 	compressor_modulation: "metric.compressor_modulation",
 	compressor_frequency: "metric.compressor_frequency"
-}, et = [
+}, $e = [
 	"sensor",
 	"number",
 	"input_number"
-], B = [
+], et = [
 	"system_pressure_critical_low",
 	"system_pressure_warning_low",
 	"system_pressure_warning_high",
 	"system_pressure_critical_high"
-], tt = (e) => B.includes(e), nt = (e) => ({
+], tt = (e) => et.includes(e), nt = (e) => ({
 	name: e,
 	selector: { number: {
 		min: 0,
@@ -1029,11 +1027,11 @@ var Ze = {
 	"sensor",
 	"binary_sensor",
 	"input_boolean"
-], it = (e) => Le.includes(e), at = (e) => ({
+], it = (e) => Re.includes(e), at = (e) => ({
 	name: e,
 	selector: { entity: {
 		multiple: !1,
-		filter: { domain: Qe.has(e) ? rt : et }
+		filter: { domain: Ze.has(e) ? rt : $e }
 	} }
 }), V = (e, t, n) => ({
 	type: "expandable",
@@ -1041,7 +1039,7 @@ var Ze = {
 	title: t,
 	icon: n,
 	flatten: !0,
-	schema: Le.filter((t) => Ze[t] === e).map(at)
+	schema: Re.filter((t) => Xe[t] === e).map(at)
 });
 function ot(e) {
 	if (typeof e != "object" || !e || Array.isArray(e)) throw Error("The card configuration must be an object.");
@@ -1062,25 +1060,25 @@ function ot(e) {
 	if (r !== void 0 && typeof r != "number") throw Error("'flow_rate_threshold' must be a number.");
 	let i = t.language;
 	if (i !== void 0 && i !== "de" && i !== "en") throw Error("'language' must be either 'de' or 'en'.");
-	for (let e of B) {
+	for (let e of et) {
 		let n = t[e];
 		if (n !== void 0 && (typeof n != "number" || !Number.isFinite(n) || n < 0)) throw Error(`'${e}' must be a non-negative number.`);
 	}
-	let a = B.map((e) => t[e]), o;
+	let a = et.map((e) => t[e]), o;
 	for (let e of a) if (e !== void 0) {
 		if (o !== void 0 && o > e) throw Error("System-pressure limits must be ordered from critical low to critical high.");
 		o = e;
 	}
 }
-function st(e = Be()) {
-	let t = (t) => L(t, e), n = [
+function st(e = Ve()) {
+	let t = (t) => I(t, e), n = [
 		{
 			name: "title",
 			selector: { text: {} }
 		},
 		{
 			name: "language",
-			default: ze(e),
+			default: Be(e),
 			selector: { select: {
 				mode: "dropdown",
 				options: [{
@@ -1112,7 +1110,7 @@ function st(e = Be()) {
 			title: t("editor.pressure_limits"),
 			icon: "mdi:gauge",
 			flatten: !0,
-			schema: B.map(nt)
+			schema: et.map(nt)
 		},
 		{
 			type: "expandable",
@@ -1166,20 +1164,13 @@ function st(e = Be()) {
 					default: "auto",
 					selector: { select: {
 						mode: "dropdown",
-						options: [
-							{
-								value: "auto",
-								label: t("editor.layout.auto")
-							},
-							{
-								value: "compact",
-								label: t("editor.layout.compact")
-							},
-							{
-								value: "wide",
-								label: t("editor.layout.wide")
-							}
-						]
+						options: [{
+							value: "auto",
+							label: t("editor.layout.auto")
+						}, {
+							value: "wide",
+							label: t("editor.layout.wide")
+						}]
 					} }
 				},
 				{
@@ -1212,13 +1203,13 @@ function st(e = Be()) {
 	return {
 		schema: n,
 		computeLabel: (e) => {
-			if (it(e.name)) return t($e[e.name]);
+			if (it(e.name)) return t(Qe[e.name]);
 			let n = r[e.name];
 			return n === void 0 ? void 0 : t(n);
 		},
 		computeHelper: (e) => {
 			if (tt(e.name)) return t("editor.helper.pressure_limits");
-			if (it(e.name)) return t(Qe.has(e.name) ? "editor.helper.status" : "editor.helper.optional");
+			if (it(e.name)) return t(Ze.has(e.name) ? "editor.helper.status" : "editor.helper.optional");
 		},
 		assertConfig: ot
 	};
@@ -1360,71 +1351,6 @@ var ct = {
 		angle: 90
 	}
 }, ht = {
-	"hp-supply": {
-		path: "M 190 245 V 449",
-		arrow: {
-			x: 190,
-			y: 282,
-			angle: 90
-		}
-	},
-	"hp-return": {
-		path: "M 330 514 V 245",
-		arrow: {
-			x: 330,
-			y: 282,
-			angle: -90
-		}
-	},
-	"dhw-supply": {
-		path: "M 190 449 H 199 V 715",
-		arrow: {
-			x: 199,
-			y: 610,
-			angle: 90
-		}
-	},
-	"dhw-return": {
-		path: "M 199 820 H 330 V 514",
-		arrow: {
-			x: 330,
-			y: 610,
-			angle: -90
-		}
-	},
-	"system-supply": {
-		path: "M 190 449 V 590 H 370",
-		arrow: {
-			x: 286,
-			y: 590,
-			angle: 0
-		}
-	},
-	"system-return": {
-		path: "M 370 636 H 330 V 514",
-		arrow: {
-			x: 350,
-			y: 636,
-			angle: 180
-		}
-	},
-	"heating-supply": {
-		path: "M 370 590 V 825",
-		arrow: {
-			x: 370,
-			y: 746,
-			angle: 90
-		}
-	},
-	"heating-return": {
-		path: "M 480 825 V 636 H 370",
-		arrow: {
-			x: 480,
-			y: 746,
-			angle: -90
-		}
-	}
-}, gt = {
 	"hp-supply": "heatPumpSupplyTemperature",
 	"hp-return": "heatPumpReturnTemperature",
 	"dhw-supply": "heatPumpSupplyTemperature",
@@ -1433,7 +1359,7 @@ var ct = {
 	"system-return": "heatingReturnTemperature",
 	"heating-supply": "heatingSupplyTemperature",
 	"heating-return": "heatingReturnTemperature"
-}, _t = {
+}, gt = {
 	"hp-supply": "Wärmepumpen-Vorlauf",
 	"hp-return": "Wärmepumpen-Rücklauf",
 	"dhw-supply": "Warmwasser-Vorlauf",
@@ -1442,7 +1368,7 @@ var ct = {
 	"system-return": "System-Rücklauf",
 	"heating-supply": "Heizkreis-Vorlauf",
 	"heating-return": "Heizkreis-Rücklauf"
-}, vt = {
+}, _t = {
 	"hp-supply": "Heat pump supply",
 	"hp-return": "Heat pump return",
 	"dhw-supply": "Hot-water supply",
@@ -1455,10 +1381,10 @@ var ct = {
 function H(...e) {
 	return e.filter(Boolean).join(" ");
 }
-function yt(e, t, n) {
+function vt(e, t, n) {
 	return Math.min(n, Math.max(t, e));
 }
-function bt(e, t, n) {
+function yt(e, t, n) {
 	switch (n.labelMode ?? "friendly") {
 		case "technical": return e;
 		case "friendly": return t;
@@ -1466,14 +1392,14 @@ function bt(e, t, n) {
 		case "hidden": return "";
 	}
 }
-function U(e, t, n, r, i) {
+function bt(e, t, n, r, i) {
 	let a = i.labelMode ?? "friendly";
-	return a === "hidden" ? j : a === "both" ? k`
+	return a === "hidden" ? M : a === "both" ? A`
       <text class="component-title" x=${e} y=${t}>
         <tspan class="label-friendly">${r}</tspan>
         <tspan class="label-code" dx="6">· ${n}</tspan>
       </text>
-    ` : k`
+    ` : A`
     <text class="component-title" x=${e} y=${t}>
       <tspan class=${a === "technical" ? "label-code label-code--only" : "label-friendly"}>
         ${a === "technical" ? n : r}
@@ -1481,14 +1407,14 @@ function U(e, t, n, r, i) {
     </text>
   `;
 }
-function W(e, t, n, r, i, a = "micro-label", o = "start") {
+function U(e, t, n, r, i, a = "micro-label", o = "start") {
 	let s = i.labelMode ?? "friendly";
-	return s === "hidden" ? j : s === "both" ? k`
+	return s === "hidden" ? M : s === "both" ? A`
       <text class=${a} x=${e} y=${t - 6} text-anchor=${o}>
         <tspan class="label-friendly" x=${e}>${r}</tspan>
         <tspan class="label-code" x=${e} dy="12">${n}</tspan>
       </text>
-    ` : k`
+    ` : A`
     <text class=${a} x=${e} y=${t} text-anchor=${o}>
       <tspan class=${s === "technical" ? "label-code label-code--only" : "label-friendly"}>
         ${s === "technical" ? n : r}
@@ -1497,7 +1423,7 @@ function W(e, t, n, r, i, a = "micro-label", o = "start") {
   `;
 }
 function xt(e) {
-	let t = yt((e + 10) / 75, 0, 1), n = [
+	let t = vt((e + 10) / 75, 0, 1), n = [
 		55,
 		139,
 		230
@@ -1524,7 +1450,7 @@ function Ct(e, t) {
 function wt(e, t, n, r) {
 	return `${n}: ${e.values[t]?.display?.trim() || r.unavailable}`;
 }
-function G(e, t) {
+function W(e, t) {
 	return (n) => {
 		if (n instanceof KeyboardEvent) {
 			if (n.key !== "Enter" && n.key !== " ") return;
@@ -1533,63 +1459,63 @@ function G(e, t) {
 		e.onEntityClick?.(t);
 	};
 }
-function K(e, t) {
+function G(e, t) {
 	return !!(e.onEntityClick && e.isEntityClickable?.(t));
 }
-function Tt(e, t) {
+function K(e, t) {
 	return e === void 0 ? t.unavailable : e ? t.active : t.inactive;
 }
-function Et(e, t) {
+function Tt(e, t) {
 	return e.valvePosition === "heating" ? t.heatingPosition : e.valvePosition === "dhw" ? t.hotWaterPosition : t.unavailable;
 }
-function Dt(e) {
+function Et(e) {
 	let t = e.values.flowRate?.value;
-	return typeof t != "number" || !Number.isFinite(t) ? 2.2 : yt(2.9 - Math.abs(t) * .045, .8, 2.8);
+	return typeof t != "number" || !Number.isFinite(t) ? 2.2 : vt(2.9 - Math.abs(t) * .045, .8, 2.8);
 }
-function Ot(e) {
+function Dt(e) {
 	let t = e.fanSpeed ?? e.values.fanSpeed?.value;
-	return typeof t != "number" || !Number.isFinite(t) ? 1.5 : yt(2.2 - t / 75, .45, 2.1);
+	return typeof t != "number" || !Number.isFinite(t) ? 1.5 : vt(2.2 - t / 75, .45, 2.1);
 }
-function kt(e, t, n, r, i) {
-	let { state: a } = t, o = a.flow.segments[e], s = a.flow.visible && o.active, c = (n === ct ? _t : vt)[e], l = gt[e], u = s ? n.active : n.inactive, d = G(t, l), f = K(t, l), p = s && t.temperatureColoring && o.temperature !== void 0 && Number.isFinite(o.temperature) ? xt(o.temperature) : void 0, m = p ? `;--pipe-color:${p.color};--pipe-highlight:${p.highlight}` : "", h = i?.path ?? ut[e], g = i?.arrow ?? mt[e], ee = g.angle + (o.direction === "reverse" ? 180 : 0);
-	return k`
+function Ot(e, t, n, r) {
+	let { state: i } = t, a = i.flow.segments[e], o = i.flow.visible && a.active, s = (n === ct ? gt : _t)[e], c = ht[e], l = o ? n.active : n.inactive, u = W(t, c), d = G(t, c), f = o && t.temperatureColoring && a.temperature !== void 0 && Number.isFinite(a.temperature) ? xt(a.temperature) : void 0, p = f ? `;--pipe-color:${f.color};--pipe-highlight:${f.highlight}` : "", m = ut[e], h = mt[e], g = h.angle + (a.direction === "reverse" ? 180 : 0);
+	return A`
     <g
-      class=${H("pipe-segment", `pipe--${o.kind}`, `direction--${o.direction}`, s ? "is-active" : "is-muted", f && "is-clickable")}
+      class=${H("pipe-segment", `pipe--${a.kind}`, `direction--${a.direction}`, o ? "is-active" : "is-muted", d && "is-clickable")}
       data-segment=${e}
-      style=${`--flow-duration:${r.toFixed(2)}s${m}`}
-      role=${f ? "button" : j}
-      tabindex=${f ? "0" : j}
-      aria-label=${`${c}: ${u}`}
-      @click=${f ? d : j}
-      @keydown=${f ? d : j}
+      style=${`--flow-duration:${r.toFixed(2)}s${p}`}
+      role=${d ? "button" : M}
+      tabindex=${d ? "0" : M}
+      aria-label=${`${s}: ${l}`}
+      @click=${d ? u : M}
+      @keydown=${d ? u : M}
     >
-      <title>${c}: ${u}</title>
-      <path class="pipe-base" d=${h}></path>
-      <path class="pipe-energy" d=${h}></path>
-      <path class="pipe-flow" d=${h}></path>
+      <title>${s}: ${l}</title>
+      <path class="pipe-base" d=${m}></path>
+      <path class="pipe-energy" d=${m}></path>
+      <path class="pipe-flow" d=${m}></path>
       <path
         class="pipe-direction-arrow"
         d="M -7 -6 L 8 0 L -7 6 Z"
-        transform=${`translate(${g.x} ${g.y}) rotate(${ee})`}
+        transform=${`translate(${h.x} ${h.y}) rotate(${g})`}
         aria-hidden="true"
       ></path>
-      <path class="pipe-hit" d=${h}></path>
+      <path class="pipe-hit" d=${m}></path>
     </g>
   `;
 }
 function q(e, t, n) {
-	let { x: r, y: i, code: a, label: o, key: s, compact: c = !1 } = e, l = e.align ?? "start";
-	if (!t.state.values[s]) return j;
-	let u = G(t, s), d = Ct(t.state, s), f = K(t, s), p = r + (l === "end" ? -15 : 15);
-	return k`
+	let { x: r, y: i, code: a, label: o, key: s, small: c = !1 } = e, l = e.align ?? "start";
+	if (!t.state.values[s]) return M;
+	let u = W(t, s), d = Ct(t.state, s), f = G(t, s), p = r + (l === "end" ? -15 : 15);
+	return A`
     <g
       class=${H("diagram-component", f && "is-clickable")}
       data-value-key=${s}
-      role=${f ? "button" : j}
-      tabindex=${f ? "0" : j}
+      role=${f ? "button" : M}
+      tabindex=${f ? "0" : M}
       aria-label=${wt(t.state, s, o, n)}
-      @click=${f ? u : j}
-      @keydown=${f ? u : j}
+      @click=${f ? u : M}
+      @keydown=${f ? u : M}
     >
       <rect
         class="focus-ring"
@@ -1602,7 +1528,7 @@ function q(e, t, n) {
       <circle class="sensor-dot" cx=${r} cy=${i - 10} r="10"></circle>
       <rect class="sensor-mercury" x=${r - 1.5} y=${i - 16} width="3" height="11" rx="1.5"></rect>
       <circle class="sensor-mercury" cx=${r} cy=${i - 7} r="3.3"></circle>
-      ${W(p, i - 14, a, o, t, "sensor-code", l)}
+      ${U(p, i - 14, a, o, t, "sensor-code", l)}
       <text
         class=${H("sensor-value", c ? "sensor-value--small" : void 0)}
         x=${p}
@@ -1612,19 +1538,19 @@ function q(e, t, n) {
     </g>
   `;
 }
-function At(e, t) {
+function kt(e, t) {
 	let n = e.state.values.dhwTargetTemperature;
-	if (!n) return j;
-	let r = G(e, "dhwTargetTemperature"), i = K(e, "dhwTargetTemperature");
-	return k`
+	if (!n) return M;
+	let r = W(e, "dhwTargetTemperature"), i = G(e, "dhwTargetTemperature");
+	return A`
     <g
       class=${H("diagram-component", "dhw-target", i && "is-clickable")}
       data-value-key="dhwTargetTemperature"
-      role=${i ? "button" : j}
-      tabindex=${i ? "0" : j}
+      role=${i ? "button" : M}
+      tabindex=${i ? "0" : M}
       aria-label=${`${t.target}: ${n.display}`}
-      @click=${i ? r : j}
-      @keydown=${i ? r : j}
+      @click=${i ? r : M}
+      @keydown=${i ? r : M}
     >
       <rect class="focus-ring" x="111" y="410" width="94" height="28" rx="8"></rect>
       <text class="sensor-target" x="189" y="428" text-anchor="end">
@@ -1634,17 +1560,17 @@ function At(e, t) {
     </g>
   `;
 }
-function jt(e, t, n) {
-	let r = e.state.fanActive ?? (n ? !0 : void 0), i = r === !0, a = G(e, "fan"), o = K(e, "fan");
-	return k`
+function At(e, t, n) {
+	let r = e.state.fanActive ?? (n ? !0 : void 0), i = r === !0, a = W(e, "fan"), o = G(e, "fan");
+	return A`
     <g
       class=${H("diagram-component", "fan", i && "is-on", r === void 0 && "is-unknown", o && "is-clickable")}
-      style=${`--fan-duration:${Ot(e.state).toFixed(2)}s`}
-      role=${o ? "button" : j}
-      tabindex=${o ? "0" : j}
-      aria-label=${`${t.fan}: ${Tt(r, t)}`}
-      @click=${o ? a : j}
-      @keydown=${o ? a : j}
+      style=${`--fan-duration:${Dt(e.state).toFixed(2)}s`}
+      role=${o ? "button" : M}
+      tabindex=${o ? "0" : M}
+      aria-label=${`${t.fan}: ${K(r, t)}`}
+      @click=${o ? a : M}
+      @keydown=${o ? a : M}
     >
       <circle class="focus-ring" cx="420" cy="122" r="49"></circle>
       <circle class="interactive-surface" cx="420" cy="122" r="42"></circle>
@@ -1655,39 +1581,39 @@ function jt(e, t, n) {
         <path class="fan-blade" d="M 416 114 C 409 99 412 84 423 82 C 435 80 439 93 432 106 L 425 116 Z" transform="rotate(270 420 122)"></path>
       </g>
       <circle class="fan-hub" cx="420" cy="122" r="9"></circle>
-      ${W(420, 181, "FAN", t.fan, e, "micro-label", "middle")}
+      ${U(420, 181, "FAN", t.fan, e, "micro-label", "middle")}
     </g>
   `;
 }
-function Mt(e, t) {
-	let n = e.state.compressorActive, r = n === !0, i = G(e, "compressor"), a = K(e, "compressor");
-	return k`
+function jt(e, t) {
+	let n = e.state.compressorActive, r = n === !0, i = W(e, "compressor"), a = G(e, "compressor");
+	return A`
     <g
       class=${H("diagram-component", "compressor", r && "is-on", n === void 0 && "is-unknown", a && "is-clickable")}
-      role=${a ? "button" : j}
-      tabindex=${a ? "0" : j}
-      aria-label=${`${t.compressor}: ${Tt(n, t)}`}
-      @click=${a ? i : j}
-      @keydown=${a ? i : j}
+      role=${a ? "button" : M}
+      tabindex=${a ? "0" : M}
+      aria-label=${`${t.compressor}: ${K(n, t)}`}
+      @click=${a ? i : M}
+      @keydown=${a ? i : M}
     >
       <rect class="focus-ring" x="566" y="82" width="58" height="86" rx="16"></rect>
       <rect class="compressor-body" x="574" y="91" width="42" height="68" rx="14"></rect>
       <path class="compressor-wave" d="M 584 132 C 590 112, 600 150, 607 117"></path>
       <path class="compressor-wave" d="M 583 104 H 607"></path>
-      ${W(595, 181, "COMP", t.compressor, e, "micro-label", "middle")}
+      ${U(595, 181, "COMP", t.compressor, e, "micro-label", "middle")}
     </g>
   `;
 }
-function Nt(e, t, n, r, i, a, o, s) {
-	let c = G(o, i), l = a === !0, u = K(o, i);
-	return k`
+function Mt(e, t, n, r, i, a, o, s) {
+	let c = W(o, i), l = a === !0, u = G(o, i);
+	return A`
     <g
       class=${H("diagram-component", "pump", l && "is-on", a === void 0 && "is-unknown", u && "is-clickable")}
-      role=${u ? "button" : j}
-      tabindex=${u ? "0" : j}
-      aria-label=${`${r}: ${Tt(a, s)}`}
-      @click=${u ? c : j}
-      @keydown=${u ? c : j}
+      role=${u ? "button" : M}
+      tabindex=${u ? "0" : M}
+      aria-label=${`${r}: ${K(a, s)}`}
+      @click=${u ? c : M}
+      @keydown=${u ? c : M}
     >
       <circle class="focus-ring" cx=${e} cy=${t} r="27"></circle>
       <circle class="interactive-surface" cx=${e} cy=${t} r="18"></circle>
@@ -1699,43 +1625,43 @@ function Nt(e, t, n, r, i, a, o, s) {
         </g>
       </g>
       <circle class="pump-hub" cx=${e} cy=${t} r="4"></circle>
-      ${W(e + 27, t + 4, n, r, o)}
+      ${U(e + 27, t + 4, n, r, o)}
     </g>
   `;
 }
-function Pt(e, t) {
-	let n = e.state.auxiliaryHeaterActive, r = n === !0, i = G(e, "auxiliaryHeater"), a = K(e, "auxiliaryHeater");
-	return k`
+function Nt(e, t) {
+	let n = e.state.auxiliaryHeaterActive, r = n === !0, i = W(e, "auxiliaryHeater"), a = G(e, "auxiliaryHeater");
+	return A`
     <g
       class=${H("diagram-component", "heater", r && "is-on", n === void 0 && "is-unknown", a && "is-clickable")}
-      role=${a ? "button" : j}
-      tabindex=${a ? "0" : j}
-      aria-label=${`${t.heater}: ${Tt(n, t)}`}
-      @click=${a ? i : j}
-      @keydown=${a ? i : j}
+      role=${a ? "button" : M}
+      tabindex=${a ? "0" : M}
+      aria-label=${`${t.heater}: ${K(n, t)}`}
+      @click=${a ? i : M}
+      @keydown=${a ? i : M}
     >
       <rect class="focus-ring" x="405" y="268" width="50" height="52" rx="9"></rect>
       <rect class="heater-body" x="414" y="274" width="32" height="40" rx="7"></rect>
       <path class="heater-bolt" d="M 432 280 L 422 297 H 430 L 425 308 L 440 290 H 432 Z"></path>
-      ${W(454, 295, "DHK", t.heater, e)}
+      ${U(454, 295, "DHK", t.heater, e)}
     </g>
   `;
 }
-function Ft(e, t) {
-	let n = e.state.valvePosition, r = G(e, "diverterValve"), i = K(e, "diverterValve"), a = n === "dhw" ? "M 430 389 V 410 H 408" : n === "heating" ? "M 430 389 V 432" : void 0, o = n === "dhw" ? "translate(407 410) rotate(180)" : "translate(430 433) rotate(90)", s = e.state.flow.visible && (n === "dhw" ? e.state.flow.segments["dhw-supply"].active : n === "heating" && e.state.flow.segments["system-supply"].active);
-	return k`
+function Pt(e, t) {
+	let n = e.state.valvePosition, r = W(e, "diverterValve"), i = G(e, "diverterValve"), a = n === "dhw" ? "M 430 389 V 410 H 408" : n === "heating" ? "M 430 389 V 432" : void 0, o = n === "dhw" ? "translate(407 410) rotate(180)" : "translate(430 433) rotate(90)", s = e.state.flow.visible && (n === "dhw" ? e.state.flow.segments["dhw-supply"].active : n === "heating" && e.state.flow.segments["system-supply"].active);
+	return A`
     <g
       class=${H("diagram-component", "valve", `valve--${n}`, n === "unknown" && "is-unknown", i && "is-clickable")}
-      role=${i ? "button" : j}
-      tabindex=${i ? "0" : j}
-      aria-label=${`${t.diverterValve}: ${Et(e.state, t)}`}
-      @click=${i ? r : j}
-      @keydown=${i ? r : j}
+      role=${i ? "button" : M}
+      tabindex=${i ? "0" : M}
+      aria-label=${`${t.diverterValve}: ${Tt(e.state, t)}`}
+      @click=${i ? r : M}
+      @keydown=${i ? r : M}
     >
       <circle class="focus-ring" cx="430" cy="410" r="32"></circle>
       <circle class="valve-body" cx="430" cy="410" r="22"></circle>
       <path class="valve-route-base" d="M 430 388 V 410 H 408 M 430 410 V 432"></path>
-      ${a ? k`
+      ${a ? A`
             <path
               class=${H("valve-route-selected", s && "is-flowing")}
               d=${a}
@@ -1745,78 +1671,78 @@ function Ft(e, t) {
               d="M -5 -4 L 6 0 L -5 4 Z"
               transform=${o}
             ></path>
-          ` : j}
-      ${W(456, 396, "3WUV", t.diverterValve, e)}
-      ${e.labelMode === "hidden" ? j : k`
+          ` : M}
+      ${U(456, 396, "3WUV", t.diverterValve, e)}
+      ${e.labelMode === "hidden" ? M : A`
             <text class="valve-port-label" x="395" y="400" text-anchor="end">WW</text>
             <text class="valve-port-label" x="442" y="443">HK</text>
           `}
     </g>
   `;
 }
-function It(e, t) {
+function Ft(e, t) {
 	let n = e.state.values.systemPressure;
-	if (!n) return j;
-	let r = qe(n.value, e.systemPressureLimits), i = G(e, "systemPressure"), a = K(e, "systemPressure"), o = t.pressureStatus[r];
-	return k`
+	if (!n) return M;
+	let r = Ke(n.value, e.systemPressureLimits), i = W(e, "systemPressure"), a = G(e, "systemPressure"), o = t.pressureStatus[r];
+	return A`
     <g
       class=${H("diagram-component", "pressure-reading", `pressure-reading--${r}`, a && "is-clickable")}
       data-value-key="systemPressure"
       data-pressure-status=${r}
-      role=${a ? "button" : j}
-      tabindex=${a ? "0" : j}
+      role=${a ? "button" : M}
+      tabindex=${a ? "0" : M}
       aria-label=${`${t.systemPressure}: ${n.display}; ${o}`}
-      @click=${a ? i : j}
-      @keydown=${a ? i : j}
+      @click=${a ? i : M}
+      @keydown=${a ? i : M}
     >
       <rect class="focus-ring" x="438" y="454" width="124" height="60" rx="12"></rect>
       <rect class="pressure-reading-surface" x="442" y="458" width="116" height="52" rx="10"></rect>
       <path class="pressure-gauge-arc" d="M 447 487 A 11 11 0 0 1 469 487"></path>
       <path class="pressure-gauge-needle" d="M 458 486 L 465 476"></path>
       <circle class="pressure-gauge-hub" cx="458" cy="486" r="2.7"></circle>
-      ${W(478, 480, "DHK", t.systemPressureShort, e)}
+      ${U(478, 480, "DHK", t.systemPressureShort, e)}
       <text class="sensor-value sensor-value--small" x="478" y="503">${n.display}</text>
-      ${r === "normal" ? j : k`
+      ${r === "normal" ? M : A`
               <circle class="pressure-alert-badge" cx="547" cy="469" r="8"></circle>
               <text class="pressure-alert-mark" x="547" y="473" text-anchor="middle">!</text>
             `}
     </g>
   `;
 }
-function Lt(e, t) {
-	let n = !!e.state.values.flowRate, r = n && K(e, "flowRate"), i = G(e, "flowRate");
-	return k`
+function It(e, t) {
+	let n = !!e.state.values.flowRate, r = n && G(e, "flowRate"), i = W(e, "flowRate");
+	return A`
     <g
       class=${H("diagram-component", "flow-meter", r && "is-clickable")}
-      role=${r ? "button" : j}
-      tabindex=${r ? "0" : j}
+      role=${r ? "button" : M}
+      tabindex=${r ? "0" : M}
       aria-label=${n ? wt(e.state, "flowRate", t.flowRate, t) : t.flowRate}
-      @click=${r ? i : j}
-      @keydown=${r ? i : j}
+      @click=${r ? i : M}
+      @keydown=${r ? i : M}
     >
       <circle class="focus-ring" cx="430" cy="338" r="24"></circle>
       <circle class="junction" cx="430" cy="338" r="13"></circle>
       <path class="flow-meter__bars" d="M 430 327 V 349 M 424 330 V 346 M 436 330 V 346"></path>
-      ${W(450, 332, "DFL", t.flowRate, e)}
-      ${n ? k`<text class="sensor-value sensor-value--small" x="450" y="352">${Ct(e.state, "flowRate")}</text>` : j}
+      ${U(450, 332, "DFL", t.flowRate, e)}
+      ${n ? A`<text class="sensor-value sensor-value--small" x="450" y="352">${Ct(e.state, "flowRate")}</text>` : M}
     </g>
   `;
 }
-function Rt(e, t, n) {
-	let r = e.state.flow.segments["dhw-supply"], i = e.state.flow.visible && r.active, a = G(e, "dhwTemperature"), o = K(e, "dhwTemperature");
-	return k`
+function Lt(e, t, n) {
+	let r = e.state.flow.segments["dhw-supply"], i = e.state.flow.visible && r.active, a = W(e, "dhwTemperature"), o = G(e, "dhwTemperature");
+	return A`
     <g
       class=${H("diagram-component", o && "is-clickable")}
-      role=${o ? "button" : j}
-      tabindex=${o ? "0" : j}
+      role=${o ? "button" : M}
+      tabindex=${o ? "0" : M}
       aria-label=${wt(e.state, "dhwTemperature", t.hotWater, t)}
-      @click=${o ? a : j}
-      @keydown=${o ? a : j}
+      @click=${o ? a : M}
+      @keydown=${o ? a : M}
     >
       <rect class="focus-ring" x="43" y="307" width="205" height="251" rx="38"></rect>
       <rect class="tank-shell" x="51" y="315" width="189" height="235" rx="32"></rect>
       <path class="tank-water-line" d="M 70 376 Q 98 368 126 376 T 183 376 T 222 376"></path>
-      ${U(73, 348, "WW", t.hotWater, e)}
+      ${bt(73, 348, "WW", t.hotWater, e)}
     </g>
     <g
       class=${H("tank-coil", i && "is-active", r.direction === "reverse" && "direction--reverse")}
@@ -1834,20 +1760,20 @@ function Rt(e, t, n) {
     </g>
   `;
 }
-function zt(e, t, n) {
-	let r = e.state.flow.segments["heating-supply"].active, i = e.state.flow.segments["heating-return"].active, a = e.state.flow.visible && r && i, o = e.state.flow.segments["heating-supply"].direction, s = G(e, "heatingSupplyTemperature"), c = K(e, "heatingSupplyTemperature"), l = "M 720 325 V 222 H 742 V 292 H 764 V 222 H 786 V 292 H 808 V 222 H 830 V 325";
-	return k`
+function Rt(e, t, n) {
+	let r = e.state.flow.segments["heating-supply"].active, i = e.state.flow.segments["heating-return"].active, a = e.state.flow.visible && r && i, o = e.state.flow.segments["heating-supply"].direction, s = W(e, "heatingSupplyTemperature"), c = G(e, "heatingSupplyTemperature"), l = "M 720 325 V 222 H 742 V 292 H 764 V 222 H 786 V 292 H 808 V 222 H 830 V 325";
+	return A`
     <g
       class=${H("diagram-component", "emitter", a && "is-active", c && "is-clickable")}
-      role=${c ? "button" : j}
-      tabindex=${c ? "0" : j}
+      role=${c ? "button" : M}
+      tabindex=${c ? "0" : M}
       aria-label=${`${t.heatingCircuit}: ${a ? t.active : t.inactive}`}
-      @click=${c ? s : j}
-      @keydown=${c ? s : j}
+      @click=${c ? s : M}
+      @keydown=${c ? s : M}
     >
       <rect class="focus-ring" x="682" y="157" width="186" height="176" rx="22"></rect>
       <rect class="component-panel" x="690" y="165" width="170" height="160" rx="18"></rect>
-      ${U(710, 194, "HK", t.heatingCircuit, e)}
+      ${bt(710, 194, "HK", t.heatingCircuit, e)}
       ${[
 		0,
 		1,
@@ -1855,7 +1781,7 @@ function zt(e, t, n) {
 		3,
 		4,
 		5
-	].map((e) => k`<rect
+	].map((e) => A`<rect
             class="emitter-fin"
             x=${713 + e * 22}
             y="211"
@@ -1875,52 +1801,52 @@ function zt(e, t, n) {
     </g>
   `;
 }
-function Bt(e) {
-	return e === "heating" ? k`
+function zt(e) {
+	return e === "heating" ? A`
       <g class="status-pill__icon" aria-hidden="true">
         <path
           class="status-pill__icon-fill"
           d="M 0 11 C -8 7 -10 1 -7 -5 C -5 -9 -1 -11 0 -16 C 7 -10 11 -4 10 2 C 9 8 5 11 0 11 Z M 0 7 C 4 5 5 1 3 -3 C 0 -1 -2 2 -2 5 C -2 6 -1 7 0 7 Z"
         ></path>
       </g>
-    ` : e === "dhw" ? k`
+    ` : e === "dhw" ? A`
       <g class="status-pill__icon" aria-hidden="true">
         <path
           class="status-pill__icon-fill"
           d="M 0 -15 C -7 -6 -11 -1 -11 5 A 11 11 0 0 0 11 5 C 11 -1 7 -6 0 -15 Z"
         ></path>
       </g>
-    ` : e === "fault" ? k`
+    ` : e === "fault" ? A`
       <g class="status-pill__icon" aria-hidden="true">
         <path d="M 0 -14 L 14 11 H -14 Z"></path>
         <path d="M 0 -6 V 3 M 0 7 V 8"></path>
       </g>
-    ` : e === "idle" ? k`
+    ` : e === "idle" ? A`
       <g class="status-pill__icon" aria-hidden="true">
         <circle cx="0" cy="0" r="12"></circle>
         <path d="M -4 -5 V 5 M 4 -5 V 5"></path>
       </g>
-    ` : k`
+    ` : A`
     <g class="status-pill__icon" aria-hidden="true">
       <path d="M -13 0 H 13 M -6 -11 L 6 11 M 6 -11 L -6 11"></path>
       <path d="M -13 0 L -9 -4 M -13 0 L -9 4 M 13 0 L 9 -4 M 13 0 L 9 4"></path>
-      ${e === "defrost" ? k`<path class="status-pill__icon-fill" d="M 14 3 C 9 10 8 12 8 15 A 6 6 0 0 0 20 15 C 20 12 19 10 14 3 Z"></path>` : j}
+      ${e === "defrost" ? A`<path class="status-pill__icon-fill" d="M 14 3 C 9 10 8 12 8 15 A 6 6 0 0 0 20 15 C 20 12 19 10 14 3 Z"></path>` : M}
     </g>
   `;
 }
-function Vt(e, t) {
+function Bt(e, t) {
 	let n = t.mode[e.mode] ?? e.rawMode ?? t.mode.idle, r = e.mode === "dhw" ? 280 : e.mode === "heating" || e.mode === "cooling" ? 220 : e.mode === "defrost" ? 200 : e.mode === "idle" ? 190 : 180;
-	return k`
+	return A`
     <g class="status-pill" data-mode=${e.mode} role="status" aria-label=${n}>
       <rect class="status-pill__surface" x="24" y="24" width=${r} height="44" rx="22"></rect>
-      <g transform="translate(50 46)">${Bt(e.mode)}</g>
+      <g transform="translate(50 46)">${zt(e.mode)}</g>
       <text class="status-pill__text" x="75" y="51">${n}</text>
     </g>
   `;
 }
-function Ht(e) {
-	let { state: t } = e, n = St(e.locale), r = Dt(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
-	return k`
+function Vt(e) {
+	let { state: t } = e, n = St(e.locale), r = Et(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
+	return A`
     <svg
       class=${H("flow-diagram", `mode--${t.mode}`, e.animationsPaused && "animations-paused")}
       data-layout="wide"
@@ -1950,8 +1876,8 @@ function Ht(e) {
       </defs>
 
       <rect class="diagram-bg" width="930" height="720" rx="24"></rect>
-      ${t.faultActive ? k`<rect class="fault-overlay" width="930" height="720" rx="24"></rect>` : j}
-      ${Vt(t, n)}
+      ${t.faultActive ? A`<rect class="fault-overlay" width="930" height="720" rx="24"></rect>` : M}
+      ${Bt(t, n)}
 
       <!-- Component surfaces form the quiet background; live pipes stay legible above them. -->
       <g aria-hidden="true">
@@ -1959,8 +1885,8 @@ function Ht(e) {
         <rect class="component-panel" x="370" y="236" width="240" height="280" rx="22"></rect>
       </g>
 
+      ${Lt(e, n, r)}
       ${Rt(e, n, r)}
-      ${zt(e, n, r)}
 
       <!-- The collector sits behind both horizontal pipes so flow remains visible through it. -->
       <g class=${H("collector", c && "is-active")} aria-label=${n.collector}>
@@ -1978,13 +1904,13 @@ function Ht(e) {
 		"system-return",
 		"heating-supply",
 		"heating-return"
-	].map((t) => kt(t, e, n, r))}
+	].map((t) => Ot(t, e, n, r))}
       </g>
 
       <!-- Outdoor unit -->
       <g class="outdoor-unit" aria-label=${n.outdoorUnit}>
-        ${U(372, 65, "WP", n.outdoorUnit, e)}
-        ${jt(e, n, s)}
+        ${bt(372, 65, "WP", n.outdoorUnit, e)}
+        ${At(e, n, s)}
         <g class="heat-exchanger" aria-hidden="true">
           <rect
             class="component-panel--inner"
@@ -2015,19 +1941,19 @@ function Ht(e) {
           <path class="outdoor-water__base" d=${ft}></path>
           <path class="outdoor-water__flow" d=${ft}></path>
         </g>
-        ${Mt(e, n)}
+        ${jt(e, n)}
       </g>
 
       <!-- Hydraulic module -->
       <g aria-label=${n.hydraulicModule}>
-        ${U(390, 263, "HM", n.hydraulicModule, e)}
+        ${bt(390, 263, "HM", n.hydraulicModule, e)}
+        ${Nt(e, n)}
+        ${It(e, n)}
         ${Pt(e, n)}
-        ${Lt(e, n)}
-        ${Ft(e, n)}
-        ${Nt(570, 430, "ZHP", n.primaryPump, "primaryPump", t.primaryPumpActive, e, n)}
+        ${Mt(570, 430, "ZHP", n.primaryPump, "primaryPump", t.primaryPumpActive, e, n)}
       </g>
 
-        ${Nt(720, 430, "HKP", n.heatingPump, "heatingCircuitPump", t.heatingCircuitPumpActive, e, n)}
+        ${Mt(720, 430, "HKP", n.heatingPump, "heatingCircuitPump", t.heatingCircuitPumpActive, e, n)}
 
       <!-- Readings are rendered last and stay readable above animated paths. -->
       ${q({
@@ -2037,7 +1963,7 @@ function Ht(e) {
 		label: n.outdoorTemperature,
 		key: "outdoorTemperature",
 		align: "end",
-		compact: !0
+		small: !0
 	}, e, n)}
       ${q({
 		x: 570,
@@ -2054,7 +1980,7 @@ function Ht(e) {
 		label: n.boilerTemperature,
 		key: "heatPumpSupplyTemperature",
 		align: "end",
-		compact: !0
+		small: !0
 	}, e, n)}
       ${q({
 		x: 204,
@@ -2063,9 +1989,9 @@ function Ht(e) {
 		label: n.storage,
 		key: "dhwTemperature",
 		align: "end",
-		compact: !0
+		small: !0
 	}, e, n)}
-      ${At(e, n)}
+      ${kt(e, n)}
       ${q({
 		x: 640,
 		y: 535,
@@ -2073,9 +1999,9 @@ function Ht(e) {
 		label: n.collectorTemperature,
 		key: "systemTemperature",
 		align: "start",
-		compact: !0
+		small: !0
 	}, e, n)}
-      ${It(e, n)}
+      ${Ft(e, n)}
       ${q({
 		x: 720,
 		y: 380,
@@ -2083,7 +2009,7 @@ function Ht(e) {
 		label: n.supply,
 		key: "heatingSupplyTemperature",
 		align: "end",
-		compact: !0
+		small: !0
 	}, e, n)}
       ${q({
 		x: 830,
@@ -2092,233 +2018,26 @@ function Ht(e) {
 		label: n.return,
 		key: "heatingReturnTemperature",
 		align: "start",
-		compact: !0
+		small: !0
 	}, e, n)}
 
-      ${!e.showLegend || e.labelMode === "hidden" ? j : k`
+      ${!e.showLegend || e.labelMode === "hidden" ? M : A`
               <g class="flow-legend" aria-hidden="true">
                 <line class="pipe-base" x1="620" y1="690" x2="642" y2="690" style="--pipe-color:var(--wolf-supply-color);opacity:.75"></line>
-                <text class="micro-label" x="658" y="694">${bt("VL", n.supply, e)}</text>
+                <text class="micro-label" x="658" y="694">${yt("VL", n.supply, e)}</text>
                 <line class="pipe-base" x1="792" y1="690" x2="814" y2="690" style="--pipe-color:var(--wolf-return-color);opacity:.75"></line>
-                <text class="micro-label" x="830" y="694">${bt("RL", n.return, e)}</text>
+                <text class="micro-label" x="830" y="694">${yt("RL", n.return, e)}</text>
               </g>
             `}
     </svg>
   `;
 }
-function Ut(e) {
-	let { state: t } = e, n = St(e.locale), r = Dt(t), i = t.flow.segments["hp-supply"], a = t.flow.segments["hp-return"], o = t.flow.visible && i.active && a.active, s = t.compressorActive === !0 || t.compressorActive === void 0 && t.fanActive === void 0 && o, c = t.flow.visible && t.flow.segments["system-supply"].active;
-	return k`
-    <svg
-      class=${H("flow-diagram", "flow-diagram--compact", `mode--${t.mode}`, e.animationsPaused && "animations-paused")}
-      data-layout="compact"
-      viewBox="0 0 520 940"
-      preserveAspectRatio="xMidYMid meet"
-      role="group"
-      aria-labelledby="wolf-compact-flow-title wolf-compact-flow-description"
-    >
-      <title id="wolf-compact-flow-title">${n.title}</title>
-      <desc id="wolf-compact-flow-description">${n.description}</desc>
-      <defs>
-        <linearGradient id="wolf-tank-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--wolf-supply-color)" stop-opacity="0.22"></stop>
-          <stop offset="48%" stop-color="var(--wolf-panel-color)" stop-opacity="0.86"></stop>
-          <stop offset="100%" stop-color="var(--wolf-return-color)" stop-opacity="0.25"></stop>
-        </linearGradient>
-        <linearGradient id="wolf-coil-gradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="var(--wolf-supply-color)"></stop>
-          <stop offset="53%" stop-color="#b35e9e"></stop>
-          <stop offset="100%" stop-color="var(--wolf-return-color)"></stop>
-        </linearGradient>
-        <linearGradient id="wolf-collector-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--wolf-supply-color)" stop-opacity="0.9"></stop>
-          <stop offset="46%" stop-color="#b25b9d" stop-opacity="0.78"></stop>
-          <stop offset="100%" stop-color="var(--wolf-return-color)" stop-opacity="0.9"></stop>
-        </linearGradient>
-      </defs>
-
-      <rect class="diagram-bg" width="520" height="940" rx="24"></rect>
-      ${t.faultActive ? k`<rect class="fault-overlay" width="520" height="940" rx="24"></rect>` : j}
-      ${Vt(t, n)}
-
-      <!-- Portrait regions keep their native SVG size and are rearranged instead of scaled. -->
-      <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)" aria-hidden="true">
-        <rect class="component-panel" x="350" y="35" width="300" height="170" rx="22"></rect>
-      </g>
-      <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)" aria-hidden="true">
-        <rect class="component-panel" x="370" y="236" width="240" height="280" rx="22"></rect>
-      </g>
-
-      <g class="diagram-region diagram-region--dhw" transform="translate(-41 305)">
-        ${Rt(e, n, r)}
-      </g>
-      <g class="diagram-region diagram-region--heating" transform="translate(-350 500)">
-        ${zt(e, n, r)}
-      </g>
-
-      <g
-        class=${H("collector", c && "is-active")}
-        transform="translate(-290 0)"
-        aria-label=${n.collector}
-      >
-        <rect class="collector-body" x="616" y="546" width="48" height="102" rx="8"></rect>
-        <path class="tank-water-line" d="M 622 596 H 658"></path>
-      </g>
-
-      <g class="hydraulic-pipes">
-        ${[
-		"hp-supply",
-		"hp-return",
-		"dhw-supply",
-		"dhw-return",
-		"system-supply",
-		"system-return",
-		"heating-supply",
-		"heating-return"
-	].map((t) => kt(t, e, n, r, ht[t]))}
-      </g>
-
-      <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)">
-        ${U(372, 65, "WP", n.outdoorUnit, e)}
-        ${jt(e, n, s)}
-        <g class="heat-exchanger" aria-hidden="true">
-          <rect
-            class="component-panel--inner"
-            x="477"
-            y="92"
-            width="80"
-            height="62"
-            rx="8"
-          ></rect>
-          <path class="heat-exchanger-fin heat-exchanger-fin--hot" d="M 481 101 H 552"></path>
-          <path class="heat-exchanger-fin heat-exchanger-fin--hot" d="M 481 114 H 552"></path>
-          <path class="heat-exchanger-fin heat-exchanger-fin--cold" d="M 481 132 H 552"></path>
-          <path class="heat-exchanger-fin heat-exchanger-fin--cold" d="M 481 145 H 552"></path>
-        </g>
-        <g
-          class=${H("outdoor-water", "pipe--supply", o && "is-active", i.direction === "reverse" && "direction--reverse")}
-          style=${`--flow-duration:${r.toFixed(2)}s`}
-          aria-hidden="true"
-        >
-          <path class="outdoor-water__base" d=${dt}></path>
-          <path class="outdoor-water__flow" d=${dt}></path>
-        </g>
-        <g
-          class=${H("outdoor-water", "pipe--return", o && "is-active", a.direction === "reverse" && "direction--reverse")}
-          style=${`--flow-duration:${r.toFixed(2)}s`}
-          aria-hidden="true"
-        >
-          <path class="outdoor-water__base" d=${ft}></path>
-          <path class="outdoor-water__flow" d=${ft}></path>
-        </g>
-        ${Mt(e, n)}
-      </g>
-
-      <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)">
-        ${U(390, 263, "HM", n.hydraulicModule, e)}
-        ${Pt(e, n)}
-        ${Lt(e, n)}
-        ${Ft(e, n)}
-        ${Nt(570, 430, "ZHP", n.primaryPump, "primaryPump", t.primaryPumpActive, e, n)}
-      </g>
-
-      <g class="diagram-region diagram-region--heating-pump" transform="translate(-350 230)">
-        ${Nt(720, 430, "HKP", n.heatingPump, "heatingCircuitPump", t.heatingCircuitPumpActive, e, n)}
-      </g>
-
-      <!-- Readings stay above the portrait pipes and retain their more-info targets. -->
-      <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)">
-        ${q({
-		x: 330,
-		y: 130,
-		code: "AT",
-		label: n.outdoorTemperature,
-		key: "outdoorTemperature",
-		align: "start",
-		compact: !0
-	}, e, n)}
-        ${q({
-		x: 570,
-		y: 235,
-		code: "RL",
-		label: n.return,
-		key: "heatPumpReturnTemperature",
-		align: "start"
-	}, e, n)}
-      </g>
-      <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)">
-        ${q({
-		x: 430,
-		y: 370,
-		code: "KF",
-		label: n.boilerTemperature,
-		key: "heatPumpSupplyTemperature",
-		align: "end",
-		compact: !0
-	}, e, n)}
-        ${It(e, n)}
-      </g>
-      <g class="diagram-region diagram-region--dhw" transform="translate(-41 305)">
-        ${q({
-		x: 204,
-		y: 395,
-		code: "SF",
-		label: n.storage,
-		key: "dhwTemperature",
-		align: "end",
-		compact: !0
-	}, e, n)}
-        ${At(e, n)}
-      </g>
-      <g class="diagram-region diagram-region--collector" transform="translate(-290 0)">
-        ${q({
-		x: 640,
-		y: 535,
-		code: "SAF",
-		label: n.collectorTemperature,
-		key: "systemTemperature",
-		align: "start",
-		compact: !0
-	}, e, n)}
-      </g>
-      <g class="diagram-region diagram-region--heating" transform="translate(-350 500)">
-        ${q({
-		x: 720,
-		y: 380,
-		code: "HK-VL",
-		label: n.supply,
-		key: "heatingSupplyTemperature",
-		align: "end",
-		compact: !0
-	}, e, n)}
-        ${q({
-		x: 830,
-		y: 380,
-		code: "HK-RL",
-		label: n.return,
-		key: "heatingReturnTemperature",
-		align: "end",
-		compact: !0
-	}, e, n)}
-      </g>
-
-      ${!e.showLegend || e.labelMode === "hidden" ? j : k`
-              <g class="flow-legend" aria-hidden="true">
-                <line class="pipe-base" x1="174" y1="914" x2="200" y2="914" style="--pipe-color:var(--wolf-supply-color);opacity:.75"></line>
-                <text class="micro-label" x="216" y="919">${bt("VL", n.supply, e)}</text>
-                <line class="pipe-base" x1="344" y1="914" x2="370" y2="914" style="--pipe-color:var(--wolf-return-color);opacity:.75"></line>
-                <text class="micro-label" x="386" y="919">${bt("RL", n.return, e)}</text>
-              </g>
-            `}
-    </svg>
-  `;
-}
-function Wt(e) {
-	return e.compact ? Ut(e) : Ht(e);
+function Ht(e) {
+	return Vt(e);
 }
 //#endregion
 //#region src/state-resolver.ts
-var Gt = /* @__PURE__ */ new Set(["unknown", "unavailable"]), Kt = {
+var Ut = /* @__PURE__ */ new Set(["unknown", "unavailable"]), Wt = {
 	outdoorTemperature: "outdoor_temperature",
 	heatPumpSupplyTemperature: "heat_pump_supply_temperature",
 	heatPumpReturnTemperature: "heat_pump_return_temperature",
@@ -2337,26 +2056,26 @@ var Gt = /* @__PURE__ */ new Set(["unknown", "unavailable"]), Kt = {
 	compressorModulation: "compressor_modulation",
 	compressorFrequency: "compressor_frequency"
 };
-function qt(e) {
+function Gt(e) {
 	if (e == null) return;
 	let t = String(e).trim().toLocaleLowerCase("de-DE");
 	if (t) return t.replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue").replaceAll("ß", "ss").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "");
 }
-function Jt(e) {
-	let t = qt(e);
-	return t === void 0 || Gt.has(t);
+function Kt(e) {
+	let t = Gt(e);
+	return t === void 0 || Ut.has(t);
 }
-function Yt(e, t) {
+function qt(e, t) {
 	if (!t) return;
 	let n = e.states[t];
-	return n && !Jt(n.state) ? n : void 0;
+	return n && !Kt(n.state) ? n : void 0;
 }
-function Xt(e, t) {
-	let n = Yt(e, t)?.state;
+function Jt(e, t) {
+	let n = qt(e, t)?.state;
 	return typeof n == "string" ? n.trim() : void 0;
 }
-function Zt(e) {
-	if (Jt(e)) return;
+function Yt(e) {
+	if (Kt(e)) return;
 	if (typeof e == "number") return Number.isFinite(e) ? e : void 0;
 	if (typeof e != "string") return;
 	let t = e.trim(), n = /^[+-]?\d+,\d+(?:e[+-]?\d+)?$/i.test(t) ? t.replace(",", ".") : t;
@@ -2364,10 +2083,10 @@ function Zt(e) {
 	let r = Number(n);
 	return Number.isFinite(r) ? r : void 0;
 }
-function Qt(e, t) {
-	let n = Yt(e, t);
+function Xt(e, t) {
+	let n = qt(e, t);
 	if (!n || !t) return;
-	let r = Zt(n.state);
+	let r = Yt(n.state);
 	if (r === void 0) return;
 	let i = n.state.trim(), a = n.attributes.unit_of_measurement, o = typeof a == "string" && a.trim() ? a.trim() : void 0;
 	return {
@@ -2379,20 +2098,20 @@ function Qt(e, t) {
 	};
 }
 function J(e, t) {
-	let n = qt(e);
-	return n !== void 0 && t.some((e) => qt(e) === n);
+	let n = Gt(e);
+	return n !== void 0 && t.some((e) => Gt(e) === n);
 }
-function Y(e, t = Ve) {
-	if (!Jt(e)) {
+function Y(e, t = L) {
+	if (!Kt(e)) {
 		if (J(e, t.active)) return !0;
 		if (J(e, t.inactive)) return !1;
 	}
 }
-function $t(e, t = Ve) {
-	let n = Zt(e);
+function Zt(e, t = L) {
+	let n = Yt(e);
 	return n === void 0 ? Y(e, t) : n !== 0;
 }
-function en(e, t = Ve) {
+function Qt(e, t = L) {
 	return !J(e, [
 		"vorspülen",
 		"vorspuelen",
@@ -2400,7 +2119,7 @@ function en(e, t = Ve) {
 		"preflush"
 	]) && Y(e, t);
 }
-function tn(e, t) {
+function $t(e, t) {
 	return [
 		"fault",
 		"defrost",
@@ -2410,23 +2129,23 @@ function tn(e, t) {
 		"idle"
 	].find((n) => J(e, t[n]));
 }
-function nn(e, t) {
+function en(e, t) {
 	return J(e, t.dhw) ? "dhw" : J(e, t.heating) ? "heating" : "unknown";
 }
-function rn(e, t) {
+function tn(e, t) {
 	return J(e, t.cooling) ? "cooling" : J(e, t.heating) ? "heating" : "unknown";
 }
-function an(e, t) {
-	let n = tn(e.operationMode, t.operationMode);
-	if ($t(e.fault, t.binary) === !0 || n === "fault") return "fault";
+function nn(e, t) {
+	let n = $t(e.operationMode, t.operationMode);
+	if (Zt(e.fault, t.binary) === !0 || n === "fault") return "fault";
 	if (Y(e.defrostActive, t.binary) === !0 || n === "defrost") return "defrost";
 	if (n !== void 0) return n;
 	if (Y(e.dhwActive, t.binary) === !0) return "dhw";
 	if (Y(e.coolingActive, t.binary) === !0) return "cooling";
 	if (Y(e.heatingActive, t.binary) === !0) return "heating";
-	let r = nn(e.threeWayValve, t.threeWayValve);
+	let r = en(e.threeWayValve, t.threeWayValve);
 	if (r === "dhw") return "dhw";
-	let i = rn(e.heatingCoolingValve, t.heatingCoolingValve);
+	let i = tn(e.heatingCoolingValve, t.heatingCoolingValve);
 	return i === "cooling" ? "cooling" : r === "heating" || i === "heating" ? "heating" : "idle";
 }
 function X(e, t, n, r) {
@@ -2437,7 +2156,7 @@ function X(e, t, n, r) {
 		...r === void 0 ? {} : { temperature: r }
 	};
 }
-function on(e) {
+function rn(e) {
 	let t = typeof e.flowRateThreshold == "number" && Number.isFinite(e.flowRateThreshold) && e.flowRateThreshold >= 0 ? e.flowRateThreshold : .1, n = typeof e.flowRate == "number" && Number.isFinite(e.flowRate) && Math.abs(e.flowRate) > t, r = n && e.flowRate < 0, i = [
 		"heating",
 		"dhw",
@@ -2461,10 +2180,10 @@ function on(e) {
 	};
 }
 function Z(e, t, n) {
-	return Xt(e, t[n]);
+	return Jt(e, t[n]);
 }
-function sn(e, t) {
-	let n = z(t), { entities: r, mappings: i } = n, a = Z(e, r, "operation_mode"), o = Z(e, r, "fault"), s = Z(e, r, "defrost_active"), c = Z(e, r, "three_way_valve"), l = Z(e, r, "heating_cooling_valve"), u = nn(c, i.threeWayValve), d = rn(l, i.heatingCoolingValve), f = tn(a, i.operationMode), p = $t(o, i.binary), m = Y(s, i.binary), h = an({
+function an(e, t) {
+	let n = B(t), { entities: r, mappings: i } = n, a = Z(e, r, "operation_mode"), o = Z(e, r, "fault"), s = Z(e, r, "defrost_active"), c = Z(e, r, "three_way_valve"), l = Z(e, r, "heating_cooling_valve"), u = en(c, i.threeWayValve), d = tn(l, i.heatingCoolingValve), f = $t(a, i.operationMode), p = Zt(o, i.binary), m = Y(s, i.binary), h = nn({
 		operationMode: a,
 		fault: o,
 		defrostActive: s,
@@ -2474,11 +2193,11 @@ function sn(e, t) {
 		threeWayValve: c,
 		heatingCoolingValve: l
 	}, i), g = {};
-	for (let [t, n] of Object.entries(Kt)) {
-		let i = Qt(e, r[n]);
+	for (let [t, n] of Object.entries(Wt)) {
+		let i = Xt(e, r[n]);
 		i !== void 0 && (g[t] = i);
 	}
-	let ee = en(Z(e, r, "compressor"), i.binary), _ = g.fanSpeed?.value, v = Y(Z(e, r, "fan"), i.binary) ?? (_ === void 0 ? void 0 : _ > 0), y = Y(Z(e, r, "auxiliary_heater"), i.binary), b = Y(Z(e, r, "heating_circuit_pump"), i.binary), te = Y(Z(e, r, "primary_pump"), i.binary), x = on({
+	let ee = Qt(Z(e, r, "compressor"), i.binary), _ = g.fanSpeed?.value, v = Y(Z(e, r, "fan"), i.binary) ?? (_ === void 0 ? void 0 : _ > 0), y = Y(Z(e, r, "auxiliary_heater"), i.binary), b = Y(Z(e, r, "heating_circuit_pump"), i.binary), te = Y(Z(e, r, "primary_pump"), i.binary), x = rn({
 		mode: h,
 		valvePosition: u,
 		heatingCoolingValvePosition: d,
@@ -2514,7 +2233,7 @@ function sn(e, t) {
 }
 //#endregion
 //#region src/styles.ts
-var cn = o`
+var on = o`
   :host {
     --wolf-supply-color: var(--error-color, #ef4050);
     --wolf-supply-highlight: #ff8a94;
@@ -2696,57 +2415,9 @@ var cn = o`
     color: var(--wolf-secondary-text-color);
   }
 
-  .flow-diagram--compact {
-    min-height: 0;
-    max-height: none;
-  }
-
   .layout--wide .flow-diagram {
     min-height: 360px;
     max-height: min(82vh, 820px);
-  }
-
-  .flow-diagram--compact .component-title {
-    font-size: 23px;
-  }
-
-  .flow-diagram--compact .component-subtitle,
-  .flow-diagram--compact .sensor-code {
-    font-size: 18px;
-    letter-spacing: 0;
-  }
-
-  .flow-diagram--compact .micro-label {
-    font-size: 17px;
-    letter-spacing: 0;
-  }
-
-  .flow-diagram--compact .sensor-value {
-    font-size: 24px;
-  }
-
-  .flow-diagram--compact .sensor-value--small {
-    font-size: 21px;
-  }
-
-  .flow-diagram--compact .sensor-target {
-    font-size: 18px;
-  }
-
-  .flow-diagram--compact .valve-port-label {
-    font-size: 14px;
-  }
-
-  .flow-diagram--compact .status-pill__text {
-    font-size: 19px;
-  }
-
-  .flow-diagram--compact .pipe-hit {
-    stroke-width: 42px;
-  }
-
-  .flow-diagram--compact .diagram-component.is-clickable:focus-visible .focus-ring {
-    stroke-width: 3px;
   }
 
   .diagram-bg {
@@ -3625,10 +3296,6 @@ var cn = o`
     .flow-diagram {
       min-height: 260px;
     }
-
-    .flow-diagram--compact {
-      min-height: 0;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3665,15 +3332,11 @@ function Q(e, t, n, r) {
 }
 //#endregion
 //#region src/wolf-heat-pump-flow-card.ts
-var ln = 520, un = /* @__PURE__ */ new Set([
+var sn = /* @__PURE__ */ new Set([
 	"WOLF Wärmepumpe",
-	L("card.title", "de"),
-	L("card.title", "en")
-]);
-function dn(e, t) {
-	return e === "compact" || e === "wide" ? e : t !== void 0 && t <= ln ? "compact" : "wide";
-}
-var fn = {
+	I("card.title", "de"),
+	I("card.title", "en")
+]), cn = {
 	outdoorTemperature: "outdoor_temperature",
 	heatPumpSupplyTemperature: "heat_pump_supply_temperature",
 	heatPumpReturnTemperature: "heat_pump_return_temperature",
@@ -3698,7 +3361,7 @@ var fn = {
 	primaryPump: "primary_pump",
 	heatingCircuitPump: "heating_circuit_pump",
 	diverterValve: "three_way_valve"
-}, pn = [
+}, ln = [
 	{
 		valueKey: "electricalPower",
 		entityKey: "electrical_power",
@@ -3757,9 +3420,9 @@ var fn = {
 			t && t !== this.contextUnsubscribe && (this.contextUnsubscribe?.(), this.contextUnsubscribe = t), this.contextStates = e;
 		}, this.moreInfoForKey = (e) => {
 			if (!this.config) return;
-			let t = fn[e];
+			let t = cn[e];
 			if (!t) return;
-			let n = z(this.config).entities[t];
+			let n = B(this.config).entities[t];
 			n && this.dispatchEvent(new CustomEvent("hass-more-info", {
 				bubbles: !0,
 				composed: !0,
@@ -3767,27 +3430,27 @@ var fn = {
 			}));
 		}, this.isEntityClickable = (e) => {
 			if (!this.config) return !1;
-			let t = fn[e];
-			return t !== void 0 && !!z(this.config).entities[t];
+			let t = cn[e];
+			return t !== void 0 && !!B(this.config).entities[t];
 		};
 	}
 	static {
-		this.styles = cn;
+		this.styles = on;
 	}
 	static getConfigForm() {
 		return st();
 	}
 	static getStubConfig() {
-		let { type: e, ...t } = Xe();
+		let { type: e, ...t } = Ye();
 		if (e !== "custom:wolf-heat-pump-flow-card") throw Error("Invalid built-in card preset.");
 		return t;
 	}
 	setConfig(e) {
 		if (!e || typeof e != "object") throw Error("Invalid WOLF Heat Pump Flow Card configuration.");
-		if (e.type !== void 0 && e.type !== "custom:wolf-heat-pump-flow-card") throw Error(`Card type must be ${Fe}.`);
+		if (e.type !== void 0 && e.type !== "custom:wolf-heat-pump-flow-card") throw Error(`Card type must be ${Ie}.`);
 		this.config = {
 			...e,
-			type: Fe,
+			type: Ie,
 			entities: { ...e.entities },
 			state_mapping: e.state_mapping ? {
 				active: e.state_mapping.active ? [...e.state_mapping.active] : void 0,
@@ -3815,31 +3478,25 @@ var fn = {
 		}
 	}
 	firstUpdated() {
-		let e = this.renderRoot.querySelector(".flow-diagram-frame");
-		typeof ResizeObserver < "u" && e && (this.resizeObserver = new ResizeObserver(([e]) => {
-			let t = e?.contentRect.width;
-			if (!t || !Number.isFinite(t)) return;
-			let n = Math.round(t);
-			n !== this.measuredWidth && (this.measuredWidth = n);
-		}), this.resizeObserver.observe(e)), typeof IntersectionObserver < "u" && (this.visibilityObserver = new IntersectionObserver(([e]) => {
+		typeof IntersectionObserver < "u" && (this.visibilityObserver = new IntersectionObserver(([e]) => {
 			this.outsideViewport = e ? !e.isIntersecting : !1;
 		}, { rootMargin: "80px" }), this.visibilityObserver.observe(this));
 	}
 	disconnectedCallback() {
-		document.removeEventListener("visibilitychange", this.handleVisibilityChange), this.visibilityObserver?.disconnect(), this.visibilityObserver = void 0, this.resizeObserver?.disconnect(), this.resizeObserver = void 0, this.contextUnsubscribe?.(), this.contextUnsubscribe = void 0, super.disconnectedCallback();
+		document.removeEventListener("visibilitychange", this.handleVisibilityChange), this.visibilityObserver?.disconnect(), this.visibilityObserver = void 0, this.contextUnsubscribe?.(), this.contextUnsubscribe = void 0, super.disconnectedCallback();
 	}
 	shouldUpdate(e) {
 		return !(e.has("hass") && !this.config);
 	}
 	get language() {
 		let e = this.config?.language;
-		return e === "de" || e === "en" ? e : ze(this.hass?.locale?.language ?? this.hass?.language ?? (typeof navigator > "u" ? "de" : navigator.language));
+		return e === "de" || e === "en" ? e : Be(this.hass?.locale?.language ?? this.hass?.language ?? (typeof navigator > "u" ? "de" : navigator.language));
 	}
 	localizedTitle(e) {
-		return e && un.has(e) ? L("card.title", this.language) : e;
+		return e && sn.has(e) ? I("card.title", this.language) : e;
 	}
 	modeLabel(e) {
-		return L(`mode.${e.mode}`, this.language);
+		return I(`mode.${e.mode}`, this.language);
 	}
 	powerInKw(e) {
 		if (!e || !Number.isFinite(e.value)) return;
@@ -3857,20 +3514,20 @@ var fn = {
 		return Number.isFinite(r) && r >= 0 && r <= 20 ? r.toFixed(2) : void 0;
 	}
 	renderMetric(e, t, n, r, i) {
-		let a = this.config ? z(this.config).entities[n] : void 0, o = O`
+		let a = this.config ? B(this.config).entities[n] : void 0, o = k`
       <div class="metric-label">${e}</div>
       <div class="metric-value">${t}</div>
     `;
-		return a ? O`
+		return a ? k`
           <button
             class=${`metric${i ? ` metric--${i}` : ""}`}
             type="button"
             title=${r ?? `${e}: ${t}`}
-            @click=${() => this.moreInfoForKey(Object.entries(fn).find(([, e]) => e === n)?.[0] ?? "")}
+            @click=${() => this.moreInfoForKey(Object.entries(cn).find(([, e]) => e === n)?.[0] ?? "")}
           >
             ${o}
           </button>
-        ` : O`<div
+        ` : k`<div
           class=${`metric${i ? ` metric--${i}` : ""}`}
           title=${r ?? `${e}: ${t}`}
         >
@@ -3878,41 +3535,40 @@ var fn = {
         </div>`;
 	}
 	renderMetrics(e) {
-		if (!this.config) return j;
-		let t = z(this.config), n = [];
-		t.entities.operation_mode && e.rawMode && n.push(this.renderMetric(L("metric.operation_mode", this.language), this.modeLabel(e), "operation_mode", e.rawMode));
-		for (let r of pn) {
+		if (!this.config) return M;
+		let t = B(this.config), n = [];
+		t.entities.operation_mode && e.rawMode && n.push(this.renderMetric(I("metric.operation_mode", this.language), this.modeLabel(e), "operation_mode", e.rawMode));
+		for (let r of ln) {
 			if (!t.entities[r.entityKey]) continue;
 			let i = e.values[r.valueKey];
 			if (!i) continue;
-			let a = r.entityKey === "system_pressure" ? qe(i.value, t.system_pressure_limits) : void 0;
-			n.push(this.renderMetric(L(r.label, this.language), i.display, r.entityKey, void 0, a));
+			let a = r.entityKey === "system_pressure" ? Ke(i.value, t.system_pressure_limits) : void 0;
+			n.push(this.renderMetric(I(r.label, this.language), i.display, r.entityKey, void 0, a));
 		}
 		let r = this.derivedCop(e);
-		return !t.entities.cop && r && n.splice(Math.min(3, n.length), 0, this.renderMetric(`${L("metric.cop", this.language)}*`, r, "thermal_power", L("metric.cop_calculated_hint", this.language))), n.length ? O`<div class="metrics-grid">${n}</div>` : j;
+		return !t.entities.cop && r && n.splice(Math.min(3, n.length), 0, this.renderMetric(`${I("metric.cop", this.language)}*`, r, "thermal_power", I("metric.cop_calculated_hint", this.language))), n.length ? k`<div class="metrics-grid">${n}</div>` : M;
 	}
 	render() {
 		let e = this.hass ?? (this.contextStates ? { states: this.contextStates } : void 0);
-		if (!this.config || !e) return O`<ha-card
+		if (!this.config || !e) return k`<ha-card
         ><div class="configuration-hint">WOLF Heat Pump Flow Card</div></ha-card
       >`;
-		let t = z(this.config), n = this.localizedTitle(t.title), r = sn(e, this.config), i = !t.animations || this.outsideViewport || this.documentHidden, a = dn(t.layout, this.measuredWidth);
-		return O`
+		let t = B(this.config), n = this.localizedTitle(t.title), r = an(e, this.config), i = !t.animations || this.outsideViewport || this.documentHidden;
+		return k`
       <ha-card>
         <article
           class=${`card-shell layout--${t.layout}`}
-          aria-label=${n ?? L("card.title", this.language)}
+          aria-label=${n ?? I("card.title", this.language)}
         >
-          ${n ? O`
+          ${n ? k`
                   <header class="card-header-row">
                     <div class="card-title">${n}</div>
                   </header>
-                ` : j}
+                ` : M}
           <div class="flow-card-content">
             <div class="flow-diagram-frame">
-              ${Wt({
+              ${Ht({
 			state: r,
-			compact: a === "compact",
 			locale: this.language,
 			onEntityClick: this.moreInfoForKey,
 			isEntityClickable: this.isEntityClickable,
@@ -3930,11 +3586,11 @@ var fn = {
     `;
 	}
 };
-Q([Pe({ attribute: !1 })], $.prototype, "hass", void 0), Q([I()], $.prototype, "config", void 0), Q([I()], $.prototype, "outsideViewport", void 0), Q([I()], $.prototype, "documentHidden", void 0), Q([I()], $.prototype, "contextStates", void 0), Q([I()], $.prototype, "measuredWidth", void 0), customElements.get("wolf-heat-pump-flow-card") || customElements.define(Ie, $), window.customCards = window.customCards ?? [], window.customCards.some(({ type: e }) => e === "wolf-heat-pump-flow-card") || window.customCards.push({
-	type: Ie,
+Q([Pe({ attribute: !1 })], $.prototype, "hass", void 0), Q([Fe()], $.prototype, "config", void 0), Q([Fe()], $.prototype, "outsideViewport", void 0), Q([Fe()], $.prototype, "documentHidden", void 0), Q([Fe()], $.prototype, "contextStates", void 0), customElements.get("wolf-heat-pump-flow-card") || customElements.define(Le, $), window.customCards = window.customCards ?? [], window.customCards.some(({ type: e }) => e === "wolf-heat-pump-flow-card") || window.customCards.push({
+	type: Le,
 	name: "WOLF Heat Pump Flow Card",
 	description: "Animated WOLF heat-pump hydraulic flow visualization.",
 	preview: !0
 }), console.info("%c WOLF-HEAT-PUMP-FLOW-CARD %c v0.1.0", "color:#fff;background:#d51f2b;font-weight:700;padding:2px 6px;border-radius:3px 0 0 3px", "color:#fff;background:#30343b;font-weight:700;padding:2px 6px;border-radius:0 3px 3px 0");
 //#endregion
-export { $ as WolfHeatPumpFlowCard, dn as resolveDiagramLayout };
+export { $ as WolfHeatPumpFlowCard };

@@ -15,7 +15,6 @@ import { cardStyles } from "./styles";
 import {
   WOLF_CARD_TAG,
   WOLF_CARD_TYPE,
-  type CardLayout,
   type EntityKey,
   type HomeAssistantLike,
   type NumericValueKey,
@@ -24,22 +23,11 @@ import {
   type WolfHeatPumpFlowCardConfig,
 } from "./types";
 
-const COMPACT_LAYOUT_MAX_WIDTH = 520;
 const DEFAULT_CARD_TITLES = new Set([
   "WOLF Wärmepumpe",
   localize("card.title", "de"),
   localize("card.title", "en"),
 ]);
-
-export function resolveDiagramLayout(
-  layout: CardLayout,
-  measuredWidth?: number,
-): "compact" | "wide" {
-  if (layout === "compact" || layout === "wide") return layout;
-  return measuredWidth !== undefined && measuredWidth <= COMPACT_LAYOUT_MAX_WIDTH
-    ? "compact"
-    : "wide";
-}
 
 const CLICK_KEY_TO_ENTITY: Record<string, EntityKey> = {
   outdoorTemperature: "outdoor_temperature",
@@ -142,11 +130,7 @@ export class WolfHeatPumpFlowCard extends LitElement {
   @state()
   private contextStates?: HomeAssistantLike["states"];
 
-  @state()
-  private measuredWidth?: number;
-
   private visibilityObserver?: IntersectionObserver;
-  private resizeObserver?: ResizeObserver;
   private contextUnsubscribe?: () => void;
 
   private readonly handleVisibilityChange = (): void => {
@@ -230,17 +214,6 @@ export class WolfHeatPumpFlowCard extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    const frame = this.renderRoot.querySelector<HTMLElement>(".flow-diagram-frame");
-    if (typeof ResizeObserver !== "undefined" && frame) {
-      this.resizeObserver = new ResizeObserver(([entry]) => {
-        const width = entry?.contentRect.width;
-        if (!width || !Number.isFinite(width)) return;
-        const roundedWidth = Math.round(width);
-        if (roundedWidth !== this.measuredWidth) this.measuredWidth = roundedWidth;
-      });
-      this.resizeObserver.observe(frame);
-    }
-
     if (typeof IntersectionObserver !== "undefined") {
       this.visibilityObserver = new IntersectionObserver(
         ([entry]) => {
@@ -256,8 +229,6 @@ export class WolfHeatPumpFlowCard extends LitElement {
     document.removeEventListener("visibilitychange", this.handleVisibilityChange);
     this.visibilityObserver?.disconnect();
     this.visibilityObserver = undefined;
-    this.resizeObserver?.disconnect();
-    this.resizeObserver = undefined;
     this.contextUnsubscribe?.();
     this.contextUnsubscribe = undefined;
     super.disconnectedCallback();
@@ -431,8 +402,6 @@ export class WolfHeatPumpFlowCard extends LitElement {
     const title = this.localizedTitle(normalized.title);
     const resolvedState = resolveCardState(stateSource, this.config);
     const animationsPaused = !normalized.animations || this.outsideViewport || this.documentHidden;
-    const diagramLayout = resolveDiagramLayout(normalized.layout, this.measuredWidth);
-
     return html`
       <ha-card>
         <article
@@ -452,7 +421,6 @@ export class WolfHeatPumpFlowCard extends LitElement {
             <div class="flow-diagram-frame">
               ${renderFlowDiagram({
                 state: resolvedState,
-                compact: diagramLayout === "compact",
                 locale: this.language,
                 onEntityClick: this.moreInfoForKey,
                 isEntityClickable: this.isEntityClickable,

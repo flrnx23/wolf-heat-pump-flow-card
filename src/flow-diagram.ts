@@ -13,8 +13,6 @@ type ValueKey = keyof FlowDiagramState["values"];
 
 export interface FlowDiagramArgs {
   state: FlowDiagramState;
-  /** Uses the portrait geometry intended for narrow Home Assistant columns. */
-  compact?: boolean;
   /** Home Assistant language code. German and English labels are built in. */
   locale?: string;
   /** Called with a config/value role, which the card can resolve to an entity. */
@@ -29,7 +27,7 @@ export interface FlowDiagramArgs {
   temperatureColoring?: boolean;
   /** Optional user-defined thresholds for the heating-circuit pressure. */
   systemPressureLimits: SystemPressureLimits;
-  /** Shows the compact supply / return color legend below the diagram. */
+  /** Shows the small supply / return color legend below the diagram. */
   showLegend: boolean;
 }
 
@@ -182,46 +180,6 @@ const PIPE_ARROWS: Record<SegmentId, { x: number; y: number; angle: number }> = 
   "system-return": { x: 640, y: 620, angle: 180 },
   "heating-supply": { x: 720, y: 472, angle: -90 },
   "heating-return": { x: 830, y: 438, angle: 90 },
-};
-
-type PipeGeometry = {
-  path: string;
-  arrow: { x: number; y: number; angle: number };
-};
-
-const COMPACT_PIPE_GEOMETRY: Record<SegmentId, PipeGeometry> = {
-  "hp-supply": {
-    path: "M 190 245 V 449",
-    arrow: { x: 190, y: 282, angle: 90 },
-  },
-  "hp-return": {
-    path: "M 330 514 V 245",
-    arrow: { x: 330, y: 282, angle: -90 },
-  },
-  "dhw-supply": {
-    path: "M 190 449 H 199 V 715",
-    arrow: { x: 199, y: 610, angle: 90 },
-  },
-  "dhw-return": {
-    path: "M 199 820 H 330 V 514",
-    arrow: { x: 330, y: 610, angle: -90 },
-  },
-  "system-supply": {
-    path: "M 190 449 V 590 H 370",
-    arrow: { x: 286, y: 590, angle: 0 },
-  },
-  "system-return": {
-    path: "M 370 636 H 330 V 514",
-    arrow: { x: 350, y: 636, angle: 180 },
-  },
-  "heating-supply": {
-    path: "M 370 590 V 825",
-    arrow: { x: 370, y: 746, angle: 90 },
-  },
-  "heating-return": {
-    path: "M 480 825 V 636 H 370",
-    arrow: { x: 480, y: 746, angle: -90 },
-  },
 };
 
 const PIPE_ENTITY: Record<SegmentId, ValueKey> = {
@@ -400,7 +358,6 @@ function renderPipe(
   args: FlowDiagramArgs,
   labels: Labels,
   duration: number,
-  geometry?: PipeGeometry,
 ): TemplateResult {
   const { state } = args;
   const segment = state.flow.segments[id];
@@ -420,8 +377,8 @@ function renderPipe(
   const dynamicColor = palette
     ? `;--pipe-color:${palette.color};--pipe-highlight:${palette.highlight}`
     : "";
-  const path = geometry?.path ?? PIPE_PATHS[id];
-  const arrow = geometry?.arrow ?? PIPE_ARROWS[id];
+  const path = PIPE_PATHS[id];
+  const arrow = PIPE_ARROWS[id];
   const arrowAngle = arrow.angle + (segment.direction === "reverse" ? 180 : 0);
 
   return svg`
@@ -463,7 +420,7 @@ interface SensorOptions {
   label: string;
   key: ValueKey;
   align?: "start" | "middle" | "end";
-  compact?: boolean;
+  small?: boolean;
 }
 
 function renderSensor(
@@ -471,7 +428,7 @@ function renderSensor(
   args: FlowDiagramArgs,
   labels: Labels,
 ): TemplateResult | typeof nothing {
-  const { x, y, code, label, key, compact = false } = options;
+  const { x, y, code, label, key, small = false } = options;
   const align = options.align ?? "start";
   const present = Boolean(args.state.values[key]);
   if (!present) return nothing;
@@ -503,7 +460,7 @@ function renderSensor(
       <circle class="sensor-mercury" cx=${x} cy=${y - 7} r="3.3"></circle>
       ${renderCompactLabel(labelX, y - 14, code, label, args, "sensor-code", align)}
       <text
-        class=${classes("sensor-value", compact ? "sensor-value--small" : undefined)}
+        class=${classes("sensor-value", small ? "sensor-value--small" : undefined)}
         x=${labelX}
         y=${y + 9}
         text-anchor=${align}
@@ -1137,7 +1094,7 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
           label: labels.outdoorTemperature,
           key: "outdoorTemperature",
           align: "end",
-          compact: true,
+          small: true,
         },
         args,
         labels,
@@ -1162,7 +1119,7 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
           label: labels.boilerTemperature,
           key: "heatPumpSupplyTemperature",
           align: "end",
-          compact: true,
+          small: true,
         },
         args,
         labels,
@@ -1175,7 +1132,7 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
           label: labels.storage,
           key: "dhwTemperature",
           align: "end",
-          compact: true,
+          small: true,
         },
         args,
         labels,
@@ -1189,7 +1146,7 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
           label: labels.collectorTemperature,
           key: "systemTemperature",
           align: "start",
-          compact: true,
+          small: true,
         },
         args,
         labels,
@@ -1203,7 +1160,7 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
           label: labels.supply,
           key: "heatingSupplyTemperature",
           align: "end",
-          compact: true,
+          small: true,
         },
         args,
         labels,
@@ -1216,7 +1173,7 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
           label: labels.return,
           key: "heatingReturnTemperature",
           align: "start",
-          compact: true,
+          small: true,
         },
         args,
         labels,
@@ -1238,297 +1195,6 @@ function renderWideFlowDiagram(args: FlowDiagramArgs): TemplateResult {
   `;
 }
 
-function renderCompactFlowDiagram(args: FlowDiagramArgs): TemplateResult {
-  const { state } = args;
-  const labels = labelsFor(args.locale);
-  const duration = flowDuration(state);
-  const outdoorSupplySegment = state.flow.segments["hp-supply"];
-  const outdoorReturnSegment = state.flow.segments["hp-return"];
-  const outdoorFlowActive =
-    state.flow.visible && outdoorSupplySegment.active && outdoorReturnSegment.active;
-  const inferredFanActive =
-    state.compressorActive === true ||
-    (state.compressorActive === undefined && state.fanActive === undefined && outdoorFlowActive);
-  const collectorActive = state.flow.visible && state.flow.segments["system-supply"].active;
-  const diagramClass = classes(
-    "flow-diagram",
-    "flow-diagram--compact",
-    `mode--${state.mode}`,
-    args.animationsPaused && "animations-paused",
-  );
-
-  return svg`
-    <svg
-      class=${diagramClass}
-      data-layout="compact"
-      viewBox="0 0 520 940"
-      preserveAspectRatio="xMidYMid meet"
-      role="group"
-      aria-labelledby="wolf-compact-flow-title wolf-compact-flow-description"
-    >
-      <title id="wolf-compact-flow-title">${labels.title}</title>
-      <desc id="wolf-compact-flow-description">${labels.description}</desc>
-      <defs>
-        <linearGradient id="wolf-tank-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--wolf-supply-color)" stop-opacity="0.22"></stop>
-          <stop offset="48%" stop-color="var(--wolf-panel-color)" stop-opacity="0.86"></stop>
-          <stop offset="100%" stop-color="var(--wolf-return-color)" stop-opacity="0.25"></stop>
-        </linearGradient>
-        <linearGradient id="wolf-coil-gradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="var(--wolf-supply-color)"></stop>
-          <stop offset="53%" stop-color="#b35e9e"></stop>
-          <stop offset="100%" stop-color="var(--wolf-return-color)"></stop>
-        </linearGradient>
-        <linearGradient id="wolf-collector-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="var(--wolf-supply-color)" stop-opacity="0.9"></stop>
-          <stop offset="46%" stop-color="#b25b9d" stop-opacity="0.78"></stop>
-          <stop offset="100%" stop-color="var(--wolf-return-color)" stop-opacity="0.9"></stop>
-        </linearGradient>
-      </defs>
-
-      <rect class="diagram-bg" width="520" height="940" rx="24"></rect>
-      ${
-        state.faultActive
-          ? svg`<rect class="fault-overlay" width="520" height="940" rx="24"></rect>`
-          : nothing
-      }
-      ${renderModePill(state, labels)}
-
-      <!-- Portrait regions keep their native SVG size and are rearranged instead of scaled. -->
-      <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)" aria-hidden="true">
-        <rect class="component-panel" x="350" y="35" width="300" height="170" rx="22"></rect>
-      </g>
-      <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)" aria-hidden="true">
-        <rect class="component-panel" x="370" y="236" width="240" height="280" rx="22"></rect>
-      </g>
-
-      <g class="diagram-region diagram-region--dhw" transform="translate(-41 305)">
-        ${renderTank(args, labels, duration)}
-      </g>
-      <g class="diagram-region diagram-region--heating" transform="translate(-350 500)">
-        ${renderEmitter(args, labels, duration)}
-      </g>
-
-      <g
-        class=${classes("collector", collectorActive && "is-active")}
-        transform="translate(-290 0)"
-        aria-label=${labels.collector}
-      >
-        <rect class="collector-body" x="616" y="546" width="48" height="102" rx="8"></rect>
-        <path class="tank-water-line" d="M 622 596 H 658"></path>
-      </g>
-
-      <g class="hydraulic-pipes">
-        ${(
-          [
-            "hp-supply",
-            "hp-return",
-            "dhw-supply",
-            "dhw-return",
-            "system-supply",
-            "system-return",
-            "heating-supply",
-            "heating-return",
-          ] as SegmentId[]
-        ).map((id) => renderPipe(id, args, labels, duration, COMPACT_PIPE_GEOMETRY[id]))}
-      </g>
-
-      <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)">
-        ${renderHeading(372, 65, "WP", labels.outdoorUnit, args)}
-        ${renderFan(args, labels, inferredFanActive)}
-        <g class="heat-exchanger" aria-hidden="true">
-          <rect
-            class="component-panel--inner"
-            x="477"
-            y="92"
-            width="80"
-            height="62"
-            rx="8"
-          ></rect>
-          <path class="heat-exchanger-fin heat-exchanger-fin--hot" d="M 481 101 H 552"></path>
-          <path class="heat-exchanger-fin heat-exchanger-fin--hot" d="M 481 114 H 552"></path>
-          <path class="heat-exchanger-fin heat-exchanger-fin--cold" d="M 481 132 H 552"></path>
-          <path class="heat-exchanger-fin heat-exchanger-fin--cold" d="M 481 145 H 552"></path>
-        </g>
-        <g
-          class=${classes(
-            "outdoor-water",
-            "pipe--supply",
-            outdoorFlowActive && "is-active",
-            outdoorSupplySegment.direction === "reverse" && "direction--reverse",
-          )}
-          style=${`--flow-duration:${duration.toFixed(2)}s`}
-          aria-hidden="true"
-        >
-          <path class="outdoor-water__base" d=${OUTDOOR_SUPPLY_PATH}></path>
-          <path class="outdoor-water__flow" d=${OUTDOOR_SUPPLY_PATH}></path>
-        </g>
-        <g
-          class=${classes(
-            "outdoor-water",
-            "pipe--return",
-            outdoorFlowActive && "is-active",
-            outdoorReturnSegment.direction === "reverse" && "direction--reverse",
-          )}
-          style=${`--flow-duration:${duration.toFixed(2)}s`}
-          aria-hidden="true"
-        >
-          <path class="outdoor-water__base" d=${OUTDOOR_RETURN_PATH}></path>
-          <path class="outdoor-water__flow" d=${OUTDOOR_RETURN_PATH}></path>
-        </g>
-        ${renderCompressor(args, labels)}
-      </g>
-
-      <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)">
-        ${renderHeading(390, 263, "HM", labels.hydraulicModule, args)}
-        ${renderHeater(args, labels)}
-        ${renderFlowMeter(args, labels)}
-        ${renderValve(args, labels)}
-        ${renderPump(
-          570,
-          430,
-          "ZHP",
-          labels.primaryPump,
-          "primaryPump",
-          state.primaryPumpActive,
-          args,
-          labels,
-        )}
-      </g>
-
-      <g class="diagram-region diagram-region--heating-pump" transform="translate(-350 230)">
-        ${renderPump(
-          720,
-          430,
-          "HKP",
-          labels.heatingPump,
-          "heatingCircuitPump",
-          state.heatingCircuitPumpActive,
-          args,
-          labels,
-        )}
-      </g>
-
-      <!-- Readings stay above the portrait pipes and retain their more-info targets. -->
-      <g class="diagram-region diagram-region--outdoor" transform="translate(-240 40)">
-        ${renderSensor(
-          {
-            x: 330,
-            y: 130,
-            code: "AT",
-            label: labels.outdoorTemperature,
-            key: "outdoorTemperature",
-            align: "start",
-            compact: true,
-          },
-          args,
-          labels,
-        )}
-        ${renderSensor(
-          {
-            x: 570,
-            y: 235,
-            code: "RL",
-            label: labels.return,
-            key: "heatPumpReturnTemperature",
-            align: "start",
-          },
-          args,
-          labels,
-        )}
-      </g>
-      <g class="diagram-region diagram-region--hydraulic" transform="translate(-240 39)">
-        ${renderSensor(
-          {
-            x: 430,
-            y: 370,
-            code: "KF",
-            label: labels.boilerTemperature,
-            key: "heatPumpSupplyTemperature",
-            align: "end",
-            compact: true,
-          },
-          args,
-          labels,
-        )}
-        ${renderSystemPressure(args, labels)}
-      </g>
-      <g class="diagram-region diagram-region--dhw" transform="translate(-41 305)">
-        ${renderSensor(
-          {
-            x: 204,
-            y: 395,
-            code: "SF",
-            label: labels.storage,
-            key: "dhwTemperature",
-            align: "end",
-            compact: true,
-          },
-          args,
-          labels,
-        )}
-        ${renderDhwTarget(args, labels)}
-      </g>
-      <g class="diagram-region diagram-region--collector" transform="translate(-290 0)">
-        ${renderSensor(
-          {
-            x: 640,
-            y: 535,
-            code: "SAF",
-            label: labels.collectorTemperature,
-            key: "systemTemperature",
-            align: "start",
-            compact: true,
-          },
-          args,
-          labels,
-        )}
-      </g>
-      <g class="diagram-region diagram-region--heating" transform="translate(-350 500)">
-        ${renderSensor(
-          {
-            x: 720,
-            y: 380,
-            code: "HK-VL",
-            label: labels.supply,
-            key: "heatingSupplyTemperature",
-            align: "end",
-            compact: true,
-          },
-          args,
-          labels,
-        )}
-        ${renderSensor(
-          {
-            x: 830,
-            y: 380,
-            code: "HK-RL",
-            label: labels.return,
-            key: "heatingReturnTemperature",
-            align: "end",
-            compact: true,
-          },
-          args,
-          labels,
-        )}
-      </g>
-
-      ${
-        !args.showLegend || args.labelMode === "hidden"
-          ? nothing
-          : svg`
-              <g class="flow-legend" aria-hidden="true">
-                <line class="pipe-base" x1="174" y1="914" x2="200" y2="914" style="--pipe-color:var(--wolf-supply-color);opacity:.75"></line>
-                <text class="micro-label" x="216" y="919">${componentLabel("VL", labels.supply, args)}</text>
-                <line class="pipe-base" x1="344" y1="914" x2="370" y2="914" style="--pipe-color:var(--wolf-return-color);opacity:.75"></line>
-                <text class="micro-label" x="386" y="919">${componentLabel("RL", labels.return, args)}</text>
-              </g>
-            `
-      }
-    </svg>
-  `;
-}
-
 export function renderFlowDiagram(args: FlowDiagramArgs): TemplateResult {
-  return args.compact ? renderCompactFlowDiagram(args) : renderWideFlowDiagram(args);
+  return renderWideFlowDiagram(args);
 }

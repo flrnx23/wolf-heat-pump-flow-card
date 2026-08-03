@@ -154,7 +154,7 @@ Statusrollen können aus `sensor`, `binary_sensor` oder `input_boolean` gewählt
 | `temperature_coloring`          | Boolean | `false`                         | Aktiviert eine optionale temperaturabhängige Leitungsfärbung.      |
 | `show_legend`                   | Boolean | `true`                          | Zeigt die Legende für Vorlauf und Rücklauf.                        |
 | `label_mode`                    | String  | `friendly`                      | `technical`, `friendly`, `both` oder `hidden`.                     |
-| `layout`                        | String  | `auto`                          | `auto`, `compact` oder `wide`.                                     |
+| `layout`                        | String  | `auto`                          | `auto` oder `wide`; beide verwenden das breite Hydraulikschema.    |
 | `flow_rate_threshold`           | Zahl    | `0.1`                           | Mindestbetrag des Volumenstroms für eine gemessene Strömung.       |
 | `system_pressure_critical_low`  | Zahl    | nicht gesetzt                   | Kritische Untergrenze des Anlagendrucks in bar.                    |
 | `system_pressure_warning_low`   | Zahl    | nicht gesetzt                   | Untere Warnschwelle des Anlagendrucks in bar.                      |
@@ -169,7 +169,11 @@ Die Option `language` beeinflusst ausschließlich die dargestellten Beschriftung
 
 `valve_mapping` bleibt als Kompatibilitätsalias für `three_way_valve_mapping` erhalten. Für neue Konfigurationen sollte `three_way_valve_mapping` verwendet werden.
 
-Mit `layout: auto` richtet sich die Darstellung nach der tatsächlich verfügbaren Kartenbreite: Bis 520 Pixel wird die eigenständige Hochkant-Geometrie verwendet, darüber das breite Hydraulikschema. `compact` beziehungsweise `wide` erzwingen die jeweilige Variante unabhängig von der Dashboard-Spalte.
+Die Karte verwendet ausschließlich das breite Hydraulikschema. `layout: auto` skaliert es responsiv innerhalb der verfügbaren Kartenbreite; `layout: wide` wählt dieselbe Geometrie mit der großzügigeren Höhenbegrenzung für breite Dashboard-Ansichten. Ältere Konfigurationen mit `layout: compact` werden automatisch wie `auto` behandelt.
+
+### Darstellung über die volle Dashboard-Breite
+
+Die Breite der Karte wird vom Layout der Home-Assistant-Ansicht vorgegeben. Für eine eigene Ansicht mit nur dieser Karte kann der Ansichtstyp **Panel** gewählt werden; Home Assistant stellt die einzelne Karte dann über die gesamte verfügbare Breite dar. In einer **Abschnitte**-Ansicht lässt sich die Karte im Bearbeitungsmodus auf die volle Breite des Abschnitts ziehen. Eine Karte in einer schmalen **Masonry**-Spalte kann ihre Spaltengrenze dagegen nicht selbst überschreiten.
 
 Die Druckgrenzen sind vollständig optional. Sobald `system_pressure` und passende Grenzen konfiguriert sind, kennzeichnet die Karte Warnbereiche gelb und kritische Bereiche rot – sowohl im Hydraulikschema als auch im Messwertfeld. Die Reihenfolge muss `kritisch unten ≤ Warnung unten ≤ Warnung oben ≤ kritisch oben` einhalten. Geeignete Werte hängen von der konkreten Hydraulik und den Vorgaben des Fachbetriebs ab; die Werte im Beispiel sind keine allgemeine Empfehlung.
 

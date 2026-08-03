@@ -385,7 +385,6 @@ export function createConfigForm(language = currentLanguage()): ConfigFormDescri
               mode: "dropdown",
               options: [
                 { value: "auto", label: t("editor.layout.auto") },
-                { value: "compact", label: t("editor.layout.compact") },
                 { value: "wide", label: t("editor.layout.wide") },
               ],
             },

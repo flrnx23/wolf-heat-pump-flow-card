@@ -154,7 +154,7 @@ Status roles can be selected from `sensor`, `binary_sensor`, or `input_boolean` 
 | `temperature_coloring`          | Boolean | `false`                       | Enables optional temperature-based pipe coloring.                   |
 | `show_legend`                   | Boolean | `true`                        | Shows the supply and return legend.                                 |
 | `label_mode`                    | String  | `friendly`                    | `technical`, `friendly`, `both`, or `hidden`.                       |
-| `layout`                        | String  | `auto`                        | `auto`, `compact`, or `wide`.                                       |
+| `layout`                        | String  | `auto`                        | `auto` or `wide`; both use the wide hydraulic diagram.              |
 | `flow_rate_threshold`           | Number  | `0.1`                         | Minimum absolute flow rate considered measured flow.                |
 | `system_pressure_critical_low`  | Number  | not set                       | Critical lower system-pressure limit in bar.                        |
 | `system_pressure_warning_low`   | Number  | not set                       | Lower warning limit for system pressure in bar.                     |
@@ -169,7 +169,11 @@ The `language` option affects only the displayed labels. Entity IDs and raw valu
 
 `valve_mapping` remains available as a compatibility alias for `three_way_valve_mapping`. Use `three_way_valve_mapping` for new configurations.
 
-With `layout: auto`, the diagram follows the card width that is actually available: up to 520 pixels it uses the dedicated portrait geometry, and above that it uses the wide hydraulic diagram. `compact` and `wide` force the corresponding variant regardless of the dashboard column width.
+The card now uses the wide hydraulic diagram exclusively. `layout: auto` scales it responsively within the available card width; `layout: wide` uses the same geometry with the more generous height limit intended for wide dashboard views. Older configurations containing `layout: compact` automatically fall back to `auto`.
+
+### Full dashboard width
+
+The card width is controlled by the Home Assistant view layout. For a dedicated view containing only this card, select the **Panel** view type; Home Assistant then renders the single card across the full available width. In a **Sections** view, resize the card to the full section width while editing the dashboard. A card inside a narrow **Masonry** column cannot extend beyond that column on its own.
 
 The pressure limits are entirely optional. Once `system_pressure` and suitable limits are configured, the card marks warning ranges in yellow and critical ranges in red, both in the hydraulic diagram and in the measurement panel. The limits must follow the order `critical low ≤ warning low ≤ warning high ≤ critical high`. Suitable values depend on the specific hydraulic system and the installer's requirements; the example values are not a general recommendation.
 

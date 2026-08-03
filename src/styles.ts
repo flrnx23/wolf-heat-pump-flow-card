@@ -190,57 +190,9 @@ export const cardStyles = css`
     color: var(--wolf-secondary-text-color);
   }
 
-  .flow-diagram--compact {
-    min-height: 0;
-    max-height: none;
-  }
-
   .layout--wide .flow-diagram {
     min-height: 360px;
     max-height: min(82vh, 820px);
-  }
-
-  .flow-diagram--compact .component-title {
-    font-size: 23px;
-  }
-
-  .flow-diagram--compact .component-subtitle,
-  .flow-diagram--compact .sensor-code {
-    font-size: 18px;
-    letter-spacing: 0;
-  }
-
-  .flow-diagram--compact .micro-label {
-    font-size: 17px;
-    letter-spacing: 0;
-  }
-
-  .flow-diagram--compact .sensor-value {
-    font-size: 24px;
-  }
-
-  .flow-diagram--compact .sensor-value--small {
-    font-size: 21px;
-  }
-
-  .flow-diagram--compact .sensor-target {
-    font-size: 18px;
-  }
-
-  .flow-diagram--compact .valve-port-label {
-    font-size: 14px;
-  }
-
-  .flow-diagram--compact .status-pill__text {
-    font-size: 19px;
-  }
-
-  .flow-diagram--compact .pipe-hit {
-    stroke-width: 42px;
-  }
-
-  .flow-diagram--compact .diagram-component.is-clickable:focus-visible .focus-ring {
-    stroke-width: 3px;
   }
 
   .diagram-bg {
@@ -1118,10 +1070,6 @@ export const cardStyles = css`
 
     .flow-diagram {
       min-height: 260px;
-    }
-
-    .flow-diagram--compact {
-      min-height: 0;
     }
   }
 

@@ -17,10 +17,6 @@ import {
 import type { WolfHeatPumpFlowCard } from "../src/wolf-heat-pump-flow-card";
 
 let CardClass: typeof WolfHeatPumpFlowCard;
-let resolveDiagramLayout: (
-  layout: "auto" | "compact" | "wide",
-  measuredWidth?: number,
-) => "compact" | "wide";
 
 const isExpandable = (field: ConfigFormSchema): field is ConfigFormExpandableSchema =>
   "type" in field && field.type === "expandable";
@@ -52,7 +48,6 @@ beforeAll(async () => {
   const info = vi.spyOn(console, "info").mockImplementation(() => undefined);
   const module = await import("../src/wolf-heat-pump-flow-card");
   CardClass = module.WolfHeatPumpFlowCard;
-  resolveDiagramLayout = module.resolveDiagramLayout;
   info.mockRestore();
 });
 
@@ -194,6 +189,9 @@ describe("native Home Assistant config form", () => {
       boolean: {},
     });
     expect(controls.find(({ name }) => name === "label_mode")?.default).toBe("friendly");
+    const layout = controls.find(({ name }) => name === "layout");
+    if (!layout || !("select" in layout.selector)) throw new Error("Missing layout selector");
+    expect(layout.selector.select.options.map(({ value }) => value)).toEqual(["auto", "wide"]);
     expect(controls.find(({ name }) => name === "flow_rate_threshold")?.selector).toEqual({
       number: {
         min: 0,
@@ -244,12 +242,20 @@ describe("native Home Assistant config form", () => {
 });
 
 describe("custom card rendering and interaction", () => {
-  it("resolves auto layout from the measured card width while explicit layouts win", () => {
-    expect(resolveDiagramLayout("auto")).toBe("wide");
-    expect(resolveDiagramLayout("auto", 520)).toBe("compact");
-    expect(resolveDiagramLayout("auto", 521)).toBe("wide");
-    expect(resolveDiagramLayout("compact", 1200)).toBe("compact");
-    expect(resolveDiagramLayout("wide", 320)).toBe("wide");
+  it("maps legacy compact configuration to the wide diagram", async () => {
+    const legacyConfig = {
+      type: WOLF_CARD_TYPE,
+      entities: {},
+      layout: "compact",
+    } as unknown as WolfHeatPumpFlowCardConfig;
+    const card = await mountCard(legacyConfig, hass());
+
+    expect(card.shadowRoot?.querySelector("svg.flow-diagram")?.getAttribute("data-layout")).toBe(
+      "wide",
+    );
+    expect(card.shadowRoot?.querySelector("article")?.classList.contains("layout--auto")).toBe(
+      true,
+    );
   });
 
   it("renders a stable placeholder before config and hass are available", async () => {
@@ -347,23 +353,6 @@ describe("custom card rendering and interaction", () => {
       ).toBe(testCase.expectedComponent);
       card.remove();
     }
-  });
-
-  it("renders a distinct portrait geometry when compact layout is selected", async () => {
-    const card = await mountCard({ type: WOLF_CARD_TYPE, entities: {}, layout: "compact" }, hass());
-    const root = card.shadowRoot;
-    const diagrams = root?.querySelectorAll("svg.flow-diagram");
-    const diagram = diagrams?.item(0);
-    const viewBox = diagram?.getAttribute("viewBox")?.split(" ").map(Number);
-
-    expect(diagrams).toHaveLength(1);
-    expect(diagram?.getAttribute("data-layout")).toBe("compact");
-    expect(viewBox).toHaveLength(4);
-    expect(viewBox?.[3]).toBeGreaterThan(viewBox?.[2] ?? Number.POSITIVE_INFINITY);
-    expect(root?.querySelectorAll("[data-segment]")).toHaveLength(8);
-    expect(root?.querySelector('[data-segment="hp-supply"] .pipe-base')?.getAttribute("d")).toBe(
-      "M 190 245 V 449",
-    );
   });
 
   it("uses friendly labels by default and keeps technical codes secondary in both mode", async () => {

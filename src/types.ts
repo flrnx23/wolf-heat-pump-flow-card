@@ -96,7 +96,7 @@ export interface WolfHeatPumpFlowCardConfig {
 }
 
 export type LabelMode = "technical" | "friendly" | "both" | "hidden";
-export type CardLayout = "auto" | "compact" | "wide";
+export type CardLayout = "auto" | "wide";
 export type SupportedLanguage = "de" | "en";
 
 export interface ResolvedStateMappings {
