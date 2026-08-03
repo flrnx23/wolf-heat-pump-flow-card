@@ -16,6 +16,10 @@ import {
 import type { WolfHeatPumpFlowCard } from "../src/wolf-heat-pump-flow-card";
 
 let CardClass: typeof WolfHeatPumpFlowCard;
+let resolveDiagramLayout: (
+  layout: "auto" | "compact" | "wide",
+  measuredWidth?: number,
+) => "compact" | "wide";
 
 const isExpandable = (field: ConfigFormSchema): field is ConfigFormExpandableSchema =>
   "type" in field && field.type === "expandable";
@@ -44,6 +48,7 @@ beforeAll(async () => {
   const info = vi.spyOn(console, "info").mockImplementation(() => undefined);
   const module = await import("../src/wolf-heat-pump-flow-card");
   CardClass = module.WolfHeatPumpFlowCard;
+  resolveDiagramLayout = module.resolveDiagramLayout;
   info.mockRestore();
 });
 
@@ -78,7 +83,7 @@ describe("native Home Assistant config form", () => {
       animations: true,
       temperature_coloring: false,
       show_legend: true,
-      label_mode: "both",
+      label_mode: "friendly",
       layout: "auto",
       flow_rate_threshold: 0.1,
       entities: {},
@@ -160,6 +165,7 @@ describe("native Home Assistant config form", () => {
     expect(controls.find(({ name }) => name === "show_legend")?.selector).toEqual({
       boolean: {},
     });
+    expect(controls.find(({ name }) => name === "label_mode")?.default).toBe("friendly");
     expect(controls.find(({ name }) => name === "flow_rate_threshold")?.selector).toEqual({
       number: {
         min: 0,
@@ -207,6 +213,14 @@ describe("native Home Assistant config form", () => {
 });
 
 describe("custom card rendering and interaction", () => {
+  it("resolves auto layout from the measured card width while explicit layouts win", () => {
+    expect(resolveDiagramLayout("auto")).toBe("wide");
+    expect(resolveDiagramLayout("auto", 520)).toBe("compact");
+    expect(resolveDiagramLayout("auto", 521)).toBe("wide");
+    expect(resolveDiagramLayout("compact", 1200)).toBe("compact");
+    expect(resolveDiagramLayout("wide", 320)).toBe("wide");
+  });
+
   it("renders a stable placeholder before config and hass are available", async () => {
     const card = await mountCard();
     expect(card.shadowRoot?.querySelector("ha-card")).not.toBeNull();
@@ -223,12 +237,91 @@ describe("custom card rendering and interaction", () => {
     expect(root?.querySelector("article")?.getAttribute("aria-label")).toBe("Testanlage");
     expect(root?.querySelector("svg[role='group']")).not.toBeNull();
     expect(root?.querySelector("svg[role='group']")?.getAttribute("viewBox")).toBe("0 0 930 720");
+    expect(root?.querySelector("svg[role='group']")?.getAttribute("data-layout")).toBe("wide");
     expect(root?.querySelectorAll(".pipe-segment")).toHaveLength(8);
     expect(root?.querySelectorAll(".pipe-segment.is-active")).toHaveLength(0);
     expect(root?.querySelectorAll("[data-value-key]")).toHaveLength(0);
     expect(root?.querySelectorAll(".diagram-component.is-unknown").length).toBeGreaterThan(0);
     expect(root?.querySelectorAll("[role='button']")).toHaveLength(0);
     expect(root?.querySelector(".metrics-grid")).toBeNull();
+  });
+
+  it("renders a distinct portrait geometry when compact layout is selected", async () => {
+    const card = await mountCard({ type: WOLF_CARD_TYPE, entities: {}, layout: "compact" }, hass());
+    const root = card.shadowRoot;
+    const diagrams = root?.querySelectorAll("svg.flow-diagram");
+    const diagram = diagrams?.item(0);
+    const viewBox = diagram?.getAttribute("viewBox")?.split(" ").map(Number);
+
+    expect(diagrams).toHaveLength(1);
+    expect(diagram?.getAttribute("data-layout")).toBe("compact");
+    expect(viewBox).toHaveLength(4);
+    expect(viewBox?.[3]).toBeGreaterThan(viewBox?.[2] ?? Number.POSITIVE_INFINITY);
+    expect(root?.querySelectorAll("[data-segment]")).toHaveLength(8);
+    expect(root?.querySelector('[data-segment="hp-supply"] .pipe-base')?.getAttribute("d")).toBe(
+      "M 190 245 V 449",
+    );
+  });
+
+  it("uses friendly labels by default and keeps technical codes secondary in both mode", async () => {
+    const friendly = await mountCard({ type: WOLF_CARD_TYPE, entities: {} }, hass());
+    const friendlyHeading = friendly.shadowRoot?.querySelector(".outdoor-unit .component-title");
+    expect(friendlyHeading?.textContent).toMatch(/Außeneinheit|Outdoor unit/);
+    expect(friendlyHeading?.querySelector(".label-code")).toBeNull();
+    friendly.remove();
+
+    const both = await mountCard(
+      { type: WOLF_CARD_TYPE, entities: {}, label_mode: "both" },
+      hass(),
+    );
+    const bothHeading = both.shadowRoot?.querySelector(".outdoor-unit .component-title");
+    expect(bothHeading?.querySelector(".label-friendly")?.textContent).toMatch(
+      /Außeneinheit|Outdoor unit/,
+    );
+    expect(bothHeading?.querySelector(".label-code")?.textContent).toContain("WP");
+  });
+
+  it("renders every operating mode with text and a decorative semantic icon", async () => {
+    const card = await mountCard(
+      {
+        type: WOLF_CARD_TYPE,
+        entities: { operation_mode: "sensor.demo_operation_mode" },
+      },
+      hass(),
+    );
+    const modes = [
+      ["Heizen", "heating"],
+      ["Warmwasser", "dhw"],
+      ["Kühlen", "cooling"],
+      ["Abtauen", "defrost"],
+      ["Standby", "idle"],
+      ["Störung", "fault"],
+    ] as const;
+
+    for (const [rawMode, expectedMode] of modes) {
+      card.hass = hass({
+        "sensor.demo_operation_mode": { state: rawMode, attributes: {} },
+      });
+      await card.updateComplete;
+
+      const pill = card.shadowRoot?.querySelector<SVGGElement>(".status-pill");
+      const visibleText = pill?.querySelector(".status-pill__text")?.textContent?.trim();
+      expect(pill?.getAttribute("data-mode")).toBe(expectedMode);
+      expect(pill?.getAttribute("role")).toBe("status");
+      expect(visibleText).toBeTruthy();
+      expect(pill?.getAttribute("aria-label")).toBe(visibleText);
+      expect(pill?.querySelectorAll(".status-pill__icon")).toHaveLength(1);
+      expect(pill?.querySelector(".status-pill__icon")?.getAttribute("aria-hidden")).toBe("true");
+      expect(pill?.querySelector(".status-pill__dot")).toBeNull();
+    }
+  });
+
+  it("defines subtle pointer hover rings without weakening keyboard focus", () => {
+    const css = String(CardClass.styles);
+    expect(css).toMatch(/\.diagram-component\.is-clickable:hover\s+\.focus-ring/);
+    expect(css).toMatch(/\.pipe-segment\.is-clickable:hover\s+\.pipe-hit/);
+    expect(css).toMatch(/\.diagram-component\.is-clickable:focus-visible\s+\.focus-ring/);
+    expect(css).toMatch(/\.pipe-segment\.is-clickable:focus-visible\s+\.pipe-hit/);
   });
 
   it("keeps valves and pumps on straight hydraulic axes", async () => {
@@ -307,6 +400,34 @@ describe("custom card rendering and interaction", () => {
     expect(returnValue?.getAttribute("x")).toBe("585");
     expect(returnValue?.getAttribute("y")).toBe("244");
     expect(returnValue?.getAttribute("text-anchor")).toBe("start");
+  });
+
+  it("shows the optional hot-water target beneath the tank reading", async () => {
+    const card = await mountCard(
+      {
+        type: WOLF_CARD_TYPE,
+        entities: {
+          dhw_temperature: "sensor.demo_dhw_temperature",
+          dhw_target_temperature: "sensor.demo_dhw_target_temperature",
+        },
+      },
+      hass({
+        "sensor.demo_dhw_temperature": {
+          state: "46.1",
+          attributes: { unit_of_measurement: "°C" },
+        },
+        "sensor.demo_dhw_target_temperature": {
+          state: "53",
+          attributes: { unit_of_measurement: "°C" },
+        },
+      }),
+    );
+
+    const target = card.shadowRoot?.querySelector('[data-value-key="dhwTargetTemperature"]');
+    expect(target?.textContent).toMatch(/Soll|Target/);
+    expect(target?.textContent).toContain("53 °C");
+    expect(target?.querySelector(".sensor-target")?.getAttribute("y")).toBe("428");
+    expect(card.shadowRoot?.querySelector(".metrics-grid")).toBeNull();
   });
 
   it("hides configured measurements while their state is unavailable", async () => {

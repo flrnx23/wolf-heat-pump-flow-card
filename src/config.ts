@@ -68,7 +68,7 @@ export const DEFAULT_CONFIG: WolfHeatPumpFlowCardConfig = {
   animations: true,
   temperature_coloring: false,
   show_legend: true,
-  label_mode: "both",
+  label_mode: "friendly",
   layout: "auto",
   flow_rate_threshold: 0.1,
 };
@@ -159,7 +159,7 @@ export function normalizeConfig(
     ...(typeof config.title === "string" ? { title: config.title } : {}),
     entities: sanitizeEntities(config.entities),
     mappings: resolveMappings(config),
-    label_mode: config.label_mode ?? "both",
+    label_mode: config.label_mode ?? "friendly",
     layout: config.layout ?? "auto",
     animations: config.animations ?? true,
     temperature_coloring: config.temperature_coloring ?? false,

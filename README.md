@@ -14,6 +14,16 @@ Die Karte kann unter anderem folgende Informationen visualisieren:
 
 Alle Rollen sind optional und werden im grafischen Karteneditor den vorhandenen Home-Assistant-Entitäten zugeordnet. Die Karte sendet keine Daten an externe Dienste und ruft keine Home-Assistant-Dienste zum Schalten auf.
 
+## Vorschau
+
+### Heizbetrieb
+
+![WOLF Heat Pump Flow Card im Heizbetrieb](docs/images/heating-mode.png)
+
+### Warmwasserbereitung
+
+![WOLF Heat Pump Flow Card während der Warmwasserbereitung](docs/images/hot-water-mode.png)
+
 ## Kompatibilität
 
 Die Karte ist mit Home Assistant 2026.7 getestet, setzt diese Version aber nicht voraus. Sie verwendet die üblichen Schnittstellen für benutzerdefinierte Dashboard-Karten und sollte daher auch mit älteren Home-Assistant-Versionen funktionieren. Sollte es mit einer älteren Version Probleme geben, kann dies über die GitHub-Issues gemeldet werden.
@@ -99,7 +109,7 @@ entities:
 animations: true
 temperature_coloring: false
 show_legend: true
-label_mode: both
+label_mode: friendly
 layout: auto
 flow_rate_threshold: 0.1
 
@@ -137,7 +147,7 @@ Statusrollen können aus `sensor`, `binary_sensor` oder `input_boolean` gewählt
 | `animations`                    | Boolean | `true`              | Animiert aktive Leitungen und Komponenten.                    |
 | `temperature_coloring`          | Boolean | `false`             | Aktiviert eine optionale temperaturabhängige Leitungsfärbung. |
 | `show_legend`                   | Boolean | `true`              | Zeigt die Legende für Vorlauf und Rücklauf.                   |
-| `label_mode`                    | String  | `both`              | `technical`, `friendly`, `both` oder `hidden`.                |
+| `label_mode`                    | String  | `friendly`          | `technical`, `friendly`, `both` oder `hidden`.                |
 | `layout`                        | String  | `auto`              | `auto`, `compact` oder `wide`.                                |
 | `flow_rate_threshold`           | Zahl    | `0.1`               | Mindestbetrag des Volumenstroms für eine gemessene Strömung.  |
 | `system_pressure_critical_low`  | Zahl    | nicht gesetzt       | Kritische Untergrenze des Anlagendrucks in bar.               |
@@ -150,6 +160,8 @@ Statusrollen können aus `sensor`, `binary_sensor` oder `input_boolean` gewählt
 | `heating_cooling_valve_mapping` | Objekt  | eingebautes Mapping | Rohwerte des Ventils Heizung/Kühlung.                         |
 
 `valve_mapping` bleibt als Kompatibilitätsalias für `three_way_valve_mapping` erhalten. Für neue Konfigurationen sollte `three_way_valve_mapping` verwendet werden.
+
+Mit `layout: auto` richtet sich die Darstellung nach der tatsächlich verfügbaren Kartenbreite: Bis 520 Pixel wird die eigenständige Hochkant-Geometrie verwendet, darüber das breite Hydraulikschema. `compact` beziehungsweise `wide` erzwingen die jeweilige Variante unabhängig von der Dashboard-Spalte.
 
 Die Druckgrenzen sind vollständig optional. Sobald `system_pressure` und passende Grenzen konfiguriert sind, kennzeichnet die Karte Warnbereiche gelb und kritische Bereiche rot – sowohl im Hydraulikschema als auch im Messwertfeld. Die Reihenfolge muss `kritisch unten ≤ Warnung unten ≤ Warnung oben ≤ kritisch oben` einhalten. Geeignete Werte hängen von der konkreten Hydraulik und den Vorgaben des Fachbetriebs ab; die Werte im Beispiel sind keine allgemeine Empfehlung.
 

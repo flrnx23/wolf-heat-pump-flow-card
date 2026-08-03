@@ -340,7 +340,7 @@ export function createConfigForm(language = currentLanguage()): ConfigFormDescri
         },
         {
           name: "label_mode",
-          default: "both",
+          default: "friendly",
           selector: {
             select: {
               mode: "dropdown",
